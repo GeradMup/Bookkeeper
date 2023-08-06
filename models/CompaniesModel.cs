@@ -71,6 +71,18 @@ namespace Invoices.src.models
             updateAllCompanies();
         }
 
+        public void deleteCompany(int companyNumber) 
+        {
+            companies.RemoveAt(companyNumber);
+
+            if (companyNumber >= companies.Count()) { updateAllCompanies(); return; }
+            foreach (Company company in companies) 
+            {
+                if (company.Number >= companyNumber) company.Number--;
+            }
+            updateAllCompanies();
+        }
+
         private void updateAllCompanies() 
         {
             List<List<String>> allCompanies = new List<List<string>>();

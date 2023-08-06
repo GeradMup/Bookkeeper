@@ -46,5 +46,13 @@ namespace Invoices.src.controllers
             companiesWindow.populateCompaniesGrid(companiesModel.getCompanies(readFirst));
             updatedInvoiceCompanies(readFirst);
         }
+
+        public void deleteCompany(int number) 
+        {
+            companiesModel.deleteCompany(number);
+            bool readFirst = true;
+            companiesWindow.populateCompaniesGrid(companiesModel.getCompanies(readFirst));
+            updatedInvoiceCompanies(readFirst);
+        }
     }
 }

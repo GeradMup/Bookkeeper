@@ -82,7 +82,8 @@ namespace Invoices.src.views
             }
             else if (e.ClickedItem.ToString() == "DELETE") 
             {
-                
+                int currentRow = CompaniesGridView.CurrentCell.RowIndex;
+                companiesController.deleteCompany(currentRow);
             }
         }
 
