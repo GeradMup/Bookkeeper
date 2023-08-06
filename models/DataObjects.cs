@@ -26,6 +26,27 @@ namespace Invoices.src.models
         public string Town { get; set; }
         public Int32 AreaCode { get; set; }
 
+        //Checks if this company is equal to another company
+        public bool isEqualTo(Company company)
+        {
+            if (this.Number == company.Number
+                && this.Name == company.Name
+                && this.Address == company.Address
+                && this.Town == company.Town
+                && this.AreaCode == company.AreaCode) return true;
+            else return false;
+        }
+
+        //Equates this company to another company
+        public void equateTo(Company company) 
+        {
+            this.Number = company.Number;
+            this.Name = company.Name;
+            this.Address = company.Address;
+            this.Town = company.Town;
+            this.AreaCode = company.AreaCode;
+        }
+
         //Sets all the properties of the class from a list of strings
         public void setAll(List<String> allValues) 
         {

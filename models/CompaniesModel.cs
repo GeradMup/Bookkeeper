@@ -10,7 +10,6 @@ namespace Invoices.src.models
     {
         TextFiles textFiles;
         List<Company> companies = new List<Company>();
-        List<Company> companiesCopy = new List<Company>();
         public CompaniesModel()
         {
             textFiles = new TextFiles();
@@ -32,31 +31,41 @@ namespace Invoices.src.models
         {
             List<List<String>> allCompanies = textFiles.readTextFile(Constants.COMPANIES_PATH);
             companies.Clear();
-            companiesCopy.Clear();
+ 
+            Int16 companyIndex = 1;
             foreach (List<String> companyInfo in allCompanies)
             {
+                companyIndex++;
                 companies.Add(new Company(companyInfo));
-                companiesCopy.Add(new Company(companyInfo));
             }
         }
 
-        public List<Company> getCompanies() 
+        //Specify if we need to first do a read before getting companies
+        //Reading again is necessary if we have edited our list companies
+        public List<Company> getCompanies(bool readFirst = false) 
         {
-            return companiesCopy;
+            if (readFirst == true) readCompanies();
+            return companies;
         }
 
         /// <summary>
         /// Updates the companies.
         /// </summary>
         /// <returns>True if the companies were successfully modified, false otherwise</returns>
-        public bool updateCompanies() 
+        public bool updateCompanies(int number, string name, string address, string city, decimal zipCode) 
         {
             //First check if any of the data was changed or not. If not, there is nothing to do, so exit.
-            if (Enumerable.SequenceEqual(companies, companiesCopy) == true) return false;
+            string companyNumber = (number + 1).ToString();
+            Company modifiedCompany = new Company(new List<String> { companyNumber, name, address, city, zipCode.ToString() });
+            if (companies[number].isEqualTo(modifiedCompany)) return false;
+
+            companies[number].equateTo(modifiedCompany);
+
 
             List<List<String>> allCompanies = new List<List<string>>();
 
-            foreach (Company company in companiesCopy) 
+            //First convert the company information to a list of strings
+            foreach (Company company in companies)
             {
                 allCompanies.Add(company.companyToString());
             }

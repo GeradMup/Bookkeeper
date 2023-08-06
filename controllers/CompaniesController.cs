@@ -28,13 +28,14 @@ namespace Invoices.src.controllers
             companiesWindow.populateCompaniesGrid(companiesModel.getCompanies());
         }
 
-        public void editCompanies() 
+        public void editCompanies(int number, string name, string address, string city, decimal zipCode) 
         {
-            bool companiesUpdated = companiesModel.updateCompanies();
+            bool companiesUpdated = companiesModel.updateCompanies(number, name, address, city, zipCode);
             if (companiesUpdated == true)
             {
-                companiesWindow.populateCompaniesGrid(companiesModel.getCompanies());
-                updatedInvoiceCompanies(true);  //This is a callback function from the Invoices Controller
+                bool readFirst = true;
+                companiesWindow.populateCompaniesGrid(companiesModel.getCompanies(readFirst));
+                updatedInvoiceCompanies(readFirst);  //This is a callback function from the Invoices Controller
             }
         }
     }

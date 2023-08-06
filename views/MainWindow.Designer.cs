@@ -30,8 +30,10 @@ namespace Invoices.src.views
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.EditCompaniesOptions = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.ADD = new System.Windows.Forms.ToolStripMenuItem();
+            this.EDIT = new System.Windows.Forms.ToolStripMenuItem();
+            this.DELETE = new System.Windows.Forms.ToolStripMenuItem();
             this.Tabs = new System.Windows.Forms.TabControl();
             this.Invoices = new System.Windows.Forms.TabPage();
             this.GenerateInvoiceButton = new System.Windows.Forms.Button();
@@ -54,9 +56,21 @@ namespace Invoices.src.views
             this.ManageCompaniesButton = new System.Windows.Forms.Button();
             this.Quotes = new System.Windows.Forms.TabPage();
             this.History = new System.Windows.Forms.TabPage();
-            this.Setup = new System.Windows.Forms.TabPage();
             this.Companies = new System.Windows.Forms.TabPage();
+            this.EditCompaniesPanel = new System.Windows.Forms.Panel();
+            this.NewCompanyZipCode = new System.Windows.Forms.NumericUpDown();
+            this.NewCompanyCity = new System.Windows.Forms.TextBox();
+            this.NewCompanyAddress = new System.Windows.Forms.TextBox();
+            this.NewCompanyName = new System.Windows.Forms.TextBox();
+            this.NewCompanyCancelButton = new System.Windows.Forms.Button();
+            this.NewCompanyDoneButton = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.CompaniesGridView = new System.Windows.Forms.DataGridView();
+            this.Setup = new System.Windows.Forms.TabPage();
+            this.EditCompaniesOptions.SuspendLayout();
             this.Tabs.SuspendLayout();
             this.Invoices.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.InvoiceItemsGrid)).BeginInit();
@@ -65,18 +79,38 @@ namespace Invoices.src.views
             ((System.ComponentModel.ISupportInitialize)(this.UnitPrice)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Quantity)).BeginInit();
             this.Companies.SuspendLayout();
+            this.EditCompaniesPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NewCompanyZipCode)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.CompaniesGridView)).BeginInit();
             this.SuspendLayout();
             // 
-            // contextMenuStrip1
+            // EditCompaniesOptions
             // 
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+            this.EditCompaniesOptions.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ADD,
+            this.EDIT,
+            this.DELETE});
+            this.EditCompaniesOptions.Name = "contextMenuStrip2";
+            this.EditCompaniesOptions.Size = new System.Drawing.Size(113, 70);
+            this.EditCompaniesOptions.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.EditCompaniesOptions_Click);
             // 
-            // contextMenuStrip2
+            // ADD
             // 
-            this.contextMenuStrip2.Name = "contextMenuStrip2";
-            this.contextMenuStrip2.Size = new System.Drawing.Size(61, 4);
+            this.ADD.Name = "ADD";
+            this.ADD.Size = new System.Drawing.Size(112, 22);
+            this.ADD.Text = "ADD";
+            // 
+            // EDIT
+            // 
+            this.EDIT.Name = "EDIT";
+            this.EDIT.Size = new System.Drawing.Size(112, 22);
+            this.EDIT.Text = "EDIT";
+            // 
+            // DELETE
+            // 
+            this.DELETE.Name = "DELETE";
+            this.DELETE.Size = new System.Drawing.Size(112, 22);
+            this.DELETE.Text = "DELETE";
             // 
             // Tabs
             // 
@@ -347,17 +381,9 @@ namespace Invoices.src.views
             this.History.Text = "History";
             this.History.UseVisualStyleBackColor = true;
             // 
-            // Setup
-            // 
-            this.Setup.Location = new System.Drawing.Point(4, 28);
-            this.Setup.Name = "Setup";
-            this.Setup.Size = new System.Drawing.Size(1355, 594);
-            this.Setup.TabIndex = 3;
-            this.Setup.Text = "Setup";
-            this.Setup.UseVisualStyleBackColor = true;
-            // 
             // Companies
             // 
+            this.Companies.Controls.Add(this.EditCompaniesPanel);
             this.Companies.Controls.Add(this.CompaniesGridView);
             this.Companies.Location = new System.Drawing.Point(4, 28);
             this.Companies.Name = "Companies";
@@ -365,6 +391,119 @@ namespace Invoices.src.views
             this.Companies.TabIndex = 4;
             this.Companies.Text = "Companies";
             this.Companies.UseVisualStyleBackColor = true;
+            // 
+            // EditCompaniesPanel
+            // 
+            this.EditCompaniesPanel.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.EditCompaniesPanel.AutoSize = true;
+            this.EditCompaniesPanel.BackColor = System.Drawing.Color.SlateGray;
+            this.EditCompaniesPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.EditCompaniesPanel.Controls.Add(this.NewCompanyZipCode);
+            this.EditCompaniesPanel.Controls.Add(this.NewCompanyCity);
+            this.EditCompaniesPanel.Controls.Add(this.NewCompanyAddress);
+            this.EditCompaniesPanel.Controls.Add(this.NewCompanyName);
+            this.EditCompaniesPanel.Controls.Add(this.NewCompanyCancelButton);
+            this.EditCompaniesPanel.Controls.Add(this.NewCompanyDoneButton);
+            this.EditCompaniesPanel.Controls.Add(this.label4);
+            this.EditCompaniesPanel.Controls.Add(this.label3);
+            this.EditCompaniesPanel.Controls.Add(this.label2);
+            this.EditCompaniesPanel.Controls.Add(this.label1);
+            this.EditCompaniesPanel.Location = new System.Drawing.Point(259, 127);
+            this.EditCompaniesPanel.Margin = new System.Windows.Forms.Padding(100);
+            this.EditCompaniesPanel.Name = "EditCompaniesPanel";
+            this.EditCompaniesPanel.Size = new System.Drawing.Size(759, 306);
+            this.EditCompaniesPanel.TabIndex = 1;
+            this.EditCompaniesPanel.Visible = false;
+            // 
+            // NewCompanyZipCode
+            // 
+            this.NewCompanyZipCode.Location = new System.Drawing.Point(219, 175);
+            this.NewCompanyZipCode.Maximum = new decimal(new int[] {
+            10000000,
+            0,
+            0,
+            0});
+            this.NewCompanyZipCode.Name = "NewCompanyZipCode";
+            this.NewCompanyZipCode.Size = new System.Drawing.Size(168, 26);
+            this.NewCompanyZipCode.TabIndex = 9;
+            this.NewCompanyZipCode.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.NewCompanyZipCode_KeyPress);
+            // 
+            // NewCompanyCity
+            // 
+            this.NewCompanyCity.Location = new System.Drawing.Point(219, 124);
+            this.NewCompanyCity.Name = "NewCompanyCity";
+            this.NewCompanyCity.Size = new System.Drawing.Size(487, 26);
+            this.NewCompanyCity.TabIndex = 8;
+            // 
+            // NewCompanyAddress
+            // 
+            this.NewCompanyAddress.Location = new System.Drawing.Point(219, 74);
+            this.NewCompanyAddress.Name = "NewCompanyAddress";
+            this.NewCompanyAddress.Size = new System.Drawing.Size(487, 26);
+            this.NewCompanyAddress.TabIndex = 7;
+            // 
+            // NewCompanyName
+            // 
+            this.NewCompanyName.Location = new System.Drawing.Point(219, 26);
+            this.NewCompanyName.Name = "NewCompanyName";
+            this.NewCompanyName.Size = new System.Drawing.Size(487, 26);
+            this.NewCompanyName.TabIndex = 6;
+            // 
+            // NewCompanyCancelButton
+            // 
+            this.NewCompanyCancelButton.Location = new System.Drawing.Point(477, 243);
+            this.NewCompanyCancelButton.Name = "NewCompanyCancelButton";
+            this.NewCompanyCancelButton.Size = new System.Drawing.Size(229, 37);
+            this.NewCompanyCancelButton.TabIndex = 5;
+            this.NewCompanyCancelButton.Text = "Cancel";
+            this.NewCompanyCancelButton.UseVisualStyleBackColor = true;
+            this.NewCompanyCancelButton.Click += new System.EventHandler(this.NewCompanyCancelButton_Click);
+            // 
+            // NewCompanyDoneButton
+            // 
+            this.NewCompanyDoneButton.Location = new System.Drawing.Point(219, 243);
+            this.NewCompanyDoneButton.Name = "NewCompanyDoneButton";
+            this.NewCompanyDoneButton.Size = new System.Drawing.Size(228, 37);
+            this.NewCompanyDoneButton.TabIndex = 4;
+            this.NewCompanyDoneButton.Text = "Done";
+            this.NewCompanyDoneButton.UseVisualStyleBackColor = true;
+            this.NewCompanyDoneButton.Click += new System.EventHandler(this.NewCompanyDoneButton_Click);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(39, 177);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(73, 19);
+            this.label4.TabIndex = 3;
+            this.label4.Text = "Zip Code";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(39, 127);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(86, 19);
+            this.label3.TabIndex = 2;
+            this.label3.Text = "Town/City";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(39, 77);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(68, 19);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "Address";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(39, 29);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(123, 19);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Company Name";
             // 
             // CompaniesGridView
             // 
@@ -375,12 +514,23 @@ namespace Invoices.src.views
             | System.Windows.Forms.AnchorStyles.Right)));
             this.CompaniesGridView.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
             this.CompaniesGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.CompaniesGridView.ContextMenuStrip = this.EditCompaniesOptions;
             this.CompaniesGridView.Location = new System.Drawing.Point(2, 1);
             this.CompaniesGridView.Name = "CompaniesGridView";
+            this.CompaniesGridView.ReadOnly = true;
             this.CompaniesGridView.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.CompaniesGridView.Size = new System.Drawing.Size(1352, 590);
             this.CompaniesGridView.TabIndex = 0;
             this.CompaniesGridView.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.CompaniesGridView_CellEndEdit);
+            // 
+            // Setup
+            // 
+            this.Setup.Location = new System.Drawing.Point(4, 28);
+            this.Setup.Name = "Setup";
+            this.Setup.Size = new System.Drawing.Size(1355, 594);
+            this.Setup.TabIndex = 3;
+            this.Setup.Text = "Setup";
+            this.Setup.UseVisualStyleBackColor = true;
             // 
             // MainWindow
             // 
@@ -394,6 +544,7 @@ namespace Invoices.src.views
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Book Keeper";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.EditCompaniesOptions.ResumeLayout(false);
             this.Tabs.ResumeLayout(false);
             this.Invoices.ResumeLayout(false);
             this.Invoices.PerformLayout();
@@ -404,15 +555,17 @@ namespace Invoices.src.views
             ((System.ComponentModel.ISupportInitialize)(this.UnitPrice)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Quantity)).EndInit();
             this.Companies.ResumeLayout(false);
+            this.Companies.PerformLayout();
+            this.EditCompaniesPanel.ResumeLayout(false);
+            this.EditCompaniesPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NewCompanyZipCode)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.CompaniesGridView)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip2;
+        private System.Windows.Forms.ContextMenuStrip EditCompaniesOptions;
         private System.Windows.Forms.TabControl Tabs;
         private System.Windows.Forms.TabPage Invoices;
         private System.Windows.Forms.TabPage Quotes;
@@ -438,5 +591,19 @@ namespace Invoices.src.views
         private System.Windows.Forms.Label TotalPriceLabel;
         private System.Windows.Forms.TabPage Companies;
         private System.Windows.Forms.DataGridView CompaniesGridView;
+        private System.Windows.Forms.ToolStripMenuItem ADD;
+        private System.Windows.Forms.ToolStripMenuItem EDIT;
+        private System.Windows.Forms.ToolStripMenuItem DELETE;
+        private System.Windows.Forms.Panel EditCompaniesPanel;
+        private System.Windows.Forms.NumericUpDown NewCompanyZipCode;
+        private System.Windows.Forms.TextBox NewCompanyCity;
+        private System.Windows.Forms.TextBox NewCompanyAddress;
+        private System.Windows.Forms.TextBox NewCompanyName;
+        private System.Windows.Forms.Button NewCompanyCancelButton;
+        private System.Windows.Forms.Button NewCompanyDoneButton;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
     }
 }
