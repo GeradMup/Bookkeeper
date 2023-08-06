@@ -38,5 +38,13 @@ namespace Invoices.src.controllers
                 updatedInvoiceCompanies(readFirst);  //This is a callback function from the Invoices Controller
             }
         }
+
+        public void addCompany(string name, string address, string city, decimal zipCode) 
+        {
+            companiesModel.addCompany(name, address, city, zipCode);
+            bool readFirst = true;
+            companiesWindow.populateCompaniesGrid(companiesModel.getCompanies(readFirst));
+            updatedInvoiceCompanies(readFirst);
+        }
     }
 }

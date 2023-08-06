@@ -60,10 +60,20 @@ namespace Invoices.src.models
             if (companies[number].isEqualTo(modifiedCompany)) return false;
 
             companies[number].equateTo(modifiedCompany);
+            updateAllCompanies();
+            return true;
+        }
 
+        public void addCompany(string name, string address, string city, decimal zipCode) 
+        {
+            string nextCompanyNumber = (companies.Count() + 1).ToString();
+            companies.Add(new Company(new List<String> { nextCompanyNumber, name, address, city, zipCode.ToString() }));
+            updateAllCompanies();
+        }
 
+        private void updateAllCompanies() 
+        {
             List<List<String>> allCompanies = new List<List<string>>();
-
             //First convert the company information to a list of strings
             foreach (Company company in companies)
             {
@@ -73,8 +83,6 @@ namespace Invoices.src.models
             //Save the new information to the file and then read the file again
             textFiles.writeTextFile(Constants.COMPANIES_PATH, allCompanies);
             readCompanies();
-            return true;
-
         }
     }
 }

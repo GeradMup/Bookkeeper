@@ -12,6 +12,7 @@ namespace Invoices.src.views
     public partial class MainWindow
     {
         CompaniesController companiesController;
+        private bool newCompany;
 
         public void assignCompaniesController(CompaniesController controller) 
         {
@@ -20,6 +21,7 @@ namespace Invoices.src.views
 
         public void populateCompaniesGrid<GridData>(List<GridData> gridData) 
         {
+            CompaniesGridView.DataSource = null;
             //This is binding the data grid view to the source gridData.
             //To change modify the data grid view, you need to modify the source.
             CompaniesGridView.DataSource = gridData;
@@ -30,10 +32,6 @@ namespace Invoices.src.views
             CompaniesGridView.Columns[2].FillWeight = 6;
             CompaniesGridView.Columns[3].FillWeight = 2;
             CompaniesGridView.Columns[4].FillWeight = 1;
-
-            CompaniesGridView.Columns[0].ReadOnly = true;
-            CompaniesGridView.AllowUserToAddRows = true;
-            
         }
 
         private void CompaniesGridView_CellEndEdit(object sender, DataGridViewCellEventArgs e)
@@ -68,6 +66,7 @@ namespace Invoices.src.views
         {
             if (e.ClickedItem.ToString() == "EDIT")
             {
+                newCompany = false;
                 EditCompaniesPanel.Visible = true;
 
                 int currentRow = CompaniesGridView.CurrentCell.RowIndex;
@@ -78,6 +77,7 @@ namespace Invoices.src.views
             }
             else if (e.ClickedItem.ToString() == "ADD")
             {
+                newCompany = true;
                 EditCompaniesPanel.Visible = true;
             }
             else if (e.ClickedItem.ToString() == "DELETE") 
@@ -94,21 +94,34 @@ namespace Invoices.src.views
 
         private void NewCompanyDoneButton_Click(object sender, EventArgs e)
         {
+            if (!validNewCompanyInputs()) return;
+
+            if (newCompany == false)
+            {
+                int currentRow = CompaniesGridView.CurrentCell.RowIndex;
+                companiesController.editCompanies(currentRow, NewCompanyName.Text, NewCompanyAddress.Text, NewCompanyCity.Text, NewCompanyZipCode.Value);
+            }
+            else 
+            {
+                companiesController.addCompany(NewCompanyName.Text, NewCompanyAddress.Text, NewCompanyCity.Text, NewCompanyZipCode.Value);
+            }
+
+            CompaniesGridView.Refresh();
+            resetNewCompanyPanel();
+            EditCompaniesPanel.Visible = false;
+        }
+
+        //Checks if the NewCompany inputs are valid
+        private bool validNewCompanyInputs() 
+        {
             resetNewCompanyPanelColours();
 
             Color errorColour = Color.LightPink;
-            if(NewCompanyName.Text == "") { NewCompanyName.BackColor = errorColour; return; }
-            if(NewCompanyAddress.Text == "") { NewCompanyAddress.BackColor = errorColour; return; }
-            if(NewCompanyCity.Text == "") { NewCompanyCity.BackColor = errorColour; return; }
-            if(NewCompanyZipCode.Value == 0) { NewCompanyZipCode.BackColor = errorColour; return; }
-
-            int currentRow = CompaniesGridView.CurrentCell.RowIndex;
-
-            companiesController.editCompanies(currentRow, NewCompanyName.Text, NewCompanyAddress.Text, NewCompanyCity.Text, NewCompanyZipCode.Value);
-            CompaniesGridView.Refresh();
-
-            resetNewCompanyPanel();
-            EditCompaniesPanel.Visible = false;
+            if (NewCompanyName.Text == "") { NewCompanyName.BackColor = errorColour; return false; }
+            if (NewCompanyAddress.Text == "") { NewCompanyAddress.BackColor = errorColour; return false; }
+            if (NewCompanyCity.Text == "") { NewCompanyCity.BackColor = errorColour; return false; }
+            if (NewCompanyZipCode.Value == 0) { NewCompanyZipCode.BackColor = errorColour; return false; }
+            return true;
         }
 
         private void NewCompanyCancelButton_Click(object sender, EventArgs e)
