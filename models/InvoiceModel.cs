@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 //using Invoices.src.controllers;
 
 namespace Invoices.src.models
@@ -13,6 +12,10 @@ namespace Invoices.src.models
 //        InvoiceController invoiceController;
         TextFiles textFiles;
         List<Company> companies = new List<Company>();
+        List<ReceiptItem> invoiceItems = new List<ReceiptItem>();
+        private decimal receiptTotal;
+        private decimal vat;
+        private decimal grandTotal;
         public InvoiceModel() 
         {
             textFiles = new TextFiles();
@@ -53,5 +56,53 @@ namespace Invoices.src.models
             }
             return companyNames;
         }
+
+        public void addItem(string name, decimal quantity, decimal unitPrice) 
+        {
+            ReceiptItem newItem = new ReceiptItem(name, quantity, unitPrice);
+            invoiceItems.Add(newItem);
+            receiptTotal = invoiceItems.Sum(item => item.TotalPrice);
+            vat = (Constants.VAT_PERCENTAGE/100) * receiptTotal;
+            grandTotal = receiptTotal + vat;
+        }
+
+        public void clearReceipt() 
+        {
+            invoiceItems.Clear();
+            receiptTotal = 0;
+            vat = 0;
+            grandTotal = 0;
+        }
+
+        public List<ReceiptItem> getInvoiceItems() 
+        {
+            return invoiceItems;
+        }
+
+        public decimal getVat() 
+        {
+            return vat;
+        }
+
+        public decimal getGrandTotal() 
+        {
+            return grandTotal;
+        }
+
+        public decimal getReceiptTotal() 
+        {
+            return receiptTotal;
+        }
+
+        public void generateReceipt(string companyName) 
+        {
+            if (invoiceItems.Count == 0) return;
+            string date = DateTime.Now.ToString("dddd dd MMMM yyyy");
+            string fileName = companyName + " " + date;
+            PDF pdf = new PDF(fileName);
+
+            pdf.createPDF();
+        }
+        
     }
 }

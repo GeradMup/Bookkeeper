@@ -68,4 +68,20 @@ namespace Invoices.src.models
             return myList;
         }
     }
+
+    public class ReceiptItem
+    {
+        public ReceiptItem(string name, decimal quantity, decimal unitPrice) 
+        {
+            this.Name = name;
+            this.Quantity = quantity;
+            this.UnitPrice = unitPrice;
+            this.TotalPrice = quantity * unitPrice;
+        }
+
+            public string Name { get; set; }
+            public decimal Quantity { get; set; }
+            public decimal UnitPrice { get; set; }
+            public decimal TotalPrice { get; set; }
+    }
 }

@@ -15,14 +15,15 @@ namespace Invoices.src.controllers
     {
      
         List<string> items;
-        MainWindow invoiceWindow;
+        MainWindow invoiceView;
         InvoiceModel invoiceModel;
 
 
         public InvoiceController(MainWindow invoiceTab, InvoiceModel invoiceModel_) 
         {
             invoiceModel = invoiceModel_;
-            invoiceWindow = invoiceTab;
+            invoiceView = invoiceTab;
+            
         }
 
         //public delegate void UpdateCompanies(bool readFirst);
@@ -34,16 +35,17 @@ namespace Invoices.src.controllers
 
         public void updateCompanies(bool readFirst = false) 
         {
-            invoiceWindow.populateCompanies(invoiceModel.getCompanyNames(readFirst));
+            invoiceView.populateCompanies(invoiceModel.getCompanyNames(readFirst));
         }
 
         public void initializeInvoice() 
         {
             items = new List<string>() {"Sugar", "Salt", "Beans", "Bananas", "Apples"};
 
-            invoiceWindow.assignInvoiceController(this);
+            invoiceView.assignInvoiceController(this);
             updateCompanies();
-            invoiceWindow.populateItems(items);
+            invoiceView.populateItems(items);
+            invoiceView.initializeReceipt();
         }
 
         public void itemChanged(string itemName) 
@@ -55,19 +57,37 @@ namespace Invoices.src.controllers
             else if (itemName == items[3]) price = 25.5M;
             else if (itemName == items[4]) price = 12.5M;
 
-            invoiceWindow.changeUnitPrice(price);
+            invoiceView.changeUnitPrice(price);
         }
 
         public void quantityChanged(decimal quantity, decimal price) 
         {
             decimal totalAmount = 0.0M;
             totalAmount = quantity * price;
-            invoiceWindow.changeTotalPrice(totalAmount);
+            invoiceView.changeTotalPrice(totalAmount);
         }
 
-        
+        public void addItem(string itemName, decimal quantity, decimal unitPrice) 
+        {
+            invoiceModel.addItem(itemName, quantity, unitPrice);
+            invoiceView.populateItemsGrid(invoiceModel.getInvoiceItems());
+            invoiceView.updateReceiptTotals(invoiceModel.getReceiptTotal(), invoiceModel.getVat(), invoiceModel.getGrandTotal());
+        }
 
+        public void clearReceipt() 
+        {
+            invoiceModel.clearReceipt();
+            invoiceView.populateItemsGrid(invoiceModel.getInvoiceItems());
+            invoiceView.updateReceiptTotals(invoiceModel.getReceiptTotal(), invoiceModel.getVat(), invoiceModel.getGrandTotal());
+        }
 
+        public void generateInvoice(string companyName) 
+        {
+            invoiceModel.generateReceipt(companyName);
+            invoiceModel.clearReceipt();
+            invoiceView.populateItemsGrid(invoiceModel.getInvoiceItems());
+            invoiceView.updateReceiptTotals(invoiceModel.getReceiptTotal(), invoiceModel.getVat(), invoiceModel.getGrandTotal());
+        }
 
     }
 }
