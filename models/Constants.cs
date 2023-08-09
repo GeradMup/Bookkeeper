@@ -14,6 +14,7 @@ namespace Invoices.src.models
         public readonly static decimal VAT_PERCENTAGE = 15;
         public readonly static string DOCUMENTS = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
         public readonly static string INVOICES_PATH = DOCUMENTS + "\\Invoices\\";
-        public readonly static string LOGO_PATH = RESOURCES_DIRECTORY + "Logo.png";
+        public readonly static string LOGO_PATH = RESOURCES_DIRECTORY + "Logo2.png";
+        public readonly static string FOOTER_PATH = RESOURCES_DIRECTORY + "Footer.jpg";
     }
 }

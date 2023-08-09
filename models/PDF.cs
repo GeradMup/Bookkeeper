@@ -16,9 +16,47 @@ using iText.Pdfa;
 using iText;
 using iText.IO.Image;
 using iText.Kernel.Colors;
+using iText.Kernel.Events;
 
 namespace Invoices.src.models
 {
+    //*************************************************************************************************************************
+    class DocumentHeader : IEventHandler
+    {
+        private Document document;
+        public DocumentHeader(Document doc)
+        {
+            document = doc;
+        }
+
+        public void HandleEvent(Event currentEven)
+        {
+            ImageData imageData = ImageDataFactory.Create(Constants.LOGO_PATH);
+            Image image = new Image(imageData);
+
+            document.Add(image);
+        }
+    }
+
+    class DocumentFooter : IEventHandler
+    {
+        private Document document;
+        public DocumentFooter(Document doc)
+        {
+            document = doc;
+        }
+
+        public void HandleEvent(Event currentEven)
+        {
+            ImageData imageData = ImageDataFactory.Create(Constants.FOOTER_PATH);
+            Image image = new Image(imageData);
+
+            document.Add(image);
+        }
+    }
+
+    //*************************************************************************************************************************
+
     public class PDF
     {
         string filePath;
@@ -33,24 +71,38 @@ namespace Invoices.src.models
             filePath = Constants.INVOICES_PATH + fileName + ".pdf";
         }
 
-        public void createPDF(Company company, List<InvoiceComment> comments)
+        public void createPDF(Company company, List<InvoiceComment> comments, List<InvoiceItem> invoiceItems)
         {
             // Must have write permissions to the path folder
             PdfDocument pdf = new PdfDocument(new PdfWriter(filePath));
+            
+
             Document document = new Document(pdf);
-            document.SetMargins(0f,0f,0f,0f);
-            addLogo(document);
+            document.SetMargins(0f, 0f, 0f, 0f);
+
+            pdf.AddEventHandler(PdfDocumentEvent.START_PAGE, new DocumentHeader(document));
+            //pdf.AddEventHandler(PdfDocumentEvent.END_PAGE, new DocumentFooter(document));
+
             addCompanyInfo(document);
             addCustomerInfo(document, company);
             addComments(document, comments);
-            addPricesTable(document);
+            addPricesTable(document, invoiceItems);
             document.Close();
+        }
+
+
+
+        private void insertHeader(Document document) 
+        {
+            addLogo(document);
+            
         }
 
         private void addLogo(Document document) 
         {
             ImageData imageData = ImageDataFactory.Create(Constants.LOGO_PATH);
             Image image = new Image(imageData);
+            
             document.Add(image);
         }
 
@@ -122,7 +174,7 @@ namespace Invoices.src.models
             document.Add(commentParagraph);
         }
 
-        private void addPricesTable(Document document) 
+        private void addPricesTable(Document document, List<InvoiceItem> items) 
         {
             float[] columnWidths = { 300f, 20f, 90f, 90f };
             Table pricesTable = new Table(columnWidths);
@@ -133,6 +185,16 @@ namespace Invoices.src.models
             pricesTable.AddHeaderCell(tableHeader("QTY"));
             pricesTable.AddHeaderCell(tableHeader("Price/Unit"));
             pricesTable.AddHeaderCell(tableHeader("Total Price"));
+
+            foreach (InvoiceItem item in items) 
+            {
+                pricesTable.AddCell(item.Name);
+                pricesTable.AddCell(item.Quantity.ToString());
+                pricesTable.AddCell(item.UnitPrice.ToString());
+                pricesTable.AddCell(item.TotalPrice.ToString());
+            }
+
+
 
             document.Add(pricesTable);
         }
