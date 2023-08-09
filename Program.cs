@@ -33,9 +33,16 @@ namespace Invoices
             comments.Add(comment2);
             comments.Add(comment3);
             comments.Add(comment3);
-            comments.Add(comment3);
-            comments.Add(comment3);
-            comments.Add(comment3);
+            //comments.Add(comment3);
+            //comments.Add(comment3);
+            //comments.Add(comment3);
+            //comments.Add(comment3);
+            //comments.Add(comment3);
+            //comments.Add(comment3);
+            //comments.Add(comment3);
+            //comments.Add(comment3);
+            //comments.Add(comment3);
+
 
             List<InvoiceItem> items = new List<InvoiceItem>();
 
@@ -44,6 +51,10 @@ namespace Invoices
             items.Add(new InvoiceItem("Consumables", 1, 4800));
             items.Add(new InvoiceItem("Transportation offsite, storage, and back to the site ", 2, 7000));
             items.Add(new InvoiceItem("Technician", 1, 8600));
+            items.Add(new InvoiceItem("Technician", 1, 8600));
+            items.Add(new InvoiceItem("Technician", 1, 8600));
+            items.Add(new InvoiceItem("Technician", 1, 8600));
+
             pdf.createPDF(company, comments, items);
         }
     }

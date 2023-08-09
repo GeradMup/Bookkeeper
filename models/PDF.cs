@@ -17,42 +17,57 @@ using iText;
 using iText.IO.Image;
 using iText.Kernel.Colors;
 using iText.Kernel.Events;
+using iText.Kernel.Geom;
 
 namespace Invoices.src.models
 {
     //*************************************************************************************************************************
-    class DocumentHeader : IEventHandler
+    class DocumentHeaderAndFooter : IEventHandler
     {
         private Document document;
-        public DocumentHeader(Document doc)
+        public DocumentHeaderAndFooter(Document doc)
         {
             document = doc;
         }
 
-        public void HandleEvent(Event currentEven)
+        public void HandleEvent(Event currentEvent)
         {
-            ImageData imageData = ImageDataFactory.Create(Constants.LOGO_PATH);
-            Image image = new Image(imageData);
+            //PdfDocumentEvent docEvent = (PdfDocumentEvent)currentEvent;
+            //Rectangle pageSize = docEvent.GetPage().GetPageSize();
+            firstPage();
 
-            document.Add(image);
-        }
-    }
-
-    class DocumentFooter : IEventHandler
-    {
-        private Document document;
-        public DocumentFooter(Document doc)
-        {
-            document = doc;
         }
 
-        public void HandleEvent(Event currentEven)
+        public void firstPage() 
         {
-            ImageData imageData = ImageDataFactory.Create(Constants.FOOTER_PATH);
-            Image image = new Image(imageData);
+            ImageData headerImageData = ImageDataFactory.Create(Constants.LOGO_PATH);
+            Image headerImage = new Image(headerImageData);
 
-            document.Add(image);
+            float headerImageWidth = 590;
+            float headerImageheight = 400;
+            float headerImageY = 723;
+            float headerImageX = 0;
+
+            headerImage.ScaleToFit(headerImageWidth, headerImageheight);
+            headerImage.SetFixedPosition(headerImageX, headerImageY);
+
+
+            ImageData footerImageData = ImageDataFactory.Create(Constants.FOOTER_PATH);
+            Image footerImage = new Image(footerImageData);
+
+            float footerImageWidth = 600;
+            float footerImageHeight = 250;
+            float footerImageY = 0;
+            float footerImageX = 0;
+
+            footerImage.ScaleToFit(footerImageWidth, footerImageHeight);
+            footerImage.SetFixedPosition(footerImageX, footerImageY);
+
+            document.Add(headerImage);
+            document.Add(footerImage);
         }
+
+
     }
 
     //*************************************************************************************************************************
@@ -62,8 +77,8 @@ namespace Invoices.src.models
         string filePath;
         const int STANDARD_FONT_SIZE = 12;
         const int BIG_FONT_SIZE = 15;
-        const int MARGIN = 40;
-
+        const int HORIZONTAL_MARGIN = 40;
+        const int VERTICAL_MARGIN = 10;
         public PDF(string fileName)
         {
             //Let's start by making sure that there is folder for our invoices.
@@ -78,38 +93,28 @@ namespace Invoices.src.models
             
 
             Document document = new Document(pdf);
-            document.SetMargins(0f, 0f, 0f, 0f);
+            document.SetMargins(150f, 0f, 100f, 0f);
 
-            pdf.AddEventHandler(PdfDocumentEvent.START_PAGE, new DocumentHeader(document));
-            //pdf.AddEventHandler(PdfDocumentEvent.END_PAGE, new DocumentFooter(document));
+            //pdf.AddEventHandler(PdfDocumentEvent.START_PAGE, new DocumentHeaderAndFooter(document));
+            DocumentHeaderAndFooter firstPage = new DocumentHeaderAndFooter(document);
+            firstPage.firstPage();
+            pdf.AddEventHandler(PdfDocumentEvent.END_PAGE, new DocumentHeaderAndFooter(document));
+
+            
 
             addCompanyInfo(document);
             addCustomerInfo(document, company);
             addComments(document, comments);
             addPricesTable(document, invoiceItems);
             document.Close();
-        }
 
 
-
-        private void insertHeader(Document document) 
-        {
-            addLogo(document);
-            
-        }
-
-        private void addLogo(Document document) 
-        {
-            ImageData imageData = ImageDataFactory.Create(Constants.LOGO_PATH);
-            Image image = new Image(imageData);
-            
-            document.Add(image);
         }
 
         private void addCompanyInfo(Document document) 
         {
             Paragraph companyInfo = creatParagraph(TextAlignment.RIGHT);
-            
+
             Text quote = new Text("Quote:\n");
             quote.SetFontSize(15);
             quote.SetBold();
@@ -143,7 +148,10 @@ namespace Invoices.src.models
         {
             Paragraph commentParagraph = creatParagraph(TextAlignment.LEFT);
             List itemsList = new List(ListNumberingType.DECIMAL);
-          
+            itemsList.SetMarginTop(VERTICAL_MARGIN);
+            itemsList.SetMarginBottom(VERTICAL_MARGIN);
+            itemsList.SetMarginLeft(HORIZONTAL_MARGIN);
+            itemsList.SetMarginRight(HORIZONTAL_MARGIN);
             
             foreach (InvoiceComment comment in comments) 
             {
@@ -170,15 +178,15 @@ namespace Invoices.src.models
             scopeText.SetUnderline();
 
             commentParagraph.Add(scopeText);
-            commentParagraph.Add(itemsList);
             document.Add(commentParagraph);
+            document.Add(itemsList);
+
         }
 
         private void addPricesTable(Document document, List<InvoiceItem> items) 
         {
             float[] columnWidths = { 300f, 20f, 90f, 90f };
             Table pricesTable = new Table(columnWidths);
-            pricesTable.SetMargin(MARGIN);
             pricesTable.UseAllAvailableWidth();
 
             pricesTable.AddHeaderCell(tableHeader("Description"));
@@ -194,15 +202,19 @@ namespace Invoices.src.models
                 pricesTable.AddCell(item.TotalPrice.ToString());
             }
 
-
-
-            document.Add(pricesTable);
+            Paragraph pricesTableParagraph = creatParagraph(TextAlignment.LEFT);
+            pricesTableParagraph.Add(pricesTable);
+            document.Add(pricesTableParagraph);
         }
         Paragraph creatParagraph(TextAlignment alignment) 
         {
             Paragraph newParagraph = new Paragraph();
             newParagraph.SetTextAlignment(alignment);
-            newParagraph.SetMargin(MARGIN);
+            newParagraph.SetMarginRight(HORIZONTAL_MARGIN);
+            newParagraph.SetMarginLeft(HORIZONTAL_MARGIN);
+            newParagraph.SetMarginTop(VERTICAL_MARGIN);
+            newParagraph.SetMarginBottom(VERTICAL_MARGIN);
+
             newParagraph.SetFixedLeading(15f);
             return newParagraph;
         }
