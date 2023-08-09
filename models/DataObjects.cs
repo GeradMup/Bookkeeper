@@ -84,4 +84,16 @@ namespace Invoices.src.models
             public decimal UnitPrice { get; set; }
             public decimal TotalPrice { get; set; }
     }
+
+    public class InvoiceComment 
+    {
+        public InvoiceComment(string title, string comment) 
+        {
+            this.Title = title;
+            this.Comment = comment;
+        }
+
+        public string Title { get; set; }
+        public string Comment { get; set; }
+    }
 }

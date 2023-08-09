@@ -15,12 +15,15 @@ using iText.Layout.Properties;
 using iText.Pdfa;
 using iText;
 using iText.IO.Image;
+using iText.Kernel.Colors;
 
 namespace Invoices.src.models
 {
     public class PDF
     {
         string filePath;
+        const int STANDARD_FONT_SIZE = 12;
+        const int BIG_FONT_SIZE = 15;
 
         public PDF(string fileName)
         {
@@ -29,14 +32,16 @@ namespace Invoices.src.models
             filePath = Constants.INVOICES_PATH + fileName + ".pdf";
         }
 
-        public void createPDF()
+        public void createPDF(Company company, List<InvoiceComment> comments)
         {
             // Must have write permissions to the path folder
             PdfDocument pdf = new PdfDocument(new PdfWriter(filePath));
             Document document = new Document(pdf);
-            String line = "I am now pissed";
-            document.Add(new Paragraph(line));
+            document.SetMargins(0f,0f,0f,0f);
             addLogo(document);
+            addCompanyInfo(document);
+            addCustomerInfo(document, company);
+            addComments(document, comments);
             document.Close();
         }
 
@@ -45,6 +50,78 @@ namespace Invoices.src.models
             ImageData imageData = ImageDataFactory.Create(Constants.LOGO_PATH);
             Image image = new Image(imageData);
             document.Add(image);
+        }
+
+        private void addCompanyInfo(Document document) 
+        {
+            Paragraph companyInfo = creatParagraph(TextAlignment.RIGHT);
+            
+            Text quote = new Text("Quote:\n");
+            quote.SetFontSize(15);
+            quote.SetBold();
+            quote.SetFontColor(ColorConstants.RED);
+
+            string dateString = DateTime.Now.ToString("dd MMMM yyyy");
+            Text line1 = new Text($"Dory/0082\n VAT: 4780313955\n { dateString }");
+            line1.SetFontSize(STANDARD_FONT_SIZE);
+            line1.SetBold();
+                
+            companyInfo.Add(quote);
+            companyInfo.Add(line1);
+            document.Add(companyInfo);
+        }
+
+        private void addCustomerInfo(Document document, Company company) 
+        {
+            Paragraph customerInfoP = creatParagraph(TextAlignment.LEFT);
+
+            string address = company.Address.Replace(",", "\n");
+            string customerInfoText = "To:\n" + company.Name + "\n" + address + "\n" + company.Town;
+            Text customerText = new Text(customerInfoText);
+            customerText.SetFontSize(STANDARD_FONT_SIZE);
+            customerText.SetBold();
+
+            customerInfoP.Add(customerText);
+            document.Add(customerInfoP);
+        }
+
+        private void addComments(Document document, List<InvoiceComment> comments) 
+        {
+            Paragraph commentParagraph = creatParagraph(TextAlignment.LEFT);
+            List itemsList = new List(ListNumberingType.DECIMAL);
+          
+            
+            foreach (InvoiceComment comment in comments) 
+            {
+               
+                Text titleText = new Text(comment.Title + " : ");
+                Text commetText = new Text(comment.Comment);
+                ListItem item = new ListItem();
+
+                titleText.SetFontSize(STANDARD_FONT_SIZE);
+                titleText.SetBold();
+
+                Paragraph itemParagraph = new Paragraph();
+                itemParagraph.Add(titleText);
+                itemParagraph.Add(commetText);
+
+                item.Add(itemParagraph);
+
+                itemsList.Add(item);
+               
+            }
+
+            commentParagraph.Add(itemsList);
+            document.Add(commentParagraph);
+        }
+
+        Paragraph creatParagraph(TextAlignment alignment) 
+        {
+            Paragraph newParagraph = new Paragraph();
+            newParagraph.SetTextAlignment(alignment);
+            newParagraph.SetMargin(40);
+            newParagraph.SetFixedLeading(15f);
+            return newParagraph;
         }
     }
 }
