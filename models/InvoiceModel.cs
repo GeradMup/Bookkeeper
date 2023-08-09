@@ -13,6 +13,7 @@ namespace Invoices.src.models
         TextFiles textFiles;
         List<Company> companies = new List<Company>();
         List<InvoiceItem> invoiceItems = new List<InvoiceItem>();
+        List<ScopeItem> scopeItems = new List<ScopeItem>();
         private decimal receiptTotal;
         private decimal vat;
         private decimal grandTotal;
@@ -66,14 +67,6 @@ namespace Invoices.src.models
             grandTotal = receiptTotal + vat;
         }
 
-        public void clearReceipt() 
-        {
-            invoiceItems.Clear();
-            receiptTotal = 0;
-            vat = 0;
-            grandTotal = 0;
-        }
-
         public List<InvoiceItem> getInvoiceItems() 
         {
             return invoiceItems;
@@ -94,14 +87,40 @@ namespace Invoices.src.models
             return receiptTotal;
         }
 
-        public void generateReceipt(string companyName) 
+        public bool generateReceipt(string companyName) 
         {
-            if (invoiceItems.Count == 0) return;
+            if (invoiceItems.Count == 0) return false;
             string date = DateTime.Now.ToString("dddd dd MMMM yyyy");
             string fileName = companyName + " " + date;
             PDF pdf = new PDF(fileName);
 
-            pdf.createPDF();
+            //Get company details based on user selection
+            Company selectedCompany = companies.FirstOrDefault(comp => comp.Name == companyName);
+
+            List<decimal> totals = new List<decimal> { receiptTotal, vat, grandTotal };
+            
+            pdf.createPDF(selectedCompany, scopeItems, invoiceItems, totals);
+            return true;
+        }
+
+        public void clearReceipt() 
+        {
+            invoiceItems.Clear();
+            scopeItems.Clear();
+            receiptTotal = 0;
+            vat = 0;
+            grandTotal = 0;
+    }
+
+        public void addScopeItem(string scope, string description) 
+        {
+            ScopeItem newItem = new ScopeItem(scope, description);
+            scopeItems.Add(newItem);
+        }
+
+        public List<ScopeItem> getScopeItems() 
+        {
+            return scopeItems;
         }
         
     }

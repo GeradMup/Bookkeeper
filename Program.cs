@@ -25,10 +25,10 @@ namespace Invoices
             //PDF pdf = new PDF("TEST");
             //List<string> companyInfo = new List<string> { "1", "Envoroserv", "Chloorkop Landfill Facility, Klipfontein 12-LR", "Edenvale", "1245"};
             //Company company = new Company(companyInfo);
-            //List<InvoiceComment> comments = new List<InvoiceComment>();
-            //InvoiceComment comment1 = new InvoiceComment("Engine", "Oil and filter changes, air filter replacement, fuel system inspection and spark plug checks");
-            //InvoiceComment comment2 = new InvoiceComment("Fuel System", "Checking and cleaning the fuel tank, replacing fuel filters, inspecting fuel lines, and ensuring the fuel injectors are functioning correctly");
-            //InvoiceComment comment3 = new InvoiceComment("Cooling System", "Checked cooling system for leaks and blockages. Radiator cleaning and coolant level checks");
+            //List<ScopeItem> comments = new List<ScopeItem>();
+            //ScopeItem comment1 = new ScopeItem("Engine", "Oil and filter changes, air filter replacement, fuel system inspection and spark plug checks");
+            //ScopeItem comment2 = new ScopeItem("Fuel System", "Checking and cleaning the fuel tank, replacing fuel filters, inspecting fuel lines, and ensuring the fuel injectors are functioning correctly");
+            //ScopeItem comment3 = new ScopeItem("Cooling System", "Checked cooling system for leaks and blockages. Radiator cleaning and coolant level checks");
             //comments.Add(comment1);
             //comments.Add(comment2);
             //comments.Add(comment3);

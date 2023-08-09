@@ -85,9 +85,9 @@ namespace Invoices.src.models
             public decimal TotalPrice { get; set; }
     }
 
-    public class InvoiceComment 
+    public class ScopeItem 
     {
-        public InvoiceComment(string title, string comment) 
+        public ScopeItem(string title, string comment) 
         {
             this.Title = title;
             this.Comment = comment;

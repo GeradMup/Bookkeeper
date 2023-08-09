@@ -82,12 +82,28 @@ namespace Invoices.src.views
         public void populateItemsGrid<T>(List<T> gridData)
         {
             InvoiceItemsGrid.DataSource = null;
+            if (gridData.Count == 0) return;
+            
             InvoiceItemsGrid.DataSource = gridData;
+            InvoiceItemsGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             InvoiceItemsGrid.Columns[0].FillWeight = 8;
             InvoiceItemsGrid.Columns[1].FillWeight = 2;
             InvoiceItemsGrid.Columns[2].FillWeight = 3;
             InvoiceItemsGrid.Columns[3].FillWeight = 3.5F;
         }
+
+        public void populateScopeGrid<T>(List<T> gridData)
+        {
+            ScopeGrid.DataSource = null;
+            if (gridData.Count == 0) return;
+           
+            ScopeGrid.DataSource = gridData;
+            ScopeGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            ScopeGrid.Columns[0].FillWeight = 1;
+            ScopeGrid.Columns[1].FillWeight = 4;
+
+        }
+
 
         public void  updateReceiptTotals(decimal totalExVat, decimal Vat, decimal grandTotal) 
         {
@@ -122,7 +138,10 @@ namespace Invoices.src.views
             ItemsList.BackColor = Color.White;
             Quantity.BackColor = Color.White;
             UnitPrice.BackColor = Color.White;
-            
+            InvoiceItemsGrid.BackgroundColor = Color.White;
+            ScopeGrid.BackgroundColor = Color.White;
+            Scope.BackColor = Color.White;
+            ScopeDescription.BackColor = Color.White;
         }
 
         private void clearReceiptInputs() 
@@ -137,17 +156,68 @@ namespace Invoices.src.views
         private void ClearReceiptButton_Click(object sender, EventArgs e)
         {
             invoiceController.clearReceipt();
-            CompanyList.Text = "";
+            CompanyList.SelectedItem = null;
             InvoiceExpiryDate.Value = DateTime.Now;
             resetReceiptInputsColours();
+            ScopeGrid.DataSource = null;
+            InvoiceItemsGrid.DataSource = null;
         }
 
         private void GenerateInvoiceButton_Click(object sender, EventArgs e)
         {
             resetReceiptInputsColours();
             if (CompanyList.Text == "") { CompanyList.BackColor = errorColour; return; }
+            if (InvoiceItemsGrid.RowCount == 0) { InvoiceItemsGrid.BackgroundColor = errorColour; return; }
+            if (ScopeGrid.RowCount == 0) { ScopeGrid.BackgroundColor = errorColour; return; }
 
             invoiceController.generateInvoice(CompanyList.Text);
+        }
+
+        public void showSuccess() 
+        {
+            
+
+            foreach (Control control in Invoices.Controls) 
+            {
+                if (control.Name == "InvoiceItemsGrid" || control.Name == "ScopeGrid") { } //Do nothing
+                else control.Enabled = false;
+                
+            }
+            SuccessPanel.Visible = true;
+            SuccessPanel.Enabled = true;
+            //SuccessPanel
+        }
+
+        private void SuccessOkButton_Click(object sender, EventArgs e)
+        {
+            foreach (Control control in Invoices.Controls)
+            {
+                if (control.Name == "InvoiceItemsGrid" || control.Name == "ScopeGrid") { } //Do nothing
+                else control.Enabled = true;
+            }
+            SuccessPanel.Visible = false;
+            SuccessPanel.Visible = false;
+        }
+
+        private void AddScopeButton_Click(object sender, EventArgs e)
+        {
+            resetReceiptInputsColours();
+            if (Scope.Text == "") { Scope.BackColor = errorColour; return; }
+            if (ScopeDescription.Text == "") { ScopeDescription.BackColor = errorColour; return; }
+
+            invoiceController.addScopeItem(Scope.Text, ScopeDescription.Text);
+            resetScope();
+        }
+
+        private void resetScope() 
+        {
+            Scope.Text = "";
+            ScopeDescription.Text = "";
+        }
+
+        private void resetScopeColors() 
+        {
+
         }
     }
 }

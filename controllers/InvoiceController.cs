@@ -83,10 +83,23 @@ namespace Invoices.src.controllers
 
         public void generateInvoice(string companyName) 
         {
-            invoiceModel.generateReceipt(companyName);
-            invoiceModel.clearReceipt();
-            invoiceView.populateItemsGrid(invoiceModel.getInvoiceItems());
-            invoiceView.updateReceiptTotals(invoiceModel.getReceiptTotal(), invoiceModel.getVat(), invoiceModel.getGrandTotal());
+            bool generated = invoiceModel.generateReceipt(companyName);
+            if (generated == true) 
+            {
+                invoiceModel.clearReceipt();
+                invoiceView.populateItemsGrid(invoiceModel.getInvoiceItems());
+                invoiceView.populateScopeGrid(invoiceModel.getScopeItems());
+                invoiceView.updateReceiptTotals(invoiceModel.getReceiptTotal(), invoiceModel.getVat(), invoiceModel.getGrandTotal());
+                invoiceView.showSuccess();
+                return;
+            }
+
+        }
+
+        public void addScopeItem(string scope, string description) 
+        {
+            invoiceModel.addScopeItem(scope, description);
+            invoiceView.populateScopeGrid(invoiceModel.getScopeItems());
         }
 
     }

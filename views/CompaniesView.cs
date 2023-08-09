@@ -21,12 +21,14 @@ namespace Invoices.src.views
 
         public void populateCompaniesGrid<GridData>(List<GridData> gridData) 
         {
+            if (gridData.Count == 0) return;
             CompaniesGridView.DataSource = null;
             //This is binding the data grid view to the source gridData.
             //To change modify the data grid view, you need to modify the source.
             CompaniesGridView.DataSource = gridData;
 
             CompaniesGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            CompaniesGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             CompaniesGridView.Columns[0].FillWeight = 0.5F;
             CompaniesGridView.Columns[1].FillWeight = 2;
             CompaniesGridView.Columns[2].FillWeight = 6;

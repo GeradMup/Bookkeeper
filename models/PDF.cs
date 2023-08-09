@@ -88,7 +88,7 @@ namespace Invoices.src.models
             filePath = Constants.INVOICES_PATH + fileName + ".pdf";
         }
 
-        public void createPDF(Company company, List<InvoiceComment> comments, List<InvoiceItem> invoiceItems)
+        public void createPDF(Company company, List<ScopeItem> scopeItems, List<InvoiceItem> invoiceItems, List<decimal> totals)
         {
             // Must have write permissions to the path folder
             PdfDocument pdf = new PdfDocument(new PdfWriter(filePath));
@@ -96,6 +96,8 @@ namespace Invoices.src.models
 
             Document document = new Document(pdf);
             document.SetMargins(150f, 0f, 100f, 0f);
+            //PdfFont docFont = PdfFontFactory.CreateFont(FontProgram.)
+            //document.SetFont(new PdfFont())
 
             //pdf.AddEventHandler(PdfDocumentEvent.START_PAGE, new DocumentHeaderAndFooter(document));
             DocumentHeaderAndFooter firstPage = new DocumentHeaderAndFooter(document);
@@ -106,8 +108,8 @@ namespace Invoices.src.models
 
             addCompanyInfo(document);
             addCustomerInfo(document, company);
-            addComments(document, comments);
-            addPricesTable(document, invoiceItems);
+            addScopeItems(document, scopeItems);
+            addPricesTable(document, invoiceItems, totals);
             addFinalComment(document);
             document.Close();
 
@@ -147,7 +149,7 @@ namespace Invoices.src.models
             document.Add(customerInfoP);
         }
 
-        private void addComments(Document document, List<InvoiceComment> comments) 
+        private void addScopeItems(Document document, List<ScopeItem> scopeItems) 
         {
             Paragraph commentParagraph = creatParagraph(TextAlignment.LEFT);
             List itemsList = new List(ListNumberingType.DECIMAL);
@@ -156,7 +158,7 @@ namespace Invoices.src.models
             itemsList.SetMarginLeft(HORIZONTAL_MARGIN);
             itemsList.SetMarginRight(HORIZONTAL_MARGIN);
             
-            foreach (InvoiceComment comment in comments) 
+            foreach (ScopeItem comment in scopeItems) 
             {
                
                 Text titleText = new Text(comment.Title + " : ");
@@ -206,7 +208,7 @@ namespace Invoices.src.models
                 pricesTable.AddCell(formatAmount(item.TotalPrice));
             }
 
-            addTableTotals(296250, 44437, 340687, pricesTable);
+            addTableTotals(totals, pricesTable);
 
 
             Paragraph pricesTableParagraph = creatParagraph(TextAlignment.LEFT);
@@ -214,10 +216,10 @@ namespace Invoices.src.models
             document.Add(pricesTableParagraph);
         }
 
-        private void addTableTotals(decimal total, decimal vat, decimal grandTotal, Table table) 
+        private void addTableTotals(List<decimal> amounts, Table table) 
         {
             string[] descriptions = { "Total", "VAT", "Grand Total" };
-            decimal[] amounts = { total, vat, grandTotal };
+            
             for (int totalsRow = 0; totalsRow < 3; totalsRow++) 
             {
                 Cell blankCell = new Cell();
