@@ -69,9 +69,9 @@ namespace Invoices.src.models
         }
     }
 
-    public class ReceiptItem
+    public class InvoiceItem
     {
-        public ReceiptItem(string name, decimal quantity, decimal unitPrice) 
+        public InvoiceItem(string name, decimal quantity, decimal unitPrice) 
         {
             this.Name = name;
             this.Quantity = quantity;

@@ -12,7 +12,7 @@ namespace Invoices.src.models
 //        InvoiceController invoiceController;
         TextFiles textFiles;
         List<Company> companies = new List<Company>();
-        List<ReceiptItem> invoiceItems = new List<ReceiptItem>();
+        List<InvoiceItem> invoiceItems = new List<InvoiceItem>();
         private decimal receiptTotal;
         private decimal vat;
         private decimal grandTotal;
@@ -59,7 +59,7 @@ namespace Invoices.src.models
 
         public void addItem(string name, decimal quantity, decimal unitPrice) 
         {
-            ReceiptItem newItem = new ReceiptItem(name, quantity, unitPrice);
+            InvoiceItem newItem = new InvoiceItem(name, quantity, unitPrice);
             invoiceItems.Add(newItem);
             receiptTotal = invoiceItems.Sum(item => item.TotalPrice);
             vat = (Constants.VAT_PERCENTAGE/100) * receiptTotal;
@@ -74,7 +74,7 @@ namespace Invoices.src.models
             grandTotal = 0;
         }
 
-        public List<ReceiptItem> getInvoiceItems() 
+        public List<InvoiceItem> getInvoiceItems() 
         {
             return invoiceItems;
         }

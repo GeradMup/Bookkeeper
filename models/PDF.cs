@@ -24,6 +24,7 @@ namespace Invoices.src.models
         string filePath;
         const int STANDARD_FONT_SIZE = 12;
         const int BIG_FONT_SIZE = 15;
+        const int MARGIN = 40;
 
         public PDF(string fileName)
         {
@@ -42,6 +43,7 @@ namespace Invoices.src.models
             addCompanyInfo(document);
             addCustomerInfo(document, company);
             addComments(document, comments);
+            addPricesTable(document);
             document.Close();
         }
 
@@ -111,17 +113,48 @@ namespace Invoices.src.models
                
             }
 
+            Text scopeText = new Text("Scope of Work");
+            scopeText.SetBold();
+            scopeText.SetUnderline();
+
+            commentParagraph.Add(scopeText);
             commentParagraph.Add(itemsList);
             document.Add(commentParagraph);
         }
 
+        private void addPricesTable(Document document) 
+        {
+            float[] columnWidths = { 300f, 20f, 90f, 90f };
+            Table pricesTable = new Table(columnWidths);
+            pricesTable.SetMargin(MARGIN);
+            pricesTable.UseAllAvailableWidth();
+
+            pricesTable.AddHeaderCell(tableHeader("Description"));
+            pricesTable.AddHeaderCell(tableHeader("QTY"));
+            pricesTable.AddHeaderCell(tableHeader("Price/Unit"));
+            pricesTable.AddHeaderCell(tableHeader("Total Price"));
+
+            document.Add(pricesTable);
+        }
         Paragraph creatParagraph(TextAlignment alignment) 
         {
             Paragraph newParagraph = new Paragraph();
             newParagraph.SetTextAlignment(alignment);
-            newParagraph.SetMargin(40);
+            newParagraph.SetMargin(MARGIN);
             newParagraph.SetFixedLeading(15f);
             return newParagraph;
+        }
+
+        Cell tableHeader(string headerName) 
+        {
+            Cell headerCell = new Cell();
+            Text headerText = new Text(headerName);
+            headerText.SetBold();
+            headerText.SetFontSize(STANDARD_FONT_SIZE);
+
+            headerCell.Add(new Paragraph(headerText));
+
+            return headerCell;
         }
     }
 }

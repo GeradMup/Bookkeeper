@@ -98,13 +98,13 @@ namespace Invoices.src.views
 
         private void AddItemButton_Click(object sender, EventArgs e)
         {
-            if (!validReceiptItemInputs()) return;
+            if (!validInvoiceItemInputs()) return;
 
             invoiceController.addItem(ItemsList.Text, Quantity.Value, UnitPrice.Value);
             clearReceiptInputs();
         }
 
-        private bool validReceiptItemInputs() 
+        private bool validInvoiceItemInputs() 
         {
             resetReceiptInputsColours();
 
