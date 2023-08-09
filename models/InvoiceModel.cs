@@ -101,7 +101,7 @@ namespace Invoices.src.models
             string fileName = companyName + " " + date;
             PDF pdf = new PDF(fileName);
 
-            //pdf.createPDF();
+            pdf.createPDF();
         }
         
     }

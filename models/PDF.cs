@@ -18,6 +18,8 @@ using iText.IO.Image;
 using iText.Kernel.Colors;
 using iText.Kernel.Events;
 using iText.Kernel.Geom;
+using iText.Layout.Borders;
+using System.Globalization;
 
 namespace Invoices.src.models
 {
@@ -106,6 +108,7 @@ namespace Invoices.src.models
             addCustomerInfo(document, company);
             addComments(document, comments);
             addPricesTable(document, invoiceItems);
+            addFinalComment(document);
             document.Close();
 
 
@@ -183,11 +186,12 @@ namespace Invoices.src.models
 
         }
 
-        private void addPricesTable(Document document, List<InvoiceItem> items) 
+        private void addPricesTable(Document document, List<InvoiceItem> items, List<decimal> totals = null) 
         {
-            float[] columnWidths = { 300f, 20f, 90f, 90f };
+            float[] columnWidths = { 300f, 20f, 90f, 110f };
             Table pricesTable = new Table(columnWidths);
             pricesTable.UseAllAvailableWidth();
+            pricesTable.SetFontSize(STANDARD_FONT_SIZE - 1);
 
             pricesTable.AddHeaderCell(tableHeader("Description"));
             pricesTable.AddHeaderCell(tableHeader("QTY"));
@@ -198,14 +202,70 @@ namespace Invoices.src.models
             {
                 pricesTable.AddCell(item.Name);
                 pricesTable.AddCell(item.Quantity.ToString());
-                pricesTable.AddCell(item.UnitPrice.ToString());
-                pricesTable.AddCell(item.TotalPrice.ToString());
+                pricesTable.AddCell(formatAmount(item.UnitPrice));
+                pricesTable.AddCell(formatAmount(item.TotalPrice));
             }
+
+            addTableTotals(296250, 44437, 340687, pricesTable);
+
 
             Paragraph pricesTableParagraph = creatParagraph(TextAlignment.LEFT);
             pricesTableParagraph.Add(pricesTable);
             document.Add(pricesTableParagraph);
         }
+
+        private void addTableTotals(decimal total, decimal vat, decimal grandTotal, Table table) 
+        {
+            string[] descriptions = { "Total", "VAT", "Grand Total" };
+            decimal[] amounts = { total, vat, grandTotal };
+            for (int totalsRow = 0; totalsRow < 3; totalsRow++) 
+            {
+                Cell blankCell = new Cell();
+                blankCell.SetBorder(Border.NO_BORDER);
+
+                table.AddCell(blankCell);
+                table.AddCell(blankCell);
+
+                Paragraph totalsDescription = new Paragraph();
+                Text totalsText = new Text(descriptions[totalsRow]);
+                totalsText.SetBold();
+                totalsDescription.Add(totalsText);
+
+                table.AddCell(totalsDescription);
+
+                Paragraph totalsAmount = new Paragraph();
+                Text totalsAmountText = new Text(formatAmount(amounts[totalsRow]));
+                totalsAmountText.SetBold();
+                totalsAmount.Add(totalsAmountText);
+
+                table.AddCell(totalsAmount);
+            }
+        }
+
+        private string formatAmount(decimal amount) 
+        {
+            var nfi = (NumberFormatInfo)CultureInfo.InvariantCulture.NumberFormat.Clone();
+            nfi.NumberGroupSeparator = " ";
+            string number ="R " +  amount.ToString("#,0.00", nfi);
+            return number;
+        }
+
+        private void addFinalComment(Document document) 
+        {
+            string finalComment = "We trust that all the above is correct. Please contact the office for any queries.\nThis quote is valid for 30 days.";
+            Paragraph paragraph = creatParagraph(TextAlignment.LEFT);
+            
+            paragraph.SetBorder(new SolidBorder(Border.SOLID));
+            paragraph.SetPadding(3);
+
+            Text text = new Text(finalComment);
+            text.SetBold();
+            
+
+            paragraph.Add(text);
+            document.Add(paragraph);
+        }
+
         Paragraph creatParagraph(TextAlignment alignment) 
         {
             Paragraph newParagraph = new Paragraph();
