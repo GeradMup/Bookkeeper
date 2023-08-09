@@ -30,6 +30,7 @@ namespace Invoices.src.views
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.EditCompaniesOptions = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.ADD = new System.Windows.Forms.ToolStripMenuItem();
             this.EDIT = new System.Windows.Forms.ToolStripMenuItem();
@@ -70,8 +71,6 @@ namespace Invoices.src.views
             this.SuccessOkButton = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.InvoiceItemsGrid = new System.Windows.Forms.DataGridView();
-            this.Quotes = new System.Windows.Forms.TabPage();
-            this.History = new System.Windows.Forms.TabPage();
             this.Companies = new System.Windows.Forms.TabPage();
             this.EditCompaniesPanel = new System.Windows.Forms.Panel();
             this.NewCompanyZipCode = new System.Windows.Forms.NumericUpDown();
@@ -85,6 +84,7 @@ namespace Invoices.src.views
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.CompaniesGridView = new System.Windows.Forms.DataGridView();
+            this.History = new System.Windows.Forms.TabPage();
             this.Setup = new System.Windows.Forms.TabPage();
             this.EditCompaniesOptions.SuspendLayout();
             this.Tabs.SuspendLayout();
@@ -138,9 +138,8 @@ namespace Invoices.src.views
             // Tabs
             // 
             this.Tabs.Controls.Add(this.Invoices);
-            this.Tabs.Controls.Add(this.Quotes);
-            this.Tabs.Controls.Add(this.History);
             this.Tabs.Controls.Add(this.Companies);
+            this.Tabs.Controls.Add(this.History);
             this.Tabs.Controls.Add(this.Setup);
             this.Tabs.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Tabs.Font = new System.Drawing.Font("Cambria", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -587,25 +586,6 @@ namespace Invoices.src.views
             this.InvoiceItemsGrid.Size = new System.Drawing.Size(753, 300);
             this.InvoiceItemsGrid.TabIndex = 3;
             // 
-            // Quotes
-            // 
-            this.Quotes.Location = new System.Drawing.Point(4, 28);
-            this.Quotes.Name = "Quotes";
-            this.Quotes.Padding = new System.Windows.Forms.Padding(3);
-            this.Quotes.Size = new System.Drawing.Size(1413, 741);
-            this.Quotes.TabIndex = 1;
-            this.Quotes.Text = "Quotes";
-            this.Quotes.UseVisualStyleBackColor = true;
-            // 
-            // History
-            // 
-            this.History.Location = new System.Drawing.Point(4, 28);
-            this.History.Name = "History";
-            this.History.Size = new System.Drawing.Size(1413, 741);
-            this.History.TabIndex = 2;
-            this.History.Text = "History";
-            this.History.UseVisualStyleBackColor = true;
-            // 
             // Companies
             // 
             this.Companies.Controls.Add(this.EditCompaniesPanel);
@@ -748,6 +728,15 @@ namespace Invoices.src.views
             this.CompaniesGridView.TabIndex = 0;
             this.CompaniesGridView.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.CompaniesGridView_CellEndEdit);
             // 
+            // History
+            // 
+            this.History.Location = new System.Drawing.Point(4, 28);
+            this.History.Name = "History";
+            this.History.Size = new System.Drawing.Size(1413, 741);
+            this.History.TabIndex = 2;
+            this.History.Text = "History";
+            this.History.UseVisualStyleBackColor = true;
+            // 
             // Setup
             // 
             this.Setup.Location = new System.Drawing.Point(4, 28);
@@ -765,9 +754,10 @@ namespace Invoices.src.views
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(1421, 773);
             this.Controls.Add(this.Tabs);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainWindow";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Book Keeper";
+            this.Text = "Bookkeeper";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.EditCompaniesOptions.ResumeLayout(false);
             this.Tabs.ResumeLayout(false);
@@ -802,7 +792,6 @@ namespace Invoices.src.views
         private System.Windows.Forms.ContextMenuStrip EditCompaniesOptions;
         private System.Windows.Forms.TabControl Tabs;
         private System.Windows.Forms.TabPage Invoices;
-        private System.Windows.Forms.TabPage Quotes;
         private System.Windows.Forms.TabPage History;
         private System.Windows.Forms.TabPage Setup;
         private System.Windows.Forms.ComboBox CompanyList;
