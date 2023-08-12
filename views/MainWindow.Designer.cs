@@ -71,6 +71,8 @@ namespace Invoices.src.views
             this.SuccessOkButton = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.InvoiceItemsGrid = new System.Windows.Forms.DataGridView();
+            this.InvoiceItemsOptions = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.DeleteItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Companies = new System.Windows.Forms.TabPage();
             this.EditCompaniesPanel = new System.Windows.Forms.Panel();
             this.NewCompanyContactEmail = new System.Windows.Forms.TextBox();
@@ -94,8 +96,16 @@ namespace Invoices.src.views
             this.CompaniesGridView = new System.Windows.Forms.DataGridView();
             this.History = new System.Windows.Forms.TabPage();
             this.Setup = new System.Windows.Forms.TabPage();
-            this.InvoiceItemsOptions = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.DeleteItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.OurCompanySubmitButton = new System.Windows.Forms.Button();
+            this.OurCompanyNewButton = new System.Windows.Forms.Button();
+            this.OurCompanyVendorNumber = new System.Windows.Forms.TextBox();
+            this.OurCompanyVatNumber = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.OurCompanies = new System.Windows.Forms.ComboBox();
+            this.OurCompanyEditButton = new System.Windows.Forms.Button();
             this.EditCompaniesOptions.SuspendLayout();
             this.Tabs.SuspendLayout();
             this.Invoices.SuspendLayout();
@@ -111,11 +121,13 @@ namespace Invoices.src.views
             ((System.ComponentModel.ISupportInitialize)(this.ScopeGrid)).BeginInit();
             this.SuccessPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.InvoiceItemsGrid)).BeginInit();
+            this.InvoiceItemsOptions.SuspendLayout();
             this.Companies.SuspendLayout();
             this.EditCompaniesPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NewCompanyZipCode)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.CompaniesGridView)).BeginInit();
-            this.InvoiceItemsOptions.SuspendLayout();
+            this.Setup.SuspendLayout();
+            this.panel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // EditCompaniesOptions
@@ -601,6 +613,20 @@ namespace Invoices.src.views
             this.InvoiceItemsGrid.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.InvoiceItemsGrid_CellEndEdit);
             this.InvoiceItemsGrid.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.InvoiceItemsGrid_DataError);
             // 
+            // InvoiceItemsOptions
+            // 
+            this.InvoiceItemsOptions.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.DeleteItem});
+            this.InvoiceItemsOptions.Name = "InvoiceItemsOptions";
+            this.InvoiceItemsOptions.Size = new System.Drawing.Size(113, 26);
+            this.InvoiceItemsOptions.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.InvoiceItemsOptions_ItemClicked);
+            // 
+            // DeleteItem
+            // 
+            this.DeleteItem.Name = "DeleteItem";
+            this.DeleteItem.Size = new System.Drawing.Size(112, 22);
+            this.DeleteItem.Text = "DELETE";
+            // 
             // Companies
             // 
             this.Companies.Controls.Add(this.EditCompaniesPanel);
@@ -826,6 +852,7 @@ namespace Invoices.src.views
             // 
             // Setup
             // 
+            this.Setup.Controls.Add(this.panel4);
             this.Setup.Location = new System.Drawing.Point(4, 28);
             this.Setup.Name = "Setup";
             this.Setup.Size = new System.Drawing.Size(1413, 741);
@@ -833,19 +860,111 @@ namespace Invoices.src.views
             this.Setup.Text = "Setup";
             this.Setup.UseVisualStyleBackColor = true;
             // 
-            // InvoiceItemsOptions
+            // panel4
             // 
-            this.InvoiceItemsOptions.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.DeleteItem});
-            this.InvoiceItemsOptions.Name = "InvoiceItemsOptions";
-            this.InvoiceItemsOptions.Size = new System.Drawing.Size(113, 26);
-            this.InvoiceItemsOptions.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.InvoiceItemsOptions_ItemClicked);
+            this.panel4.BackColor = System.Drawing.Color.Ivory;
+            this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel4.Controls.Add(this.OurCompanyEditButton);
+            this.panel4.Controls.Add(this.OurCompanySubmitButton);
+            this.panel4.Controls.Add(this.OurCompanyNewButton);
+            this.panel4.Controls.Add(this.OurCompanyVendorNumber);
+            this.panel4.Controls.Add(this.OurCompanyVatNumber);
+            this.panel4.Controls.Add(this.label15);
+            this.panel4.Controls.Add(this.label14);
+            this.panel4.Controls.Add(this.label13);
+            this.panel4.Controls.Add(this.OurCompanies);
+            this.panel4.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.panel4.Location = new System.Drawing.Point(3, 3);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(508, 235);
+            this.panel4.TabIndex = 2;
             // 
-            // DeleteItem
+            // OurCompanySubmitButton
             // 
-            this.DeleteItem.Name = "DeleteItem";
-            this.DeleteItem.Size = new System.Drawing.Size(112, 22);
-            this.DeleteItem.Text = "DELETE";
+            this.OurCompanySubmitButton.BackColor = System.Drawing.Color.DarkSeaGreen;
+            this.OurCompanySubmitButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.OurCompanySubmitButton.Location = new System.Drawing.Point(341, 170);
+            this.OurCompanySubmitButton.Name = "OurCompanySubmitButton";
+            this.OurCompanySubmitButton.Size = new System.Drawing.Size(138, 43);
+            this.OurCompanySubmitButton.TabIndex = 7;
+            this.OurCompanySubmitButton.Text = "SUBMIT";
+            this.OurCompanySubmitButton.UseVisualStyleBackColor = false;
+            // 
+            // OurCompanyNewButton
+            // 
+            this.OurCompanyNewButton.BackColor = System.Drawing.Color.DarkSeaGreen;
+            this.OurCompanyNewButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.OurCompanyNewButton.Location = new System.Drawing.Point(193, 170);
+            this.OurCompanyNewButton.Name = "OurCompanyNewButton";
+            this.OurCompanyNewButton.Size = new System.Drawing.Size(132, 43);
+            this.OurCompanyNewButton.TabIndex = 6;
+            this.OurCompanyNewButton.Text = "NEW";
+            this.OurCompanyNewButton.UseVisualStyleBackColor = false;
+            // 
+            // OurCompanyVendorNumber
+            // 
+            this.OurCompanyVendorNumber.Location = new System.Drawing.Point(193, 112);
+            this.OurCompanyVendorNumber.Name = "OurCompanyVendorNumber";
+            this.OurCompanyVendorNumber.ReadOnly = true;
+            this.OurCompanyVendorNumber.Size = new System.Drawing.Size(286, 26);
+            this.OurCompanyVendorNumber.TabIndex = 5;
+            // 
+            // OurCompanyVatNumber
+            // 
+            this.OurCompanyVatNumber.Location = new System.Drawing.Point(193, 65);
+            this.OurCompanyVatNumber.Name = "OurCompanyVatNumber";
+            this.OurCompanyVatNumber.ReadOnly = true;
+            this.OurCompanyVatNumber.Size = new System.Drawing.Size(286, 26);
+            this.OurCompanyVatNumber.TabIndex = 4;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(27, 112);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(125, 19);
+            this.label15.TabIndex = 3;
+            this.label15.Text = "Vendor Number";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(27, 66);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(100, 19);
+            this.label14.TabIndex = 2;
+            this.label14.Text = "VAT Number";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(27, 18);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(77, 19);
+            this.label13.TabIndex = 1;
+            this.label13.Text = "Company";
+            // 
+            // OurCompanies
+            // 
+            this.OurCompanies.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.OurCompanies.FormattingEnabled = true;
+            this.OurCompanies.Location = new System.Drawing.Point(195, 15);
+            this.OurCompanies.Name = "OurCompanies";
+            this.OurCompanies.Size = new System.Drawing.Size(284, 27);
+            this.OurCompanies.TabIndex = 0;
+            this.OurCompanies.SelectedIndexChanged += new System.EventHandler(this.OurCompanies_SelectedIndexChanged);
+            // 
+            // OurCompanyEditButton
+            // 
+            this.OurCompanyEditButton.BackColor = System.Drawing.Color.DarkSeaGreen;
+            this.OurCompanyEditButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.OurCompanyEditButton.Location = new System.Drawing.Point(31, 170);
+            this.OurCompanyEditButton.Name = "OurCompanyEditButton";
+            this.OurCompanyEditButton.Size = new System.Drawing.Size(132, 43);
+            this.OurCompanyEditButton.TabIndex = 8;
+            this.OurCompanyEditButton.Text = "EDIT";
+            this.OurCompanyEditButton.UseVisualStyleBackColor = false;
+            this.OurCompanyEditButton.Click += new System.EventHandler(this.OurCompanyEditButton_Click);
             // 
             // MainWindow
             // 
@@ -882,13 +1001,16 @@ namespace Invoices.src.views
             this.SuccessPanel.ResumeLayout(false);
             this.SuccessPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.InvoiceItemsGrid)).EndInit();
+            this.InvoiceItemsOptions.ResumeLayout(false);
             this.Companies.ResumeLayout(false);
             this.Companies.PerformLayout();
             this.EditCompaniesPanel.ResumeLayout(false);
             this.EditCompaniesPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NewCompanyZipCode)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.CompaniesGridView)).EndInit();
-            this.InvoiceItemsOptions.ResumeLayout(false);
+            this.Setup.ResumeLayout(false);
+            this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -959,5 +1081,15 @@ namespace Invoices.src.views
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.ContextMenuStrip InvoiceItemsOptions;
         private System.Windows.Forms.ToolStripMenuItem DeleteItem;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Button OurCompanySubmitButton;
+        private System.Windows.Forms.Button OurCompanyNewButton;
+        private System.Windows.Forms.TextBox OurCompanyVendorNumber;
+        private System.Windows.Forms.TextBox OurCompanyVatNumber;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.ComboBox OurCompanies;
+        private System.Windows.Forms.Button OurCompanyEditButton;
     }
 }

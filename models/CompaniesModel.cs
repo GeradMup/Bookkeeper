@@ -91,7 +91,7 @@ namespace Invoices.src.models
             //First convert the company information to a list of strings
             foreach (Company company in companies)
             {
-                allCompanies.Add(company.companyToString());
+                allCompanies.Add(company.companyToList());
             }
 
             //Save the new information to the file and then read the file again

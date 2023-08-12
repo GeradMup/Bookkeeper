@@ -19,6 +19,8 @@ namespace Invoices.src.controllers
         InvoiceModel invoiceModel;
         CompaniesModel companiesModel;
         CompaniesController companiesController;
+        SetupModel setupModel;
+        SetupController setupController;
 
         public MainController() 
         {
@@ -28,9 +30,12 @@ namespace Invoices.src.controllers
             invoiceController = new InvoiceController(mainWindow, invoiceModel);
             companiesModel = new CompaniesModel();
             companiesController = new CompaniesController(companiesModel, mainWindow, invoiceController.getCallBack());
-
+            setupModel = new SetupModel();
+            setupController = new SetupController(setupModel, mainWindow);
 
             invoiceController.initializeInvoice();
+            //Assign controllers to the relevant views
+            
         }
 
         //Returns the created instance of mainWindow

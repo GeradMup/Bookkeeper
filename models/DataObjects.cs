@@ -64,7 +64,7 @@ namespace Invoices.src.models
         }
 
         //Converts all the properties of the company to a list of strings
-        public List<string> companyToString() 
+        public List<string> companyToList() 
         {
             List<String> myList = new List<string>();
             myList.Add(this.Number.ToString());
@@ -111,5 +111,44 @@ namespace Invoices.src.models
 
         public string Title { get; set; }
         public string Comment { get; set; }
+    }
+
+    public class OurCompany 
+    {
+        public OurCompany(List<string> companyInfo) => 
+            (Name, VatNumber, VendorNumber, CurrentlySelected) = (companyInfo[0], companyInfo[1], companyInfo[2], companyInfo[3]);
+        
+        public string Name { get; set; }
+        public string VatNumber { get; set; }
+        public string VendorNumber { get; set; }
+        public string CurrentlySelected { get; set; }
+
+        public List<string> companyToList() 
+        {
+            List<string> companyDetails = new List<string>();
+
+            companyDetails.Add(this.Name);
+            companyDetails.Add(this.VatNumber);
+            companyDetails.Add(this.VendorNumber);
+            companyDetails.Add(this.CurrentlySelected);
+
+            return companyDetails;
+        }
+
+        public void equateTo(OurCompany company) 
+        {
+            this.Name = company.Name;
+            this.VatNumber = company.VatNumber;
+            this.VendorNumber = company.VendorNumber;
+        }
+
+        public bool isEqualTo(OurCompany company) 
+        {
+            if (this.Name == company.Name
+                || this.VatNumber == company.VatNumber
+                || this.VendorNumber == company.VendorNumber
+               ) return true;
+            else return false;
+        }
     }
 }
