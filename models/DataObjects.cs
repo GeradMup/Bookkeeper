@@ -90,10 +90,15 @@ namespace Invoices.src.models
             this.TotalPrice = quantity * unitPrice;
         }
 
-            public string Name { get; set; }
-            public decimal Quantity { get; set; }
-            public decimal UnitPrice { get; set; }
-            public decimal TotalPrice { get; set; }
+        public string Name { get; set; }
+        public decimal Quantity { get; set; }
+        public decimal UnitPrice { get; set; }
+        public decimal TotalPrice { get; set; }
+
+        public void recalculateTotalPrice() 
+        {
+            this.TotalPrice = this.Quantity * this.UnitPrice;
+        }
     }
 
     public class ScopeItem 

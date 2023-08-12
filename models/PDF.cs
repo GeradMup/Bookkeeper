@@ -20,6 +20,7 @@ using iText.Kernel.Events;
 using iText.Kernel.Geom;
 using iText.Layout.Borders;
 using System.Globalization;
+using System.Diagnostics;
 
 namespace Invoices.src.models
 {
@@ -113,7 +114,8 @@ namespace Invoices.src.models
             addFinalComment(document);
             document.Close();
 
-
+            //Open the folder where the new invoice has been created and stored.
+            Process.Start(Constants.INVOICES_PATH);
         }
 
         private void addCompanyInfo(Document document) 

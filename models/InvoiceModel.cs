@@ -67,6 +67,19 @@ namespace Invoices.src.models
             grandTotal = receiptTotal + vat;
         }
 
+        //We need to re-calcutate the total for each item if the ivoice gets edited.
+        public void invoiceEdited() 
+        {
+            foreach (InvoiceItem item in invoiceItems) 
+            {
+                item.recalculateTotalPrice();
+            }
+
+            receiptTotal = invoiceItems.Sum(item => item.TotalPrice);
+            vat = (Constants.VAT_PERCENTAGE / 100) * receiptTotal;
+            grandTotal = receiptTotal + vat;
+        }
+
         public List<InvoiceItem> getInvoiceItems() 
         {
             return invoiceItems;

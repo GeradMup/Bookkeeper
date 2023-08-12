@@ -102,5 +102,12 @@ namespace Invoices.src.controllers
             invoiceView.populateScopeGrid(invoiceModel.getScopeItems());
         }
 
+        public void invoiceEdited() 
+        {
+            invoiceModel.invoiceEdited();
+            invoiceView.populateItemsGrid(invoiceModel.getInvoiceItems());
+            invoiceView.updateReceiptTotals(invoiceModel.getReceiptTotal(), invoiceModel.getVat(), invoiceModel.getGrandTotal());
+        }
+
     }
 }

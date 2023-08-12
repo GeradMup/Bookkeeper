@@ -73,6 +73,14 @@ namespace Invoices.src.views
             this.InvoiceItemsGrid = new System.Windows.Forms.DataGridView();
             this.Companies = new System.Windows.Forms.TabPage();
             this.EditCompaniesPanel = new System.Windows.Forms.Panel();
+            this.NewCompanyContactEmail = new System.Windows.Forms.TextBox();
+            this.NewCompanyContactNumbers = new System.Windows.Forms.TextBox();
+            this.NewCompanyContactTitle = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.NewCompanyContactPerson = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
             this.NewCompanyZipCode = new System.Windows.Forms.NumericUpDown();
             this.NewCompanyCity = new System.Windows.Forms.TextBox();
             this.NewCompanyAddress = new System.Windows.Forms.TextBox();
@@ -86,14 +94,6 @@ namespace Invoices.src.views
             this.CompaniesGridView = new System.Windows.Forms.DataGridView();
             this.History = new System.Windows.Forms.TabPage();
             this.Setup = new System.Windows.Forms.TabPage();
-            this.label9 = new System.Windows.Forms.Label();
-            this.NewCompanyContactPerson = new System.Windows.Forms.TextBox();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.NewCompanyContactTitle = new System.Windows.Forms.TextBox();
-            this.NewCompanyContactNumbers = new System.Windows.Forms.TextBox();
-            this.NewCompanyContactEmail = new System.Windows.Forms.TextBox();
             this.EditCompaniesOptions.SuspendLayout();
             this.Tabs.SuspendLayout();
             this.Invoices.SuspendLayout();
@@ -184,16 +184,16 @@ namespace Invoices.src.views
             this.panel3.Controls.Add(this.label7);
             this.panel3.Location = new System.Drawing.Point(4, 315);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(639, 178);
+            this.panel3.Size = new System.Drawing.Size(639, 155);
             this.panel3.TabIndex = 18;
             // 
             // AddScopeButton
             // 
             this.AddScopeButton.BackColor = System.Drawing.Color.DarkSeaGreen;
             this.AddScopeButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.AddScopeButton.Location = new System.Drawing.Point(146, 123);
+            this.AddScopeButton.Location = new System.Drawing.Point(146, 105);
             this.AddScopeButton.Name = "AddScopeButton";
-            this.AddScopeButton.Size = new System.Drawing.Size(185, 41);
+            this.AddScopeButton.Size = new System.Drawing.Size(185, 31);
             this.AddScopeButton.TabIndex = 4;
             this.AddScopeButton.Text = "ADD ";
             this.AddScopeButton.UseVisualStyleBackColor = false;
@@ -210,7 +210,7 @@ namespace Invoices.src.views
             // 
             this.ScopeDescription.Location = new System.Drawing.Point(147, 50);
             this.ScopeDescription.Name = "ScopeDescription";
-            this.ScopeDescription.Size = new System.Drawing.Size(476, 64);
+            this.ScopeDescription.Size = new System.Drawing.Size(476, 46);
             this.ScopeDescription.TabIndex = 2;
             this.ScopeDescription.Text = "";
             // 
@@ -245,7 +245,7 @@ namespace Invoices.src.views
             this.panel2.Controls.Add(this.Totals);
             this.panel2.Controls.Add(this.label5);
             this.panel2.Controls.Add(this.Vat);
-            this.panel2.Location = new System.Drawing.Point(656, 602);
+            this.panel2.Location = new System.Drawing.Point(656, 604);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(753, 131);
             this.panel2.TabIndex = 17;
@@ -257,7 +257,7 @@ namespace Invoices.src.views
             this.ClearReceiptButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.ClearReceiptButton.Location = new System.Drawing.Point(11, 14);
             this.ClearReceiptButton.Name = "ClearReceiptButton";
-            this.ClearReceiptButton.Size = new System.Drawing.Size(200, 42);
+            this.ClearReceiptButton.Size = new System.Drawing.Size(246, 42);
             this.ClearReceiptButton.TabIndex = 13;
             this.ClearReceiptButton.Text = "Clear Receipt";
             this.ClearReceiptButton.UseVisualStyleBackColor = false;
@@ -285,9 +285,9 @@ namespace Invoices.src.views
             this.GenerateInvoiceButton.BackColor = System.Drawing.Color.DarkSeaGreen;
             this.GenerateInvoiceButton.FlatAppearance.BorderSize = 2;
             this.GenerateInvoiceButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.GenerateInvoiceButton.Location = new System.Drawing.Point(11, 73);
+            this.GenerateInvoiceButton.Location = new System.Drawing.Point(11, 72);
             this.GenerateInvoiceButton.Name = "GenerateInvoiceButton";
-            this.GenerateInvoiceButton.Size = new System.Drawing.Size(200, 42);
+            this.GenerateInvoiceButton.Size = new System.Drawing.Size(246, 42);
             this.GenerateInvoiceButton.TabIndex = 4;
             this.GenerateInvoiceButton.Text = "Generate Invoice";
             this.GenerateInvoiceButton.UseVisualStyleBackColor = false;
@@ -543,7 +543,7 @@ namespace Invoices.src.views
             this.ScopeGrid.Location = new System.Drawing.Point(656, 315);
             this.ScopeGrid.Margin = new System.Windows.Forms.Padding(1);
             this.ScopeGrid.Name = "ScopeGrid";
-            this.ScopeGrid.Size = new System.Drawing.Size(753, 279);
+            this.ScopeGrid.Size = new System.Drawing.Size(753, 285);
             this.ScopeGrid.TabIndex = 15;
             // 
             // SuccessPanel
@@ -552,9 +552,9 @@ namespace Invoices.src.views
             this.SuccessPanel.BackColor = System.Drawing.Color.Lime;
             this.SuccessPanel.Controls.Add(this.SuccessOkButton);
             this.SuccessPanel.Controls.Add(this.label6);
-            this.SuccessPanel.Location = new System.Drawing.Point(3, 625);
+            this.SuccessPanel.Location = new System.Drawing.Point(3, 637);
             this.SuccessPanel.Name = "SuccessPanel";
-            this.SuccessPanel.Size = new System.Drawing.Size(417, 108);
+            this.SuccessPanel.Size = new System.Drawing.Size(417, 96);
             this.SuccessPanel.TabIndex = 14;
             this.SuccessPanel.Visible = false;
             // 
@@ -593,6 +593,8 @@ namespace Invoices.src.views
             this.InvoiceItemsGrid.Name = "InvoiceItemsGrid";
             this.InvoiceItemsGrid.Size = new System.Drawing.Size(753, 300);
             this.InvoiceItemsGrid.TabIndex = 3;
+            this.InvoiceItemsGrid.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.InvoiceItemsGrid_CellEndEdit);
+            this.InvoiceItemsGrid.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.InvoiceItemsGrid_DataError);
             // 
             // Companies
             // 
@@ -635,6 +637,70 @@ namespace Invoices.src.views
             this.EditCompaniesPanel.Size = new System.Drawing.Size(759, 480);
             this.EditCompaniesPanel.TabIndex = 1;
             this.EditCompaniesPanel.Visible = false;
+            // 
+            // NewCompanyContactEmail
+            // 
+            this.NewCompanyContactEmail.Location = new System.Drawing.Point(219, 374);
+            this.NewCompanyContactEmail.Name = "NewCompanyContactEmail";
+            this.NewCompanyContactEmail.Size = new System.Drawing.Size(487, 26);
+            this.NewCompanyContactEmail.TabIndex = 17;
+            // 
+            // NewCompanyContactNumbers
+            // 
+            this.NewCompanyContactNumbers.Location = new System.Drawing.Point(219, 323);
+            this.NewCompanyContactNumbers.Name = "NewCompanyContactNumbers";
+            this.NewCompanyContactNumbers.Size = new System.Drawing.Size(487, 26);
+            this.NewCompanyContactNumbers.TabIndex = 16;
+            // 
+            // NewCompanyContactTitle
+            // 
+            this.NewCompanyContactTitle.Location = new System.Drawing.Point(219, 273);
+            this.NewCompanyContactTitle.Name = "NewCompanyContactTitle";
+            this.NewCompanyContactTitle.Size = new System.Drawing.Size(487, 26);
+            this.NewCompanyContactTitle.TabIndex = 15;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(41, 377);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(51, 19);
+            this.label12.TabIndex = 14;
+            this.label12.Text = "Email";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(41, 326);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(136, 19);
+            this.label11.TabIndex = 13;
+            this.label11.Text = "Contact Numbers";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(41, 273);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(43, 19);
+            this.label10.TabIndex = 12;
+            this.label10.Text = "Title";
+            // 
+            // NewCompanyContactPerson
+            // 
+            this.NewCompanyContactPerson.Location = new System.Drawing.Point(219, 224);
+            this.NewCompanyContactPerson.Name = "NewCompanyContactPerson";
+            this.NewCompanyContactPerson.Size = new System.Drawing.Size(487, 26);
+            this.NewCompanyContactPerson.TabIndex = 11;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(39, 227);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(121, 19);
+            this.label9.TabIndex = 10;
+            this.label9.Text = "Contact Person";
             // 
             // NewCompanyZipCode
             // 
@@ -762,70 +828,6 @@ namespace Invoices.src.views
             this.Setup.Text = "Setup";
             this.Setup.UseVisualStyleBackColor = true;
             // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(39, 227);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(121, 19);
-            this.label9.TabIndex = 10;
-            this.label9.Text = "Contact Person";
-            // 
-            // NewCompanyContactPerson
-            // 
-            this.NewCompanyContactPerson.Location = new System.Drawing.Point(219, 224);
-            this.NewCompanyContactPerson.Name = "NewCompanyContactPerson";
-            this.NewCompanyContactPerson.Size = new System.Drawing.Size(487, 26);
-            this.NewCompanyContactPerson.TabIndex = 11;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(41, 273);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(43, 19);
-            this.label10.TabIndex = 12;
-            this.label10.Text = "Title";
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(41, 326);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(136, 19);
-            this.label11.TabIndex = 13;
-            this.label11.Text = "Contact Numbers";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(41, 377);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(51, 19);
-            this.label12.TabIndex = 14;
-            this.label12.Text = "Email";
-            // 
-            // NewCompanyContactTitle
-            // 
-            this.NewCompanyContactTitle.Location = new System.Drawing.Point(219, 273);
-            this.NewCompanyContactTitle.Name = "NewCompanyContactTitle";
-            this.NewCompanyContactTitle.Size = new System.Drawing.Size(487, 26);
-            this.NewCompanyContactTitle.TabIndex = 15;
-            // 
-            // NewCompanyContactNumbers
-            // 
-            this.NewCompanyContactNumbers.Location = new System.Drawing.Point(219, 323);
-            this.NewCompanyContactNumbers.Name = "NewCompanyContactNumbers";
-            this.NewCompanyContactNumbers.Size = new System.Drawing.Size(487, 26);
-            this.NewCompanyContactNumbers.TabIndex = 16;
-            // 
-            // NewCompanyContactEmail
-            // 
-            this.NewCompanyContactEmail.Location = new System.Drawing.Point(219, 374);
-            this.NewCompanyContactEmail.Name = "NewCompanyContactEmail";
-            this.NewCompanyContactEmail.Size = new System.Drawing.Size(487, 26);
-            this.NewCompanyContactEmail.TabIndex = 17;
-            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -834,7 +836,10 @@ namespace Invoices.src.views
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(1421, 773);
             this.Controls.Add(this.Tabs);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "MainWindow";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Bookkeeper";

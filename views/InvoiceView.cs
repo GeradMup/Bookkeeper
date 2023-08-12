@@ -90,6 +90,11 @@ namespace Invoices.src.views
             InvoiceItemsGrid.Columns[1].FillWeight = 2;
             InvoiceItemsGrid.Columns[2].FillWeight = 3;
             InvoiceItemsGrid.Columns[3].FillWeight = 3.5F;
+
+            InvoiceItemsGrid.Columns[2].DefaultCellStyle.Format = "#,0.###";
+            InvoiceItemsGrid.Columns[3].DefaultCellStyle.Format = "#,0.###";
+
+            InvoiceItemsGrid.Columns[3].ReadOnly = true;
         }
 
         public void populateScopeGrid<T>(List<T> gridData)
@@ -171,12 +176,12 @@ namespace Invoices.src.views
             if (ScopeGrid.RowCount == 0) { ScopeGrid.BackgroundColor = errorColour; return; }
 
             invoiceController.generateInvoice(CompanyList.Text);
+            CompanyList.SelectedItem = null;
         }
 
         public void showSuccess() 
         {
             
-
             foreach (Control control in Invoices.Controls) 
             {
                 if (control.Name == "InvoiceItemsGrid" || control.Name == "ScopeGrid") { } //Do nothing
@@ -215,9 +220,21 @@ namespace Invoices.src.views
             ScopeDescription.Text = "";
         }
 
-        private void resetScopeColors() 
+        private void InvoiceItemsGrid_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
+            
+            MessageBox.Show("Incorrect Value. Please enter a number!");
+        }
 
+        private void InvoiceItemsGrid_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            if (InvoiceItemsGrid.CurrentCell.Value.ToString() == "") 
+            {
+                MessageBox.Show("Incorrect Value. Please enter a number!");
+                return;
+            }
+
+            invoiceController.invoiceEdited();
         }
     }
 }
