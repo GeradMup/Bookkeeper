@@ -30,10 +30,15 @@ namespace Invoices.src.views
             CompaniesGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             CompaniesGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             CompaniesGridView.Columns[0].FillWeight = 0.5F;
-            CompaniesGridView.Columns[1].FillWeight = 2;
-            CompaniesGridView.Columns[2].FillWeight = 6;
-            CompaniesGridView.Columns[3].FillWeight = 2;
+            CompaniesGridView.Columns[1].FillWeight = 1.5F;
+            CompaniesGridView.Columns[2].FillWeight = 4;
+            CompaniesGridView.Columns[3].FillWeight = 1;
             CompaniesGridView.Columns[4].FillWeight = 1;
+            CompaniesGridView.Columns[5].FillWeight = 1.5F;
+            CompaniesGridView.Columns[6].FillWeight = 1;
+            CompaniesGridView.Columns[7].FillWeight = 1;
+            CompaniesGridView.Columns[8].FillWeight = 2;
+
         }
 
         private void CompaniesGridView_CellEndEdit(object sender, DataGridViewCellEventArgs e)
@@ -76,6 +81,10 @@ namespace Invoices.src.views
                 NewCompanyAddress.Text = CompaniesGridView.Rows[currentRow].Cells[2].Value.ToString();
                 NewCompanyCity.Text = CompaniesGridView.Rows[currentRow].Cells[3].Value.ToString();
                 NewCompanyZipCode.Value = Decimal.Parse(CompaniesGridView.Rows[currentRow].Cells[4].Value.ToString());
+                NewCompanyContactPerson.Text = CompaniesGridView.Rows[currentRow].Cells[5].Value.ToString();
+                NewCompanyContactTitle.Text = CompaniesGridView.Rows[currentRow].Cells[6].Value.ToString();
+                NewCompanyContactNumbers.Text = CompaniesGridView.Rows[currentRow].Cells[7].Value.ToString();
+                NewCompanyContactEmail.Text = CompaniesGridView.Rows[currentRow].Cells[8].Value.ToString();
             }
             else if (e.ClickedItem.ToString() == "ADD")
             {
@@ -99,14 +108,24 @@ namespace Invoices.src.views
         {
             if (!validNewCompanyInputs()) return;
 
+            List<string> companyInfo = new List<string>();
+            companyInfo.Add(NewCompanyName.Text);
+            companyInfo.Add(NewCompanyAddress.Text);
+            companyInfo.Add(NewCompanyCity.Text);
+            companyInfo.Add(NewCompanyZipCode.Value.ToString());
+            companyInfo.Add(NewCompanyContactPerson.Text);
+            companyInfo.Add(NewCompanyContactTitle.Text);
+            companyInfo.Add(NewCompanyContactNumbers.Text);
+            companyInfo.Add(NewCompanyContactEmail.Text);
+
             if (newCompany == false)
             {
                 int currentRow = CompaniesGridView.CurrentCell.RowIndex;
-                companiesController.editCompanies(currentRow, NewCompanyName.Text, NewCompanyAddress.Text, NewCompanyCity.Text, NewCompanyZipCode.Value);
+                companiesController.editCompanies(currentRow, companyInfo);
             }
             else 
             {
-                companiesController.addCompany(NewCompanyName.Text, NewCompanyAddress.Text, NewCompanyCity.Text, NewCompanyZipCode.Value);
+                companiesController.addCompany(companyInfo);
             }
 
             CompaniesGridView.Refresh();
@@ -151,6 +170,10 @@ namespace Invoices.src.views
             NewCompanyAddress.Text = "";
             NewCompanyCity.Text = "";
             NewCompanyZipCode.Value = 0;
+            NewCompanyContactPerson.Text = "";
+            NewCompanyContactNumbers.Text = "";
+            NewCompanyContactTitle.Text = "";
+            NewCompanyContactEmail.Text = "";
         }
     }
 }

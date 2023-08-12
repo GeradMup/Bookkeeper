@@ -52,11 +52,12 @@ namespace Invoices.src.models
         /// Updates the companies.
         /// </summary>
         /// <returns>True if the companies were successfully modified, false otherwise</returns>
-        public bool updateCompanies(int number, string name, string address, string city, decimal zipCode) 
+        public bool updateCompanies(int number, List<string> companyInfo) 
         {
             //First check if any of the data was changed or not. If not, there is nothing to do, so exit.
             string companyNumber = (number + 1).ToString();
-            Company modifiedCompany = new Company(new List<String> { companyNumber, name, address, city, zipCode.ToString() });
+            companyInfo.Insert(0, companyNumber);
+            Company modifiedCompany = new Company(companyInfo);
             if (companies[number].isEqualTo(modifiedCompany)) return false;
 
             companies[number].equateTo(modifiedCompany);
@@ -64,10 +65,11 @@ namespace Invoices.src.models
             return true;
         }
 
-        public void addCompany(string name, string address, string city, decimal zipCode) 
+        public void addCompany(List<string> companyInfo) 
         {
             string nextCompanyNumber = (companies.Count() + 1).ToString();
-            companies.Add(new Company(new List<String> { nextCompanyNumber, name, address, city, zipCode.ToString() }));
+            companyInfo.Insert(0, nextCompanyNumber);
+            companies.Add(new Company(companyInfo));
             updateAllCompanies();
         }
 

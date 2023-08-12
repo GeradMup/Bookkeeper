@@ -28,9 +28,9 @@ namespace Invoices.src.controllers
             companiesWindow.populateCompaniesGrid(companiesModel.getCompanies());
         }
 
-        public void editCompanies(int number, string name, string address, string city, decimal zipCode) 
+        public void editCompanies(int number, List<string> companyinfo) 
         {
-            bool companiesUpdated = companiesModel.updateCompanies(number, name, address, city, zipCode);
+            bool companiesUpdated = companiesModel.updateCompanies(number, companyinfo);
             if (companiesUpdated == true)
             {
                 bool readFirst = true;
@@ -39,9 +39,9 @@ namespace Invoices.src.controllers
             }
         }
 
-        public void addCompany(string name, string address, string city, decimal zipCode) 
+        public void addCompany(List<string> companyinfo) 
         {
-            companiesModel.addCompany(name, address, city, zipCode);
+            companiesModel.addCompany(companyinfo);
             bool readFirst = true;
             companiesWindow.populateCompaniesGrid(companiesModel.getCompanies(readFirst));
             updatedInvoiceCompanies(readFirst);

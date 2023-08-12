@@ -140,7 +140,13 @@ namespace Invoices.src.models
             Paragraph customerInfoP = creatParagraph(TextAlignment.LEFT);
 
             string address = company.Address.Replace(",", "\n");
-            string customerInfoText = "To:\n" + company.Name + "\n" + address + "\n" + company.Town;
+            string customerInfoText = "To:\n" + company.Name + "\n" + address + "\n" + company.Town + "\n" + company.AreaCode + "\n\n" ;
+
+            if (company.ContactPerson != "") customerInfoText = customerInfoText + company.ContactPerson + "\n";
+            if (company.Title != "") customerInfoText = customerInfoText + company.Title + "\n";
+            if (company.Numbers != "") customerInfoText = customerInfoText + company.Numbers + "\n";
+            if (company.Email != "") customerInfoText = customerInfoText + company.Email + "\n";
+
             Text customerText = new Text(customerInfoText);
             customerText.SetFontSize(STANDARD_FONT_SIZE);
             customerText.SetBold();

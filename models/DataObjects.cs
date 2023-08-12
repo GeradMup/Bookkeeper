@@ -12,11 +12,15 @@ namespace Invoices.src.models
         {
             if (allValues != null)
             {
-                Number = Int16.Parse(allValues[0]);
-                Name = allValues[1];
-                Address = allValues[2];
-                Town = allValues[3];
-                AreaCode = Int32.Parse(allValues[4]);
+                Number = Int16.Parse(allValues[0].Trim());
+                Name = allValues[1].Trim();
+                Address = allValues[2].Trim();
+                Town = allValues[3].Trim();
+                AreaCode = Int32.Parse(allValues[4].Trim());
+                ContactPerson = allValues[5].Trim();
+                Title = allValues[6].Trim();
+                Numbers = allValues[7].Trim();
+                Email = allValues[8].Trim();
             }
         }
 
@@ -25,6 +29,10 @@ namespace Invoices.src.models
         public string Address { get; set; }
         public string Town { get; set; }
         public Int32 AreaCode { get; set; }
+        public string ContactPerson { get; set; }
+        public string Title { get; set; }
+        public string Numbers { get; set; }
+        public string Email { get; set; }
 
         //Checks if this company is equal to another company
         public bool isEqualTo(Company company)
@@ -33,7 +41,11 @@ namespace Invoices.src.models
                 && this.Name == company.Name
                 && this.Address == company.Address
                 && this.Town == company.Town
-                && this.AreaCode == company.AreaCode) return true;
+                && this.AreaCode == company.AreaCode
+                && this.ContactPerson == company.ContactPerson
+                && this.Title == company.Title
+                && this.Numbers == company.Numbers
+                && this.Email == company.Email) return true;
             else return false;
         }
 
@@ -45,26 +57,25 @@ namespace Invoices.src.models
             this.Address = company.Address;
             this.Town = company.Town;
             this.AreaCode = company.AreaCode;
+            this.ContactPerson = company.ContactPerson;
+            this.Title = company.Title;
+            this.Numbers = company.Numbers;
+            this.Email = company.Email;
         }
 
-        //Sets all the properties of the class from a list of strings
-        public void setAll(List<String> allValues) 
-        {
-            Number = Int16.Parse(allValues[0]);
-            Name = allValues[1];
-            Address = allValues[2];
-            Town = allValues[3];
-            AreaCode = Int32.Parse(allValues[4]);
-        }
-
+        //Converts all the properties of the company to a list of strings
         public List<string> companyToString() 
         {
             List<String> myList = new List<string>();
             myList.Add(this.Number.ToString());
-            myList.Add(this.Name.ToString());
-            myList.Add(this.Address.ToString());
-            myList.Add(this.Town.ToString());
+            myList.Add(this.Name);
+            myList.Add(this.Address);
+            myList.Add(this.Town);
             myList.Add(this.AreaCode.ToString());
+            myList.Add(this.ContactPerson);
+            myList.Add(this.Title);
+            myList.Add(this.Numbers);
+            myList.Add(this.Email);
             return myList;
         }
     }

@@ -19,7 +19,7 @@ namespace Invoices.src.views
         public MainWindow()
         {
             InitializeComponent();
-
         }
+
     }
 }
