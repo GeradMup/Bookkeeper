@@ -109,5 +109,12 @@ namespace Invoices.src.controllers
             invoiceView.updateReceiptTotals(invoiceModel.getReceiptTotal(), invoiceModel.getVat(), invoiceModel.getGrandTotal());
         }
 
+        public void removeInvoiceItem(int rowNumber) 
+        {
+            invoiceModel.removeItem(rowNumber);
+            invoiceView.populateItemsGrid(invoiceModel.getInvoiceItems());
+            invoiceView.updateReceiptTotals(invoiceModel.getReceiptTotal(), invoiceModel.getVat(), invoiceModel.getGrandTotal());
+        }
+
     }
 }

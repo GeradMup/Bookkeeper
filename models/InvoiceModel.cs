@@ -58,13 +58,19 @@ namespace Invoices.src.models
             return companyNames;
         }
 
+        //Works out the total amounts on the invoice
+        void calculateTotals() 
+        {
+            receiptTotal = invoiceItems.Sum(item => item.TotalPrice);
+            vat = (Constants.VAT_PERCENTAGE / 100) * receiptTotal;
+            grandTotal = receiptTotal + vat;
+        }
+
         public void addItem(string name, decimal quantity, decimal unitPrice) 
         {
             InvoiceItem newItem = new InvoiceItem(name, quantity, unitPrice);
             invoiceItems.Add(newItem);
-            receiptTotal = invoiceItems.Sum(item => item.TotalPrice);
-            vat = (Constants.VAT_PERCENTAGE/100) * receiptTotal;
-            grandTotal = receiptTotal + vat;
+            calculateTotals();
         }
 
         //We need to re-calcutate the total for each item if the ivoice gets edited.
@@ -74,10 +80,13 @@ namespace Invoices.src.models
             {
                 item.recalculateTotalPrice();
             }
+            calculateTotals();
+        }
 
-            receiptTotal = invoiceItems.Sum(item => item.TotalPrice);
-            vat = (Constants.VAT_PERCENTAGE / 100) * receiptTotal;
-            grandTotal = receiptTotal + vat;
+        public void removeItem(int rowNumber) 
+        {
+            invoiceItems.RemoveAt(rowNumber);
+            calculateTotals();
         }
 
         public List<InvoiceItem> getInvoiceItems() 

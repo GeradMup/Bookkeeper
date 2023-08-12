@@ -94,6 +94,8 @@ namespace Invoices.src.views
             this.CompaniesGridView = new System.Windows.Forms.DataGridView();
             this.History = new System.Windows.Forms.TabPage();
             this.Setup = new System.Windows.Forms.TabPage();
+            this.InvoiceItemsOptions = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.DeleteItem = new System.Windows.Forms.ToolStripMenuItem();
             this.EditCompaniesOptions.SuspendLayout();
             this.Tabs.SuspendLayout();
             this.Invoices.SuspendLayout();
@@ -113,6 +115,7 @@ namespace Invoices.src.views
             this.EditCompaniesPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NewCompanyZipCode)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.CompaniesGridView)).BeginInit();
+            this.InvoiceItemsOptions.SuspendLayout();
             this.SuspendLayout();
             // 
             // EditCompaniesOptions
@@ -587,12 +590,14 @@ namespace Invoices.src.views
             | System.Windows.Forms.AnchorStyles.Right)));
             this.InvoiceItemsGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.InvoiceItemsGrid.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.InvoiceItemsGrid.ContextMenuStrip = this.InvoiceItemsOptions;
             this.InvoiceItemsGrid.GridColor = System.Drawing.SystemColors.ControlDarkDark;
             this.InvoiceItemsGrid.Location = new System.Drawing.Point(656, 6);
             this.InvoiceItemsGrid.Margin = new System.Windows.Forms.Padding(1);
             this.InvoiceItemsGrid.Name = "InvoiceItemsGrid";
             this.InvoiceItemsGrid.Size = new System.Drawing.Size(753, 300);
             this.InvoiceItemsGrid.TabIndex = 3;
+            this.InvoiceItemsGrid.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.InvoiceItemsGrid_CellBeginEdit);
             this.InvoiceItemsGrid.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.InvoiceItemsGrid_CellEndEdit);
             this.InvoiceItemsGrid.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.InvoiceItemsGrid_DataError);
             // 
@@ -828,6 +833,20 @@ namespace Invoices.src.views
             this.Setup.Text = "Setup";
             this.Setup.UseVisualStyleBackColor = true;
             // 
+            // InvoiceItemsOptions
+            // 
+            this.InvoiceItemsOptions.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.DeleteItem});
+            this.InvoiceItemsOptions.Name = "InvoiceItemsOptions";
+            this.InvoiceItemsOptions.Size = new System.Drawing.Size(113, 26);
+            this.InvoiceItemsOptions.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.InvoiceItemsOptions_ItemClicked);
+            // 
+            // DeleteItem
+            // 
+            this.DeleteItem.Name = "DeleteItem";
+            this.DeleteItem.Size = new System.Drawing.Size(112, 22);
+            this.DeleteItem.Text = "DELETE";
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -869,6 +888,7 @@ namespace Invoices.src.views
             this.EditCompaniesPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NewCompanyZipCode)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.CompaniesGridView)).EndInit();
+            this.InvoiceItemsOptions.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -937,5 +957,7 @@ namespace Invoices.src.views
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox NewCompanyContactPerson;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.ContextMenuStrip InvoiceItemsOptions;
+        private System.Windows.Forms.ToolStripMenuItem DeleteItem;
     }
 }

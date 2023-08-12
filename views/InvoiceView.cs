@@ -13,6 +13,7 @@ namespace Invoices.src.views
     {
         InvoiceController invoiceController;
         Color errorColour = Color.LightPink;
+        Object previousCellValue = null;
 
         public void initializeReceipt() 
         {
@@ -86,10 +87,10 @@ namespace Invoices.src.views
             
             InvoiceItemsGrid.DataSource = gridData;
             InvoiceItemsGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            InvoiceItemsGrid.Columns[0].FillWeight = 8;
-            InvoiceItemsGrid.Columns[1].FillWeight = 2;
-            InvoiceItemsGrid.Columns[2].FillWeight = 3;
-            InvoiceItemsGrid.Columns[3].FillWeight = 3.5F;
+            InvoiceItemsGrid.Columns[0].FillWeight = 8;     //Description
+            InvoiceItemsGrid.Columns[1].FillWeight = 2;     //Quantity
+            InvoiceItemsGrid.Columns[2].FillWeight = 3;     //Unit Price
+            InvoiceItemsGrid.Columns[3].FillWeight = 3.5F;  //Total Price
 
             InvoiceItemsGrid.Columns[2].DefaultCellStyle.Format = "#,0.###";
             InvoiceItemsGrid.Columns[3].DefaultCellStyle.Format = "#,0.###";
@@ -222,19 +223,45 @@ namespace Invoices.src.views
 
         private void InvoiceItemsGrid_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
-            
             MessageBox.Show("Incorrect Value. Please enter a number!");
         }
 
         private void InvoiceItemsGrid_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            if (InvoiceItemsGrid.CurrentCell.Value.ToString() == "") 
+            string inputData = "";
+
+            if (InvoiceItemsGrid.CurrentCell.Value != null)
             {
-                MessageBox.Show("Incorrect Value. Please enter a number!");
-                return;
+                inputData = InvoiceItemsGrid.CurrentCell.Value.ToString().Trim();
+                if (inputData == "")
+                {
+                    MessageBox.Show("Incorrect Value!");
+                    InvoiceItemsGrid.CurrentCell.Value = previousCellValue;
+                    return;
+                }
+                else
+                {
+                    invoiceController.invoiceEdited();
+                }
             }
 
-            invoiceController.invoiceEdited();
+            else 
+            {
+                MessageBox.Show("Incorrect Value!");
+                InvoiceItemsGrid.CurrentCell.Value = previousCellValue;
+            }
+            
+        }
+
+        private void InvoiceItemsGrid_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
+        {
+            previousCellValue = InvoiceItemsGrid.CurrentCell.Value;
+        }
+
+        private void InvoiceItemsOptions_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            if(InvoiceItemsGrid.RowCount == 0) { return; }
+            invoiceController.removeInvoiceItem(InvoiceItemsGrid.CurrentCell.RowIndex);
         }
     }
 }
