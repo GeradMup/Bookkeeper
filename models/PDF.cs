@@ -113,9 +113,6 @@ namespace Invoices.src.models
             addPricesTable(document, invoiceItems, totals);
             addFinalComment(document);
             document.Close();
-
-            //Open the folder where the new invoice has been created and stored.
-            Process.Start(Constants.INVOICES_PATH);
         }
 
         private void addCompanyInfo(Document document) 

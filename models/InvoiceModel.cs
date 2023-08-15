@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -56,6 +57,11 @@ namespace Invoices.src.models
                 companyNames.Add(company.Name);
             }
             return companyNames;
+        }
+
+        public List<string> getCompanyDetails(string name) 
+        {
+            return companies.FirstOrDefault(comp => comp.Name == name).companyToList();
         }
 
         //Works out the total amounts on the invoice
@@ -123,6 +129,13 @@ namespace Invoices.src.models
             
             pdf.createPDF(selectedCompany, scopeItems, invoiceItems, totals);
             return true;
+        }
+
+        //Opens the folder where the newly generated invoice will be.
+        public void showGeneratedInvoice()
+        {
+            //Open the folder where the new invoice has been created and stored.
+            Process.Start(Constants.INVOICES_PATH);
         }
 
         public void clearReceipt() 

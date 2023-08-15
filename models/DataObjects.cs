@@ -62,8 +62,11 @@ namespace Invoices.src.models
             this.Numbers = company.Numbers;
             this.Email = company.Email;
         }
-
-        //Converts all the properties of the company to a list of strings
+       
+        /// <summary>
+        /// Returns all the attributes of the company in a list of strings
+        /// </summary>
+        /// <returns>List<string></string></returns>
         public List<string> companyToList() 
         {
             List<String> myList = new List<string>();

@@ -53,6 +53,8 @@ namespace Invoices.src.views
         //What happens when the selected company changes.
         private void CompanyList_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (CompanyList.SelectedItem == null) return;
+
 
         }
 
@@ -92,7 +94,7 @@ namespace Invoices.src.views
             InvoiceItemsGrid.Columns[2].FillWeight = 3;     //Unit Price
             InvoiceItemsGrid.Columns[3].FillWeight = 3.5F;  //Total Price
 
-            InvoiceItemsGrid.Columns[2].DefaultCellStyle.Format = "#,0.###";
+            InvoiceItemsGrid.Columns[2].DefaultCellStyle.Format = "#,0.###";    //String formatted to comma seperate thousands
             InvoiceItemsGrid.Columns[3].DefaultCellStyle.Format = "#,0.###";
 
             InvoiceItemsGrid.Columns[3].ReadOnly = true;
@@ -107,7 +109,6 @@ namespace Invoices.src.views
             ScopeGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             ScopeGrid.Columns[0].FillWeight = 1;
             ScopeGrid.Columns[1].FillWeight = 4;
-
         }
 
 
@@ -182,13 +183,7 @@ namespace Invoices.src.views
 
         public void showSuccess() 
         {
-            
-            foreach (Control control in Invoices.Controls) 
-            {
-                if (control.Name == "InvoiceItemsGrid" || control.Name == "ScopeGrid") { } //Do nothing
-                else control.Enabled = false;
-                
-            }
+            disableAllControlls();
             SuccessPanel.Visible = true;
             SuccessPanel.Enabled = true;
             //SuccessPanel
@@ -196,13 +191,10 @@ namespace Invoices.src.views
 
         private void SuccessOkButton_Click(object sender, EventArgs e)
         {
-            foreach (Control control in Invoices.Controls)
-            {
-                if (control.Name == "InvoiceItemsGrid" || control.Name == "ScopeGrid") { } //Do nothing
-                else control.Enabled = true;
-            }
+            enableAllControls();
             SuccessPanel.Visible = false;
             SuccessPanel.Visible = false;
+            invoiceController.invoiceGenerationCompleted();
         }
 
         private void AddScopeButton_Click(object sender, EventArgs e)
@@ -262,6 +254,42 @@ namespace Invoices.src.views
         {
             if(InvoiceItemsGrid.RowCount == 0) { return; }
             invoiceController.removeInvoiceItem(InvoiceItemsGrid.CurrentCell.RowIndex);
+        }
+
+        //When we are showing the progress bar or the sucess message box, we would like disable the rest of the controls.
+        void disableAllControlls() 
+        {
+            foreach (Control control in Invoices.Controls)
+            {
+                if (control.Name == "InvoiceItemsGrid" || control.Name == "ScopeGrid") { } //Do nothing
+                else control.Enabled = false;
+            }
+        }
+
+        void enableAllControls() 
+        {
+            foreach (Control control in Invoices.Controls)
+            {
+                if (control.Name == "InvoiceItemsGrid" || control.Name == "ScopeGrid") { } //Do nothing
+                else control.Enabled = true;
+            }
+        }
+
+        public void showLoadingCursor() 
+        {
+            disableAllControlls();
+            Cursor = Cursors.WaitCursor;
+        }
+
+        public void showNormalCursor() 
+        {
+            Cursor = Cursors.Default;
+            enableAllControls();
+        }
+
+        private void ItemsList_Enter(object sender, EventArgs e)
+        {
+            resetReceiptInputsColours();
         }
     }
 }

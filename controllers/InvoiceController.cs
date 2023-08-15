@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Invoices.src.models;
 using Invoices.src.views;
 
@@ -23,7 +20,6 @@ namespace Invoices.src.controllers
         {
             invoiceModel = invoiceModel_;
             invoiceView = invoiceTab;
-            
         }
 
         //public delegate void UpdateCompanies(bool readFirst);
@@ -83,6 +79,7 @@ namespace Invoices.src.controllers
 
         public void generateInvoice(string companyName) 
         {
+            invoiceView.showLoadingCursor();
             bool generated = invoiceModel.generateReceipt(companyName);
             if (generated == true) 
             {
@@ -90,11 +87,23 @@ namespace Invoices.src.controllers
                 invoiceView.populateItemsGrid(invoiceModel.getInvoiceItems());
                 invoiceView.populateScopeGrid(invoiceModel.getScopeItems());
                 invoiceView.updateReceiptTotals(invoiceModel.getReceiptTotal(), invoiceModel.getVat(), invoiceModel.getGrandTotal());
+                invoiceView.showNormalCursor();
                 invoiceView.showSuccess();
                 return;
             }
-
+            invoiceView.showNormalCursor();
         }
+
+        public void recipientChanged(string companyName) 
+        {
+            
+        }
+
+        public void invoiceGenerationCompleted() 
+        {
+            invoiceModel.showGeneratedInvoice();
+        }
+
 
         public void addScopeItem(string scope, string description) 
         {
