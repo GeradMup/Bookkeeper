@@ -12,7 +12,7 @@ namespace Invoices.src.views
     public partial class MainWindow
     {
         CompaniesController companiesController;
-        private bool newCompany;
+        private bool newClient;
 
         public void assignCompaniesController(CompaniesController controller) 
         {
@@ -49,7 +49,7 @@ namespace Invoices.src.views
         {
             if (e.ClickedItem.ToString() == "EDIT")
             {
-                newCompany = false;
+                newClient = false;
                 EditCompaniesPanel.Visible = true;
 
                 int currentRow = CompaniesGridView.CurrentCell.RowIndex;
@@ -65,7 +65,7 @@ namespace Invoices.src.views
             }
             else if (e.ClickedItem.ToString() == "ADD")
             {
-                newCompany = true;
+                newClient = true;
                 EditCompaniesPanel.Visible = true;
             }
             else if (e.ClickedItem.ToString() == "DELETE") 
@@ -96,7 +96,7 @@ namespace Invoices.src.views
             companyInfo.Add(NewCompanyContactNumbers.Text);
             companyInfo.Add(NewCompanyContactEmail.Text);
 
-            if (newCompany == false)
+            if (newClient == false)
             {
                 int currentRow = CompaniesGridView.CurrentCell.RowIndex;
                 companiesController.editCompanies(currentRow, companyInfo);

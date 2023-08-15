@@ -28,5 +28,21 @@ namespace Invoices.src.controllers
             setupView.updateCompanyDetails(setupModel.getCompanyDetails(name));
         }
 
+        public string invoiceLogo(string currentLogo) 
+        {
+            return setupModel.getLogoImageName(currentLogo);
+        }
+
+        public string invoiceFooter(string currentFooter) 
+        {
+            return setupModel.getFooterImageName(currentFooter);
+        }
+
+        public void editOurCompany(OurCompany company) 
+        {
+            setupModel.editOurCompany(company);
+            //setupView.populateCompaniesList(setupModel.getOurCompanyNames());
+        }
+
     }
 }

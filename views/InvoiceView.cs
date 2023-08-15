@@ -195,7 +195,7 @@ namespace Invoices.src.views
             if (InvoiceItemsGrid.RowCount == 0) { InvoiceItemsGrid.BackgroundColor = errorColour; return; }
             if (ScopeGrid.RowCount == 0) { ScopeGrid.BackgroundColor = errorColour; return; }
 
-            invoiceController.generateInvoice(CompanyList.Text);
+            invoiceController.generateInvoice(CompanyList.Text, QuotingCompany.Text);
             CompanyList.SelectedItem = null;
         }
 

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Invoices.src.models
 {
@@ -11,6 +13,9 @@ namespace Invoices.src.models
 
         List<OurCompany> ourCompanies = new List<OurCompany>();
         TextFiles textFiles = new TextFiles();
+        String logoImageName;
+        String footerImageName;
+        Int16 companyNumber;
         public SetupModel()
         {
             loadOurCompanies();
@@ -42,7 +47,12 @@ namespace Invoices.src.models
 
         public string getSelectedCompany() 
         {
-            return ourCompanies.FirstOrDefault(comp => comp.CurrentlySelected == "true").Name;
+            OurCompany selectedCompany = ourCompanies.FirstOrDefault(comp => comp.CurrentlySelected == "true");
+            logoImageName = selectedCompany.LogoImage;
+            footerImageName = selectedCompany.FooterImage;
+            companyNumber = selectedCompany.Number;
+
+            return selectedCompany.Name;
         }
 
         public void saveAllCompanies() 
@@ -69,6 +79,42 @@ namespace Invoices.src.models
             saveAllCompanies();
 
             return selectedCompany.companyToList();
+        }
+
+        public string getLogoImageName(string currentLogo) 
+        {
+            logoImageName = fileNameFromDialogBox();
+            return logoImageName == "" ? currentLogo: logoImageName;
+        }
+
+        public string getFooterImageName(string currentFooter) 
+        {
+            footerImageName = fileNameFromDialogBox();
+            return logoImageName == "" ? currentFooter : footerImageName;
+        }
+
+        private string fileNameFromDialogBox() 
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            DialogResult result = openFileDialog.ShowDialog();
+
+            if (result == DialogResult.OK)
+            {
+                string fileName = openFileDialog.FileName;
+
+                int index = fileName.LastIndexOf("\\") + 1;
+                fileName = fileName.Substring(index);
+                return fileName;
+            }
+            return "";
+        }
+
+        public void editOurCompany(OurCompany modifiedCompany) 
+        {
+            OurCompany company = ourCompanies.FirstOrDefault(comp => comp.Number == companyNumber);
+            company.equateTo(modifiedCompany);
+
+            saveAllCompanies();
         }
     }
 }

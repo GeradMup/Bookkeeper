@@ -134,7 +134,7 @@ namespace Invoices.src.models
             return receiptTotal;
         }
 
-        public bool generateReceipt(string companyName) 
+        public bool generateReceipt(string companyName, string ourCompanyName) 
         {
             if (invoiceItems.Count == 0) return false;
             string date = DateTime.Now.ToString("dddd dd MMMM yyyy");
@@ -143,25 +143,11 @@ namespace Invoices.src.models
 
             //Get company details based on user selection
             Company selectedCompany = companies.FirstOrDefault(comp => comp.Name == companyName);
-
+            OurCompany ourCompany = ourCompanies.FirstOrDefault(comp => comp.Name == ourCompanyName);
             List<decimal> totals = new List<decimal> { receiptTotal, vat, grandTotal };
 
-            string ourCompany = getOurCompany();
-            string logoPath;
-            string footerPath;
-
-            if (ourCompany == "Doryoku")
-            {
-                logoPath = Constants.DORYOKU_LOGO_PATH;
-                footerPath = Constants.DORYOKU_FOOTER_PATH;
-            }
-            else 
-            {
-                logoPath = Constants.PINKY_LOGO_PATH;
-                footerPath = Constants.PINKY_FOOTER_PATH;
-            }
          
-            pdf.createPDF(selectedCompany, scopeItems, invoiceItems, totals, logoPath, footerPath);
+            pdf.createPDF(selectedCompany, scopeItems, invoiceItems, totals, ourCompany);
             return true;
         }
 

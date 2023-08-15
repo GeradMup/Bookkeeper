@@ -93,7 +93,7 @@ namespace Invoices.src.models
             filePath = Constants.INVOICES_PATH + fileName + ".pdf";
         }
 
-        public void createPDF(Company company, List<ScopeItem> scopeItems, List<InvoiceItem> invoiceItems, List<decimal> totals, string logoPath, string footerPath)
+        public void createPDF(Company company, List<ScopeItem> scopeItems, List<InvoiceItem> invoiceItems, List<decimal> totals, OurCompany ourCompany)
         {
             // Must have write permissions to the path folder
             PdfDocument pdf = new PdfDocument(new PdfWriter(filePath));
@@ -104,12 +104,14 @@ namespace Invoices.src.models
             //PdfFont docFont = PdfFontFactory.CreateFont(FontProgram.)
             //document.SetFont(new PdfFont())
 
+            string logoPath = Constants.RESOURCES_DIRECTORY + ourCompany.LogoImage;
+            string footerPath = Constants.RESOURCES_DIRECTORY + ourCompany.FooterImage;
             //pdf.AddEventHandler(PdfDocumentEvent.START_PAGE, new DocumentHeaderAndFooter(document));
             DocumentHeaderAndFooter firstPage = new DocumentHeaderAndFooter(document, logoPath, footerPath);
             firstPage.firstPage();
             pdf.AddEventHandler(PdfDocumentEvent.END_PAGE, new DocumentHeaderAndFooter(document, logoPath, footerPath));
 
-            addCompanyInfo(document);
+            addCompanyInfo(document, ourCompany);
             addCustomerInfo(document, company);
             addScopeItems(document, scopeItems);
             addPricesTable(document, invoiceItems, totals);
@@ -117,7 +119,7 @@ namespace Invoices.src.models
             document.Close();
         }
 
-        private void addCompanyInfo(Document document) 
+        private void addCompanyInfo(Document document, OurCompany ourCompany) 
         {
             Paragraph companyInfo = creatParagraph(TextAlignment.RIGHT);
 
@@ -127,7 +129,7 @@ namespace Invoices.src.models
             quote.SetFontColor(ColorConstants.RED);
 
             string dateString = DateTime.Now.ToString("dd MMMM yyyy");
-            Text line1 = new Text($"Dory/0082\n VAT: 4780313955\n Vendor Number: 58545826 \n { dateString }");
+            Text line1 = new Text($"{ourCompany.Name}/0082\n VAT: {ourCompany.VatNumber}\n Vendor Number: {ourCompany.VendorNumber} \n { dateString }");
             line1.SetFontSize(STANDARD_FONT_SIZE);
             line1.SetBold();
                 
