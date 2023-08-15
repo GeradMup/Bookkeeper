@@ -22,6 +22,12 @@ namespace Invoices.src.views
             ReceiptVat.Controls[0].Visible = false;
         }
 
+        public void updateQuotingCompany(string companyName = "") 
+        {
+            if (companyName == "") { invoiceController.ourCompanyChanged(); return; }
+            QuotingCompany.Text = companyName;
+        }
+
         public void assignInvoiceController(InvoiceController controller)
         {
             invoiceController = controller;
@@ -61,12 +67,13 @@ namespace Invoices.src.views
             string colon = ": ";
             RecipientName.Text = colon + companyInfo[1];
             RecipientAddress.Text = colon + companyInfo[2];
-            RecipientTown.Text = colon + companyInfo[3];
-            RecipientZipCode.Text = colon + companyInfo[4];
-            RecipientRepresentative.Text = colon + companyInfo[5];
-            RecipientTitle.Text = colon + companyInfo[6];
-            RecipientNumbers.Text = colon + companyInfo[7];
-            RecipientEmail.Text = colon + companyInfo[8];
+            RecipientVat.Text = colon + companyInfo[3];
+            RecipientTown.Text = colon + companyInfo[4];
+            RecipientZipCode.Text = colon + companyInfo[5];
+            RecipientRepresentative.Text = colon + companyInfo[6];
+            RecipientTitle.Text = colon + companyInfo[7];
+            RecipientNumbers.Text = colon + companyInfo[8];
+            RecipientEmail.Text = colon + companyInfo[9];
         }
 
         //What happens when the selected item changes

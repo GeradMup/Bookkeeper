@@ -29,6 +29,7 @@ namespace Invoices.src.views
             //There is no need to check if valid data has been inserted because the user does not type the data
             //So that means data selected will always be valid.
             setupController.companySelected(OurCompanies.Text);
+            updateQuotingCompany();
         }
 
         private void OurCompanyEditButton_Click(object sender, EventArgs e)

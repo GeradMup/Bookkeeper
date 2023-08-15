@@ -37,6 +37,9 @@ namespace Invoices.src.views
             this.DELETE = new System.Windows.Forms.ToolStripMenuItem();
             this.Tabs = new System.Windows.Forms.TabControl();
             this.Invoices = new System.Windows.Forms.TabPage();
+            this.SuccessPanel = new System.Windows.Forms.Panel();
+            this.SuccessOkButton = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.AddScopeButton = new System.Windows.Forms.Button();
             this.Scope = new System.Windows.Forms.TextBox();
@@ -53,6 +56,8 @@ namespace Invoices.src.views
             this.label5 = new System.Windows.Forms.Label();
             this.Vat = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.QuotingCompany = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
             this.AddItemButton = new System.Windows.Forms.Button();
             this.TotalPriceLabel = new System.Windows.Forms.Label();
             this.TotalPrice = new System.Windows.Forms.NumericUpDown();
@@ -67,14 +72,30 @@ namespace Invoices.src.views
             this.Quantity = new System.Windows.Forms.NumericUpDown();
             this.ItemNameLabel = new System.Windows.Forms.Label();
             this.ScopeGrid = new System.Windows.Forms.DataGridView();
-            this.SuccessPanel = new System.Windows.Forms.Panel();
-            this.SuccessOkButton = new System.Windows.Forms.Button();
-            this.label6 = new System.Windows.Forms.Label();
             this.InvoiceItemsGrid = new System.Windows.Forms.DataGridView();
             this.InvoiceItemsOptions = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.DeleteItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.CompanyDetailspPanel = new System.Windows.Forms.Panel();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.RecipientEmail = new System.Windows.Forms.Label();
+            this.RecipientTown = new System.Windows.Forms.Label();
+            this.RecipientZipCode = new System.Windows.Forms.Label();
+            this.RecipientRepresentative = new System.Windows.Forms.Label();
+            this.RecipientTitle = new System.Windows.Forms.Label();
+            this.RecipientNumbers = new System.Windows.Forms.Label();
+            this.RecipientAddress = new System.Windows.Forms.Label();
+            this.RecipientName = new System.Windows.Forms.Label();
             this.Companies = new System.Windows.Forms.TabPage();
             this.EditCompaniesPanel = new System.Windows.Forms.Panel();
+            this.label25 = new System.Windows.Forms.Label();
+            this.NewCompanyVat = new System.Windows.Forms.TextBox();
             this.NewCompanyContactEmail = new System.Windows.Forms.TextBox();
             this.NewCompanyContactNumbers = new System.Windows.Forms.TextBox();
             this.NewCompanyContactTitle = new System.Windows.Forms.TextBox();
@@ -106,26 +127,12 @@ namespace Invoices.src.views
             this.label14 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.OurCompanies = new System.Windows.Forms.ComboBox();
-            this.CompanyDetailspPanel = new System.Windows.Forms.Panel();
-            this.RecipientName = new System.Windows.Forms.Label();
-            this.RecipientAddress = new System.Windows.Forms.Label();
-            this.RecipientNumbers = new System.Windows.Forms.Label();
-            this.RecipientTitle = new System.Windows.Forms.Label();
-            this.RecipientRepresentative = new System.Windows.Forms.Label();
-            this.RecipientZipCode = new System.Windows.Forms.Label();
-            this.RecipientTown = new System.Windows.Forms.Label();
-            this.RecipientEmail = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
-            this.label19 = new System.Windows.Forms.Label();
-            this.label20 = new System.Windows.Forms.Label();
-            this.label21 = new System.Windows.Forms.Label();
-            this.label22 = new System.Windows.Forms.Label();
-            this.label23 = new System.Windows.Forms.Label();
+            this.label26 = new System.Windows.Forms.Label();
+            this.RecipientVat = new System.Windows.Forms.Label();
             this.EditCompaniesOptions.SuspendLayout();
             this.Tabs.SuspendLayout();
             this.Invoices.SuspendLayout();
+            this.SuccessPanel.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ReceiptGrandTotal)).BeginInit();
@@ -136,16 +143,15 @@ namespace Invoices.src.views
             ((System.ComponentModel.ISupportInitialize)(this.UnitPrice)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Quantity)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ScopeGrid)).BeginInit();
-            this.SuccessPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.InvoiceItemsGrid)).BeginInit();
             this.InvoiceItemsOptions.SuspendLayout();
+            this.CompanyDetailspPanel.SuspendLayout();
             this.Companies.SuspendLayout();
             this.EditCompaniesPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NewCompanyZipCode)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.CompaniesGridView)).BeginInit();
             this.Setup.SuspendLayout();
             this.panel4.SuspendLayout();
-            this.CompanyDetailspPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // EditCompaniesOptions
@@ -187,7 +193,7 @@ namespace Invoices.src.views
             this.Tabs.Location = new System.Drawing.Point(0, 0);
             this.Tabs.Name = "Tabs";
             this.Tabs.SelectedIndex = 0;
-            this.Tabs.Size = new System.Drawing.Size(1421, 818);
+            this.Tabs.Size = new System.Drawing.Size(1421, 786);
             this.Tabs.TabIndex = 2;
             // 
             // Invoices
@@ -202,10 +208,42 @@ namespace Invoices.src.views
             this.Invoices.Location = new System.Drawing.Point(4, 28);
             this.Invoices.Name = "Invoices";
             this.Invoices.Padding = new System.Windows.Forms.Padding(3);
-            this.Invoices.Size = new System.Drawing.Size(1413, 786);
+            this.Invoices.Size = new System.Drawing.Size(1413, 754);
             this.Invoices.TabIndex = 0;
             this.Invoices.Text = "Invoices";
             this.Invoices.UseVisualStyleBackColor = true;
+            // 
+            // SuccessPanel
+            // 
+            this.SuccessPanel.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.SuccessPanel.BackColor = System.Drawing.Color.Lime;
+            this.SuccessPanel.Controls.Add(this.SuccessOkButton);
+            this.SuccessPanel.Controls.Add(this.label6);
+            this.SuccessPanel.Location = new System.Drawing.Point(837, 393);
+            this.SuccessPanel.Name = "SuccessPanel";
+            this.SuccessPanel.Size = new System.Drawing.Size(417, 85);
+            this.SuccessPanel.TabIndex = 14;
+            this.SuccessPanel.Visible = false;
+            // 
+            // SuccessOkButton
+            // 
+            this.SuccessOkButton.Location = new System.Drawing.Point(138, 40);
+            this.SuccessOkButton.Name = "SuccessOkButton";
+            this.SuccessOkButton.Size = new System.Drawing.Size(142, 32);
+            this.SuccessOkButton.TabIndex = 1;
+            this.SuccessOkButton.Text = "OK";
+            this.SuccessOkButton.UseVisualStyleBackColor = true;
+            this.SuccessOkButton.Click += new System.EventHandler(this.SuccessOkButton_Click);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label6.Location = new System.Drawing.Point(92, 14);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(209, 19);
+            this.label6.TabIndex = 0;
+            this.label6.Text = "Invoice has been generated";
             // 
             // panel3
             // 
@@ -395,6 +433,8 @@ namespace Invoices.src.views
             // 
             this.panel1.BackColor = System.Drawing.Color.Ivory;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.QuotingCompany);
+            this.panel1.Controls.Add(this.label24);
             this.panel1.Controls.Add(this.AddItemButton);
             this.panel1.Controls.Add(this.TotalPriceLabel);
             this.panel1.Controls.Add(this.TotalPrice);
@@ -413,12 +453,30 @@ namespace Invoices.src.views
             this.panel1.Size = new System.Drawing.Size(677, 300);
             this.panel1.TabIndex = 16;
             // 
+            // QuotingCompany
+            // 
+            this.QuotingCompany.AutoSize = true;
+            this.QuotingCompany.Location = new System.Drawing.Point(174, 12);
+            this.QuotingCompany.Name = "QuotingCompany";
+            this.QuotingCompany.Size = new System.Drawing.Size(13, 19);
+            this.QuotingCompany.TabIndex = 15;
+            this.QuotingCompany.Text = ".";
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(16, 12);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(89, 19);
+            this.label24.TabIndex = 14;
+            this.label24.Text = "Quoting As";
+            // 
             // AddItemButton
             // 
             this.AddItemButton.BackColor = System.Drawing.Color.DarkSeaGreen;
             this.AddItemButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.AddItemButton.ForeColor = System.Drawing.Color.Black;
-            this.AddItemButton.Location = new System.Drawing.Point(454, 243);
+            this.AddItemButton.Location = new System.Drawing.Point(454, 261);
             this.AddItemButton.Name = "AddItemButton";
             this.AddItemButton.Size = new System.Drawing.Size(205, 29);
             this.AddItemButton.TabIndex = 6;
@@ -429,7 +487,7 @@ namespace Invoices.src.views
             // TotalPriceLabel
             // 
             this.TotalPriceLabel.AutoSize = true;
-            this.TotalPriceLabel.Location = new System.Drawing.Point(16, 245);
+            this.TotalPriceLabel.Location = new System.Drawing.Point(16, 266);
             this.TotalPriceLabel.Name = "TotalPriceLabel";
             this.TotalPriceLabel.Size = new System.Drawing.Size(89, 19);
             this.TotalPriceLabel.TabIndex = 12;
@@ -440,7 +498,7 @@ namespace Invoices.src.views
             this.TotalPrice.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.TotalPrice.DecimalPlaces = 2;
-            this.TotalPrice.Location = new System.Drawing.Point(178, 243);
+            this.TotalPrice.Location = new System.Drawing.Point(178, 264);
             this.TotalPrice.Maximum = new decimal(new int[] {
             -727379968,
             232,
@@ -455,7 +513,7 @@ namespace Invoices.src.views
             // CompanyNameLabel
             // 
             this.CompanyNameLabel.AutoSize = true;
-            this.CompanyNameLabel.Location = new System.Drawing.Point(15, 18);
+            this.CompanyNameLabel.Location = new System.Drawing.Point(16, 55);
             this.CompanyNameLabel.Name = "CompanyNameLabel";
             this.CompanyNameLabel.Size = new System.Drawing.Size(124, 19);
             this.CompanyNameLabel.TabIndex = 1;
@@ -469,7 +527,7 @@ namespace Invoices.src.views
             this.CompanyList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CompanyList.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.CompanyList.FormattingEnabled = true;
-            this.CompanyList.Location = new System.Drawing.Point(178, 12);
+            this.CompanyList.Location = new System.Drawing.Point(178, 52);
             this.CompanyList.Name = "CompanyList";
             this.CompanyList.Size = new System.Drawing.Size(481, 27);
             this.CompanyList.TabIndex = 0;
@@ -478,7 +536,7 @@ namespace Invoices.src.views
             // UnitPriceLabel
             // 
             this.UnitPriceLabel.AutoSize = true;
-            this.UnitPriceLabel.Location = new System.Drawing.Point(16, 200);
+            this.UnitPriceLabel.Location = new System.Drawing.Point(15, 227);
             this.UnitPriceLabel.Name = "UnitPriceLabel";
             this.UnitPriceLabel.Size = new System.Drawing.Size(83, 19);
             this.UnitPriceLabel.TabIndex = 10;
@@ -489,7 +547,7 @@ namespace Invoices.src.views
             this.UnitPrice.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.UnitPrice.DecimalPlaces = 2;
-            this.UnitPrice.Location = new System.Drawing.Point(178, 198);
+            this.UnitPrice.Location = new System.Drawing.Point(178, 225);
             this.UnitPrice.Maximum = new decimal(new int[] {
             -727379968,
             232,
@@ -505,7 +563,7 @@ namespace Invoices.src.views
             // ValidUntilLabel
             // 
             this.ValidUntilLabel.AutoSize = true;
-            this.ValidUntilLabel.Location = new System.Drawing.Point(16, 64);
+            this.ValidUntilLabel.Location = new System.Drawing.Point(15, 102);
             this.ValidUntilLabel.Name = "ValidUntilLabel";
             this.ValidUntilLabel.Size = new System.Drawing.Size(88, 19);
             this.ValidUntilLabel.TabIndex = 7;
@@ -515,7 +573,7 @@ namespace Invoices.src.views
             // 
             this.InvoiceExpiryDate.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.InvoiceExpiryDate.Location = new System.Drawing.Point(178, 58);
+            this.InvoiceExpiryDate.Location = new System.Drawing.Point(178, 96);
             this.InvoiceExpiryDate.Name = "InvoiceExpiryDate";
             this.InvoiceExpiryDate.Size = new System.Drawing.Size(481, 26);
             this.InvoiceExpiryDate.TabIndex = 9;
@@ -525,7 +583,7 @@ namespace Invoices.src.views
             this.ItemsList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.ItemsList.FormattingEnabled = true;
-            this.ItemsList.Location = new System.Drawing.Point(178, 105);
+            this.ItemsList.Location = new System.Drawing.Point(178, 139);
             this.ItemsList.Name = "ItemsList";
             this.ItemsList.Size = new System.Drawing.Size(481, 27);
             this.ItemsList.TabIndex = 2;
@@ -535,7 +593,7 @@ namespace Invoices.src.views
             // QuantityLabel
             // 
             this.QuantityLabel.AutoSize = true;
-            this.QuantityLabel.Location = new System.Drawing.Point(15, 154);
+            this.QuantityLabel.Location = new System.Drawing.Point(16, 184);
             this.QuantityLabel.Name = "QuantityLabel";
             this.QuantityLabel.Size = new System.Drawing.Size(74, 19);
             this.QuantityLabel.TabIndex = 4;
@@ -545,7 +603,7 @@ namespace Invoices.src.views
             // 
             this.Quantity.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.Quantity.Location = new System.Drawing.Point(178, 152);
+            this.Quantity.Location = new System.Drawing.Point(178, 182);
             this.Quantity.Maximum = new decimal(new int[] {
             -727379968,
             232,
@@ -559,7 +617,7 @@ namespace Invoices.src.views
             // ItemNameLabel
             // 
             this.ItemNameLabel.AutoSize = true;
-            this.ItemNameLabel.Location = new System.Drawing.Point(15, 108);
+            this.ItemNameLabel.Location = new System.Drawing.Point(15, 142);
             this.ItemNameLabel.Name = "ItemNameLabel";
             this.ItemNameLabel.Size = new System.Drawing.Size(142, 19);
             this.ItemNameLabel.TabIndex = 3;
@@ -580,38 +638,6 @@ namespace Invoices.src.views
             this.ScopeGrid.Name = "ScopeGrid";
             this.ScopeGrid.Size = new System.Drawing.Size(723, 285);
             this.ScopeGrid.TabIndex = 15;
-            // 
-            // SuccessPanel
-            // 
-            this.SuccessPanel.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.SuccessPanel.BackColor = System.Drawing.Color.Lime;
-            this.SuccessPanel.Controls.Add(this.SuccessOkButton);
-            this.SuccessPanel.Controls.Add(this.label6);
-            this.SuccessPanel.Location = new System.Drawing.Point(837, 409);
-            this.SuccessPanel.Name = "SuccessPanel";
-            this.SuccessPanel.Size = new System.Drawing.Size(417, 85);
-            this.SuccessPanel.TabIndex = 14;
-            this.SuccessPanel.Visible = false;
-            // 
-            // SuccessOkButton
-            // 
-            this.SuccessOkButton.Location = new System.Drawing.Point(138, 40);
-            this.SuccessOkButton.Name = "SuccessOkButton";
-            this.SuccessOkButton.Size = new System.Drawing.Size(142, 32);
-            this.SuccessOkButton.TabIndex = 1;
-            this.SuccessOkButton.Text = "OK";
-            this.SuccessOkButton.UseVisualStyleBackColor = true;
-            this.SuccessOkButton.Click += new System.EventHandler(this.SuccessOkButton_Click);
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label6.Location = new System.Drawing.Point(92, 14);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(209, 19);
-            this.label6.TabIndex = 0;
-            this.label6.Text = "Invoice has been generated";
             // 
             // InvoiceItemsGrid
             // 
@@ -647,13 +673,184 @@ namespace Invoices.src.views
             this.DeleteItem.Size = new System.Drawing.Size(112, 22);
             this.DeleteItem.Text = "DELETE";
             // 
+            // CompanyDetailspPanel
+            // 
+            this.CompanyDetailspPanel.BackColor = System.Drawing.Color.Ivory;
+            this.CompanyDetailspPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.CompanyDetailspPanel.Controls.Add(this.RecipientVat);
+            this.CompanyDetailspPanel.Controls.Add(this.label26);
+            this.CompanyDetailspPanel.Controls.Add(this.label23);
+            this.CompanyDetailspPanel.Controls.Add(this.label22);
+            this.CompanyDetailspPanel.Controls.Add(this.label21);
+            this.CompanyDetailspPanel.Controls.Add(this.label20);
+            this.CompanyDetailspPanel.Controls.Add(this.label19);
+            this.CompanyDetailspPanel.Controls.Add(this.label18);
+            this.CompanyDetailspPanel.Controls.Add(this.label17);
+            this.CompanyDetailspPanel.Controls.Add(this.label16);
+            this.CompanyDetailspPanel.Controls.Add(this.RecipientEmail);
+            this.CompanyDetailspPanel.Controls.Add(this.RecipientTown);
+            this.CompanyDetailspPanel.Controls.Add(this.RecipientZipCode);
+            this.CompanyDetailspPanel.Controls.Add(this.RecipientRepresentative);
+            this.CompanyDetailspPanel.Controls.Add(this.RecipientTitle);
+            this.CompanyDetailspPanel.Controls.Add(this.RecipientNumbers);
+            this.CompanyDetailspPanel.Controls.Add(this.RecipientAddress);
+            this.CompanyDetailspPanel.Controls.Add(this.RecipientName);
+            this.CompanyDetailspPanel.Location = new System.Drawing.Point(4, 467);
+            this.CompanyDetailspPanel.Name = "CompanyDetailspPanel";
+            this.CompanyDetailspPanel.Size = new System.Drawing.Size(676, 279);
+            this.CompanyDetailspPanel.TabIndex = 19;
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(25, 252);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(51, 19);
+            this.label23.TabIndex = 17;
+            this.label23.Text = "Email";
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(25, 223);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(136, 19);
+            this.label22.TabIndex = 16;
+            this.label22.Text = "Contact Numbers";
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(25, 194);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(43, 19);
+            this.label21.TabIndex = 15;
+            this.label21.Text = "Title";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(25, 163);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(121, 19);
+            this.label20.TabIndex = 14;
+            this.label20.Text = "Contact Person";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(25, 134);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(73, 19);
+            this.label19.TabIndex = 13;
+            this.label19.Text = "Zip Code";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(24, 101);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(86, 19);
+            this.label18.TabIndex = 12;
+            this.label18.Text = "Town/City";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(25, 36);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(68, 19);
+            this.label17.TabIndex = 11;
+            this.label17.Text = "Address";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(25, 7);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(77, 19);
+            this.label16.TabIndex = 10;
+            this.label16.Text = "Company";
+            // 
+            // RecipientEmail
+            // 
+            this.RecipientEmail.AutoSize = true;
+            this.RecipientEmail.Location = new System.Drawing.Point(187, 252);
+            this.RecipientEmail.Name = "RecipientEmail";
+            this.RecipientEmail.Size = new System.Drawing.Size(63, 19);
+            this.RecipientEmail.TabIndex = 9;
+            this.RecipientEmail.Text = "label18";
+            // 
+            // RecipientTown
+            // 
+            this.RecipientTown.AutoSize = true;
+            this.RecipientTown.Location = new System.Drawing.Point(187, 101);
+            this.RecipientTown.Name = "RecipientTown";
+            this.RecipientTown.Size = new System.Drawing.Size(86, 19);
+            this.RecipientTown.TabIndex = 8;
+            this.RecipientTown.Text = "Town/City";
+            // 
+            // RecipientZipCode
+            // 
+            this.RecipientZipCode.AutoSize = true;
+            this.RecipientZipCode.Location = new System.Drawing.Point(187, 132);
+            this.RecipientZipCode.Name = "RecipientZipCode";
+            this.RecipientZipCode.Size = new System.Drawing.Size(63, 19);
+            this.RecipientZipCode.TabIndex = 7;
+            this.RecipientZipCode.Text = "label23";
+            // 
+            // RecipientRepresentative
+            // 
+            this.RecipientRepresentative.AutoSize = true;
+            this.RecipientRepresentative.Location = new System.Drawing.Point(187, 163);
+            this.RecipientRepresentative.Name = "RecipientRepresentative";
+            this.RecipientRepresentative.Size = new System.Drawing.Size(63, 19);
+            this.RecipientRepresentative.TabIndex = 6;
+            this.RecipientRepresentative.Text = "label22";
+            // 
+            // RecipientTitle
+            // 
+            this.RecipientTitle.AutoSize = true;
+            this.RecipientTitle.Location = new System.Drawing.Point(187, 194);
+            this.RecipientTitle.Name = "RecipientTitle";
+            this.RecipientTitle.Size = new System.Drawing.Size(63, 19);
+            this.RecipientTitle.TabIndex = 5;
+            this.RecipientTitle.Text = "label21";
+            // 
+            // RecipientNumbers
+            // 
+            this.RecipientNumbers.AutoSize = true;
+            this.RecipientNumbers.Location = new System.Drawing.Point(187, 223);
+            this.RecipientNumbers.Name = "RecipientNumbers";
+            this.RecipientNumbers.Size = new System.Drawing.Size(63, 19);
+            this.RecipientNumbers.TabIndex = 4;
+            this.RecipientNumbers.Text = "label20";
+            // 
+            // RecipientAddress
+            // 
+            this.RecipientAddress.AutoSize = true;
+            this.RecipientAddress.Location = new System.Drawing.Point(187, 36);
+            this.RecipientAddress.Name = "RecipientAddress";
+            this.RecipientAddress.Size = new System.Drawing.Size(68, 19);
+            this.RecipientAddress.TabIndex = 1;
+            this.RecipientAddress.Text = "Address";
+            // 
+            // RecipientName
+            // 
+            this.RecipientName.AutoSize = true;
+            this.RecipientName.Location = new System.Drawing.Point(187, 7);
+            this.RecipientName.Name = "RecipientName";
+            this.RecipientName.Size = new System.Drawing.Size(123, 19);
+            this.RecipientName.TabIndex = 0;
+            this.RecipientName.Text = "Company Name";
+            // 
             // Companies
             // 
             this.Companies.Controls.Add(this.EditCompaniesPanel);
             this.Companies.Controls.Add(this.CompaniesGridView);
             this.Companies.Location = new System.Drawing.Point(4, 28);
             this.Companies.Name = "Companies";
-            this.Companies.Size = new System.Drawing.Size(1413, 786);
+            this.Companies.Size = new System.Drawing.Size(1413, 754);
             this.Companies.TabIndex = 4;
             this.Companies.Text = "Companies";
             this.Companies.UseVisualStyleBackColor = true;
@@ -664,6 +861,8 @@ namespace Invoices.src.views
             this.EditCompaniesPanel.AutoSize = true;
             this.EditCompaniesPanel.BackColor = System.Drawing.Color.SlateGray;
             this.EditCompaniesPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.EditCompaniesPanel.Controls.Add(this.label25);
+            this.EditCompaniesPanel.Controls.Add(this.NewCompanyVat);
             this.EditCompaniesPanel.Controls.Add(this.NewCompanyContactEmail);
             this.EditCompaniesPanel.Controls.Add(this.NewCompanyContactNumbers);
             this.EditCompaniesPanel.Controls.Add(this.NewCompanyContactTitle);
@@ -682,30 +881,46 @@ namespace Invoices.src.views
             this.EditCompaniesPanel.Controls.Add(this.label3);
             this.EditCompaniesPanel.Controls.Add(this.label2);
             this.EditCompaniesPanel.Controls.Add(this.label1);
-            this.EditCompaniesPanel.Location = new System.Drawing.Point(259, 81);
+            this.EditCompaniesPanel.Location = new System.Drawing.Point(259, 56);
             this.EditCompaniesPanel.Margin = new System.Windows.Forms.Padding(100);
             this.EditCompaniesPanel.Name = "EditCompaniesPanel";
-            this.EditCompaniesPanel.Size = new System.Drawing.Size(759, 480);
+            this.EditCompaniesPanel.Size = new System.Drawing.Size(759, 530);
             this.EditCompaniesPanel.TabIndex = 1;
             this.EditCompaniesPanel.Visible = false;
             // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(39, 124);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(96, 19);
+            this.label25.TabIndex = 19;
+            this.label25.Text = "Vat Number";
+            // 
+            // NewCompanyVat
+            // 
+            this.NewCompanyVat.Location = new System.Drawing.Point(219, 121);
+            this.NewCompanyVat.Name = "NewCompanyVat";
+            this.NewCompanyVat.Size = new System.Drawing.Size(487, 26);
+            this.NewCompanyVat.TabIndex = 18;
+            // 
             // NewCompanyContactEmail
             // 
-            this.NewCompanyContactEmail.Location = new System.Drawing.Point(219, 374);
+            this.NewCompanyContactEmail.Location = new System.Drawing.Point(219, 419);
             this.NewCompanyContactEmail.Name = "NewCompanyContactEmail";
             this.NewCompanyContactEmail.Size = new System.Drawing.Size(487, 26);
             this.NewCompanyContactEmail.TabIndex = 17;
             // 
             // NewCompanyContactNumbers
             // 
-            this.NewCompanyContactNumbers.Location = new System.Drawing.Point(219, 323);
+            this.NewCompanyContactNumbers.Location = new System.Drawing.Point(219, 368);
             this.NewCompanyContactNumbers.Name = "NewCompanyContactNumbers";
             this.NewCompanyContactNumbers.Size = new System.Drawing.Size(487, 26);
             this.NewCompanyContactNumbers.TabIndex = 16;
             // 
             // NewCompanyContactTitle
             // 
-            this.NewCompanyContactTitle.Location = new System.Drawing.Point(219, 273);
+            this.NewCompanyContactTitle.Location = new System.Drawing.Point(219, 318);
             this.NewCompanyContactTitle.Name = "NewCompanyContactTitle";
             this.NewCompanyContactTitle.Size = new System.Drawing.Size(487, 26);
             this.NewCompanyContactTitle.TabIndex = 15;
@@ -713,7 +928,7 @@ namespace Invoices.src.views
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(41, 377);
+            this.label12.Location = new System.Drawing.Point(41, 422);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(51, 19);
             this.label12.TabIndex = 14;
@@ -722,7 +937,7 @@ namespace Invoices.src.views
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(41, 326);
+            this.label11.Location = new System.Drawing.Point(41, 371);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(136, 19);
             this.label11.TabIndex = 13;
@@ -731,7 +946,7 @@ namespace Invoices.src.views
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(41, 273);
+            this.label10.Location = new System.Drawing.Point(41, 318);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(43, 19);
             this.label10.TabIndex = 12;
@@ -739,7 +954,7 @@ namespace Invoices.src.views
             // 
             // NewCompanyContactPerson
             // 
-            this.NewCompanyContactPerson.Location = new System.Drawing.Point(219, 224);
+            this.NewCompanyContactPerson.Location = new System.Drawing.Point(219, 269);
             this.NewCompanyContactPerson.Name = "NewCompanyContactPerson";
             this.NewCompanyContactPerson.Size = new System.Drawing.Size(487, 26);
             this.NewCompanyContactPerson.TabIndex = 11;
@@ -747,7 +962,7 @@ namespace Invoices.src.views
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(39, 227);
+            this.label9.Location = new System.Drawing.Point(39, 272);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(121, 19);
             this.label9.TabIndex = 10;
@@ -755,7 +970,7 @@ namespace Invoices.src.views
             // 
             // NewCompanyZipCode
             // 
-            this.NewCompanyZipCode.Location = new System.Drawing.Point(219, 175);
+            this.NewCompanyZipCode.Location = new System.Drawing.Point(219, 220);
             this.NewCompanyZipCode.Maximum = new decimal(new int[] {
             10000000,
             0,
@@ -768,7 +983,7 @@ namespace Invoices.src.views
             // 
             // NewCompanyCity
             // 
-            this.NewCompanyCity.Location = new System.Drawing.Point(219, 124);
+            this.NewCompanyCity.Location = new System.Drawing.Point(219, 169);
             this.NewCompanyCity.Name = "NewCompanyCity";
             this.NewCompanyCity.Size = new System.Drawing.Size(487, 26);
             this.NewCompanyCity.TabIndex = 8;
@@ -789,7 +1004,7 @@ namespace Invoices.src.views
             // 
             // NewCompanyCancelButton
             // 
-            this.NewCompanyCancelButton.Location = new System.Drawing.Point(477, 426);
+            this.NewCompanyCancelButton.Location = new System.Drawing.Point(477, 471);
             this.NewCompanyCancelButton.Name = "NewCompanyCancelButton";
             this.NewCompanyCancelButton.Size = new System.Drawing.Size(229, 37);
             this.NewCompanyCancelButton.TabIndex = 5;
@@ -799,7 +1014,7 @@ namespace Invoices.src.views
             // 
             // NewCompanyDoneButton
             // 
-            this.NewCompanyDoneButton.Location = new System.Drawing.Point(219, 426);
+            this.NewCompanyDoneButton.Location = new System.Drawing.Point(219, 471);
             this.NewCompanyDoneButton.Name = "NewCompanyDoneButton";
             this.NewCompanyDoneButton.Size = new System.Drawing.Size(228, 37);
             this.NewCompanyDoneButton.TabIndex = 4;
@@ -810,7 +1025,7 @@ namespace Invoices.src.views
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(39, 177);
+            this.label4.Location = new System.Drawing.Point(39, 222);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(73, 19);
             this.label4.TabIndex = 3;
@@ -819,7 +1034,7 @@ namespace Invoices.src.views
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(39, 127);
+            this.label3.Location = new System.Drawing.Point(39, 172);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(86, 19);
             this.label3.TabIndex = 2;
@@ -845,6 +1060,8 @@ namespace Invoices.src.views
             // 
             // CompaniesGridView
             // 
+            this.CompaniesGridView.AllowUserToAddRows = false;
+            this.CompaniesGridView.AllowUserToDeleteRows = false;
             this.CompaniesGridView.AllowUserToResizeColumns = false;
             this.CompaniesGridView.AllowUserToResizeRows = false;
             this.CompaniesGridView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -856,16 +1073,16 @@ namespace Invoices.src.views
             this.CompaniesGridView.Location = new System.Drawing.Point(2, 1);
             this.CompaniesGridView.Name = "CompaniesGridView";
             this.CompaniesGridView.ReadOnly = true;
+            this.CompaniesGridView.RowHeadersVisible = false;
             this.CompaniesGridView.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            this.CompaniesGridView.Size = new System.Drawing.Size(1415, 740);
+            this.CompaniesGridView.Size = new System.Drawing.Size(1415, 708);
             this.CompaniesGridView.TabIndex = 0;
-            this.CompaniesGridView.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.CompaniesGridView_CellEndEdit);
             // 
             // History
             // 
             this.History.Location = new System.Drawing.Point(4, 28);
             this.History.Name = "History";
-            this.History.Size = new System.Drawing.Size(1413, 786);
+            this.History.Size = new System.Drawing.Size(1413, 754);
             this.History.TabIndex = 2;
             this.History.Text = "History";
             this.History.UseVisualStyleBackColor = true;
@@ -875,7 +1092,7 @@ namespace Invoices.src.views
             this.Setup.Controls.Add(this.panel4);
             this.Setup.Location = new System.Drawing.Point(4, 28);
             this.Setup.Name = "Setup";
-            this.Setup.Size = new System.Drawing.Size(1413, 786);
+            this.Setup.Size = new System.Drawing.Size(1413, 754);
             this.Setup.TabIndex = 3;
             this.Setup.Text = "Setup";
             this.Setup.UseVisualStyleBackColor = true;
@@ -986,174 +1203,23 @@ namespace Invoices.src.views
             this.OurCompanies.TabIndex = 0;
             this.OurCompanies.SelectedIndexChanged += new System.EventHandler(this.OurCompanies_SelectedIndexChanged);
             // 
-            // CompanyDetailspPanel
+            // label26
             // 
-            this.CompanyDetailspPanel.BackColor = System.Drawing.Color.Ivory;
-            this.CompanyDetailspPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.CompanyDetailspPanel.Controls.Add(this.label23);
-            this.CompanyDetailspPanel.Controls.Add(this.label22);
-            this.CompanyDetailspPanel.Controls.Add(this.label21);
-            this.CompanyDetailspPanel.Controls.Add(this.label20);
-            this.CompanyDetailspPanel.Controls.Add(this.label19);
-            this.CompanyDetailspPanel.Controls.Add(this.label18);
-            this.CompanyDetailspPanel.Controls.Add(this.label17);
-            this.CompanyDetailspPanel.Controls.Add(this.label16);
-            this.CompanyDetailspPanel.Controls.Add(this.RecipientEmail);
-            this.CompanyDetailspPanel.Controls.Add(this.RecipientTown);
-            this.CompanyDetailspPanel.Controls.Add(this.RecipientZipCode);
-            this.CompanyDetailspPanel.Controls.Add(this.RecipientRepresentative);
-            this.CompanyDetailspPanel.Controls.Add(this.RecipientTitle);
-            this.CompanyDetailspPanel.Controls.Add(this.RecipientNumbers);
-            this.CompanyDetailspPanel.Controls.Add(this.RecipientAddress);
-            this.CompanyDetailspPanel.Controls.Add(this.RecipientName);
-            this.CompanyDetailspPanel.Location = new System.Drawing.Point(4, 467);
-            this.CompanyDetailspPanel.Name = "CompanyDetailspPanel";
-            this.CompanyDetailspPanel.Size = new System.Drawing.Size(676, 268);
-            this.CompanyDetailspPanel.TabIndex = 19;
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(25, 68);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(96, 19);
+            this.label26.TabIndex = 18;
+            this.label26.Text = "Vat Number";
             // 
-            // RecipientName
+            // RecipientVat
             // 
-            this.RecipientName.AutoSize = true;
-            this.RecipientName.Location = new System.Drawing.Point(187, 7);
-            this.RecipientName.Name = "RecipientName";
-            this.RecipientName.Size = new System.Drawing.Size(123, 19);
-            this.RecipientName.TabIndex = 0;
-            this.RecipientName.Text = "Company Name";
-            // 
-            // RecipientAddress
-            // 
-            this.RecipientAddress.AutoSize = true;
-            this.RecipientAddress.Location = new System.Drawing.Point(187, 39);
-            this.RecipientAddress.Name = "RecipientAddress";
-            this.RecipientAddress.Size = new System.Drawing.Size(68, 19);
-            this.RecipientAddress.TabIndex = 1;
-            this.RecipientAddress.Text = "Address";
-            // 
-            // RecipientNumbers
-            // 
-            this.RecipientNumbers.AutoSize = true;
-            this.RecipientNumbers.Location = new System.Drawing.Point(187, 198);
-            this.RecipientNumbers.Name = "RecipientNumbers";
-            this.RecipientNumbers.Size = new System.Drawing.Size(63, 19);
-            this.RecipientNumbers.TabIndex = 4;
-            this.RecipientNumbers.Text = "label20";
-            // 
-            // RecipientTitle
-            // 
-            this.RecipientTitle.AutoSize = true;
-            this.RecipientTitle.Location = new System.Drawing.Point(187, 165);
-            this.RecipientTitle.Name = "RecipientTitle";
-            this.RecipientTitle.Size = new System.Drawing.Size(63, 19);
-            this.RecipientTitle.TabIndex = 5;
-            this.RecipientTitle.Text = "label21";
-            // 
-            // RecipientRepresentative
-            // 
-            this.RecipientRepresentative.AutoSize = true;
-            this.RecipientRepresentative.Location = new System.Drawing.Point(187, 133);
-            this.RecipientRepresentative.Name = "RecipientRepresentative";
-            this.RecipientRepresentative.Size = new System.Drawing.Size(63, 19);
-            this.RecipientRepresentative.TabIndex = 6;
-            this.RecipientRepresentative.Text = "label22";
-            // 
-            // RecipientZipCode
-            // 
-            this.RecipientZipCode.AutoSize = true;
-            this.RecipientZipCode.Location = new System.Drawing.Point(187, 102);
-            this.RecipientZipCode.Name = "RecipientZipCode";
-            this.RecipientZipCode.Size = new System.Drawing.Size(63, 19);
-            this.RecipientZipCode.TabIndex = 7;
-            this.RecipientZipCode.Text = "label23";
-            // 
-            // RecipientTown
-            // 
-            this.RecipientTown.AutoSize = true;
-            this.RecipientTown.Location = new System.Drawing.Point(187, 71);
-            this.RecipientTown.Name = "RecipientTown";
-            this.RecipientTown.Size = new System.Drawing.Size(86, 19);
-            this.RecipientTown.TabIndex = 8;
-            this.RecipientTown.Text = "Town/City";
-            // 
-            // RecipientEmail
-            // 
-            this.RecipientEmail.AutoSize = true;
-            this.RecipientEmail.Location = new System.Drawing.Point(187, 231);
-            this.RecipientEmail.Name = "RecipientEmail";
-            this.RecipientEmail.Size = new System.Drawing.Size(63, 19);
-            this.RecipientEmail.TabIndex = 9;
-            this.RecipientEmail.Text = "label18";
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(25, 7);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(77, 19);
-            this.label16.TabIndex = 10;
-            this.label16.Text = "Company";
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(25, 39);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(68, 19);
-            this.label17.TabIndex = 11;
-            this.label17.Text = "Address";
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(25, 71);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(86, 19);
-            this.label18.TabIndex = 12;
-            this.label18.Text = "Town/City";
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(25, 102);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(73, 19);
-            this.label19.TabIndex = 13;
-            this.label19.Text = "Zip Code";
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(25, 133);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(121, 19);
-            this.label20.TabIndex = 14;
-            this.label20.Text = "Contact Person";
-            // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(25, 163);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(43, 19);
-            this.label21.TabIndex = 15;
-            this.label21.Text = "Title";
-            // 
-            // label22
-            // 
-            this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(25, 198);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(136, 19);
-            this.label22.TabIndex = 16;
-            this.label22.Text = "Contact Numbers";
-            // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(25, 227);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(51, 19);
-            this.label23.TabIndex = 17;
-            this.label23.Text = "Email";
+            this.RecipientVat.AutoSize = true;
+            this.RecipientVat.Location = new System.Drawing.Point(187, 66);
+            this.RecipientVat.Name = "RecipientVat";
+            this.RecipientVat.Size = new System.Drawing.Size(68, 19);
+            this.RecipientVat.TabIndex = 19;
+            this.RecipientVat.Text = "Address";
             // 
             // MainWindow
             // 
@@ -1161,7 +1227,7 @@ namespace Invoices.src.views
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(1421, 818);
+            this.ClientSize = new System.Drawing.Size(1421, 786);
             this.Controls.Add(this.Tabs);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -1172,6 +1238,8 @@ namespace Invoices.src.views
             this.EditCompaniesOptions.ResumeLayout(false);
             this.Tabs.ResumeLayout(false);
             this.Invoices.ResumeLayout(false);
+            this.SuccessPanel.ResumeLayout(false);
+            this.SuccessPanel.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.panel2.ResumeLayout(false);
@@ -1185,10 +1253,10 @@ namespace Invoices.src.views
             ((System.ComponentModel.ISupportInitialize)(this.UnitPrice)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Quantity)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ScopeGrid)).EndInit();
-            this.SuccessPanel.ResumeLayout(false);
-            this.SuccessPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.InvoiceItemsGrid)).EndInit();
             this.InvoiceItemsOptions.ResumeLayout(false);
+            this.CompanyDetailspPanel.ResumeLayout(false);
+            this.CompanyDetailspPanel.PerformLayout();
             this.Companies.ResumeLayout(false);
             this.Companies.PerformLayout();
             this.EditCompaniesPanel.ResumeLayout(false);
@@ -1198,8 +1266,6 @@ namespace Invoices.src.views
             this.Setup.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
-            this.CompanyDetailspPanel.ResumeLayout(false);
-            this.CompanyDetailspPanel.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1297,5 +1363,11 @@ namespace Invoices.src.views
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label QuotingCompany;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.TextBox NewCompanyVat;
+        private System.Windows.Forms.Label RecipientVat;
+        private System.Windows.Forms.Label label26;
     }
 }

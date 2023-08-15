@@ -20,6 +20,12 @@ namespace Invoices.src.controllers
         {
             invoiceModel = invoiceModel_;
             invoiceView = invoiceTab;
+
+            invoiceView.assignInvoiceController(this);
+            invoiceView.initializeReceipt();
+            string companyName = "";
+            invoiceView.updateRecipientDetails(invoiceModel.getCompanyDetails(companyName));
+            updateCompanies();
         }
 
         //public delegate void UpdateCompanies(bool readFirst);
@@ -32,18 +38,21 @@ namespace Invoices.src.controllers
         public void updateCompanies(bool readFirst = false) 
         {
             invoiceView.populateCompanies(invoiceModel.getCompanyNames(readFirst));
+            invoiceView.updateQuotingCompany(invoiceModel.getOurCompany());
+        }
+
+        public void ourCompanyChanged() 
+        {
+            invoiceView.updateQuotingCompany(invoiceModel.getOurCompany());
         }
 
         public void initializeInvoice() 
         {
             items = new List<string>() {"Sugar", "Salt", "Beans", "Bananas", "Apples"};
-
-            invoiceView.assignInvoiceController(this);
-            updateCompanies();
+                       
+            
             invoiceView.populateItems(items);
-            invoiceView.initializeReceipt();
-            string companyName = "";
-            invoiceView.updateRecipientDetails(invoiceModel.getCompanyDetails(companyName));
+
         }
 
         public void itemChanged(string itemName) 

@@ -28,8 +28,12 @@ namespace Invoices.src.models
     class DocumentHeaderAndFooter : IEventHandler
     {
         private Document document;
-        public DocumentHeaderAndFooter(Document doc)
+        string logoPath;
+        string footerPath;
+        public DocumentHeaderAndFooter(Document doc, string logo, string footer)
         {
+            logoPath = logo;
+            footerPath = footer;
             document = doc;
         }
 
@@ -43,7 +47,7 @@ namespace Invoices.src.models
 
         public void firstPage() 
         {
-            ImageData headerImageData = ImageDataFactory.Create(Constants.LOGO_PATH);
+            ImageData headerImageData = ImageDataFactory.Create(logoPath);
             Image headerImage = new Image(headerImageData);
 
             float headerImageWidth = 590;
@@ -55,7 +59,7 @@ namespace Invoices.src.models
             headerImage.SetFixedPosition(headerImageX, headerImageY);
 
 
-            ImageData footerImageData = ImageDataFactory.Create(Constants.FOOTER_PATH);
+            ImageData footerImageData = ImageDataFactory.Create(footerPath);
             Image footerImage = new Image(footerImageData);
 
             float footerImageWidth = 600;
@@ -89,7 +93,7 @@ namespace Invoices.src.models
             filePath = Constants.INVOICES_PATH + fileName + ".pdf";
         }
 
-        public void createPDF(Company company, List<ScopeItem> scopeItems, List<InvoiceItem> invoiceItems, List<decimal> totals)
+        public void createPDF(Company company, List<ScopeItem> scopeItems, List<InvoiceItem> invoiceItems, List<decimal> totals, string logoPath, string footerPath)
         {
             // Must have write permissions to the path folder
             PdfDocument pdf = new PdfDocument(new PdfWriter(filePath));
@@ -101,11 +105,9 @@ namespace Invoices.src.models
             //document.SetFont(new PdfFont())
 
             //pdf.AddEventHandler(PdfDocumentEvent.START_PAGE, new DocumentHeaderAndFooter(document));
-            DocumentHeaderAndFooter firstPage = new DocumentHeaderAndFooter(document);
+            DocumentHeaderAndFooter firstPage = new DocumentHeaderAndFooter(document, logoPath, footerPath);
             firstPage.firstPage();
-            pdf.AddEventHandler(PdfDocumentEvent.END_PAGE, new DocumentHeaderAndFooter(document));
-
-            
+            pdf.AddEventHandler(PdfDocumentEvent.END_PAGE, new DocumentHeaderAndFooter(document, logoPath, footerPath));
 
             addCompanyInfo(document);
             addCustomerInfo(document, company);
@@ -125,7 +127,7 @@ namespace Invoices.src.models
             quote.SetFontColor(ColorConstants.RED);
 
             string dateString = DateTime.Now.ToString("dd MMMM yyyy");
-            Text line1 = new Text($"Dory/0082\n VAT: 4780313955\n { dateString }");
+            Text line1 = new Text($"Dory/0082\n VAT: 4780313955\n Vendor Number: 58545826 \n { dateString }");
             line1.SetFontSize(STANDARD_FONT_SIZE);
             line1.SetBold();
                 

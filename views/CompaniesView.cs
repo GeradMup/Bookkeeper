@@ -29,47 +29,20 @@ namespace Invoices.src.views
 
             CompaniesGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             CompaniesGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            CompaniesGridView.Columns[0].FillWeight = 0.5F;
-            CompaniesGridView.Columns[1].FillWeight = 1.5F;
-            CompaniesGridView.Columns[2].FillWeight = 4;
-            CompaniesGridView.Columns[3].FillWeight = 1;
-            CompaniesGridView.Columns[4].FillWeight = 1;
-            CompaniesGridView.Columns[5].FillWeight = 1.5F;
-            CompaniesGridView.Columns[6].FillWeight = 1;
-            CompaniesGridView.Columns[7].FillWeight = 1;
-            CompaniesGridView.Columns[8].FillWeight = 2;
+            CompaniesGridView.Columns[0].FillWeight = 0.5F;     //Company Number
+            CompaniesGridView.Columns[1].FillWeight = 1.5F;     //Company Name
+            CompaniesGridView.Columns[2].FillWeight = 3.5F;     //Address
+            CompaniesGridView.Columns[3].FillWeight = 1;        //Vat Number
+            CompaniesGridView.Columns[4].FillWeight = 1;        //Town
+            CompaniesGridView.Columns[5].FillWeight = 0.7F;     //Zip Code
+            CompaniesGridView.Columns[6].FillWeight = 1.5F;     //Contact Person
+            CompaniesGridView.Columns[7].FillWeight = 1;        //Title
+            CompaniesGridView.Columns[8].FillWeight = 1;        //Contact Numbers
+            CompaniesGridView.Columns[9].FillWeight = 2;        //Email Address
 
             //Let's also change the currently selected item on the invoice page so that the displayed company details can be updated.
             CompanyList.SelectedItem = null;
 
-        }
-
-        private void CompaniesGridView_CellEndEdit(object sender, DataGridViewCellEventArgs e)
-        {
-            //CompaniesGridView.CurrentCell = null;
-            //First check that all the columns of the grid view are filled before moving on
-            DataGridViewRow selectedRow = CompaniesGridView.Rows[e.RowIndex];
-            int lastColumn = CompaniesGridView.Columns.Count;
-            int selecondLastColumn = lastColumn - 1;
-            int lastRow = CompaniesGridView.Rows.Count - 1;
-
-            selectedRow.DefaultCellStyle.BackColor = Color.White;
-            for (int row = 1; row < selecondLastColumn; row++) 
-            {
-                if (selectedRow.Cells[row].Value == null)
-                {
-                    selectedRow.DefaultCellStyle.BackColor = Color.LightPink;
-                    return;
-                }
-            }
-    
-            if (selectedRow.Cells[selecondLastColumn].Value.ToString() == "0")
-            {
-                selectedRow.DefaultCellStyle.BackColor = Color.LightPink;
-                return;
-            }
-
-            //companiesController.editCompanies();
         }
 
         private void EditCompaniesOptions_Click(object sender, ToolStripItemClickedEventArgs e)
@@ -82,12 +55,13 @@ namespace Invoices.src.views
                 int currentRow = CompaniesGridView.CurrentCell.RowIndex;
                 NewCompanyName.Text = CompaniesGridView.Rows[currentRow].Cells[1].Value.ToString();
                 NewCompanyAddress.Text = CompaniesGridView.Rows[currentRow].Cells[2].Value.ToString();
-                NewCompanyCity.Text = CompaniesGridView.Rows[currentRow].Cells[3].Value.ToString();
-                NewCompanyZipCode.Value = Decimal.Parse(CompaniesGridView.Rows[currentRow].Cells[4].Value.ToString());
-                NewCompanyContactPerson.Text = CompaniesGridView.Rows[currentRow].Cells[5].Value.ToString();
-                NewCompanyContactTitle.Text = CompaniesGridView.Rows[currentRow].Cells[6].Value.ToString();
-                NewCompanyContactNumbers.Text = CompaniesGridView.Rows[currentRow].Cells[7].Value.ToString();
-                NewCompanyContactEmail.Text = CompaniesGridView.Rows[currentRow].Cells[8].Value.ToString();
+                NewCompanyVat.Text = CompaniesGridView.Rows[currentRow].Cells[3].Value.ToString();
+                NewCompanyCity.Text = CompaniesGridView.Rows[currentRow].Cells[4].Value.ToString();
+                NewCompanyZipCode.Value = Decimal.Parse(CompaniesGridView.Rows[currentRow].Cells[5].Value.ToString());
+                NewCompanyContactPerson.Text = CompaniesGridView.Rows[currentRow].Cells[6].Value.ToString();
+                NewCompanyContactTitle.Text = CompaniesGridView.Rows[currentRow].Cells[7].Value.ToString();
+                NewCompanyContactNumbers.Text = CompaniesGridView.Rows[currentRow].Cells[8].Value.ToString();
+                NewCompanyContactEmail.Text = CompaniesGridView.Rows[currentRow].Cells[9].Value.ToString();
             }
             else if (e.ClickedItem.ToString() == "ADD")
             {
@@ -114,6 +88,7 @@ namespace Invoices.src.views
             List<string> companyInfo = new List<string>();
             companyInfo.Add(NewCompanyName.Text);
             companyInfo.Add(NewCompanyAddress.Text);
+            companyInfo.Add(NewCompanyVat.Text);
             companyInfo.Add(NewCompanyCity.Text);
             companyInfo.Add(NewCompanyZipCode.Value.ToString());
             companyInfo.Add(NewCompanyContactPerson.Text);
@@ -171,6 +146,7 @@ namespace Invoices.src.views
 
             NewCompanyName.Text = "";
             NewCompanyAddress.Text = "";
+            NewCompanyVat.Text = "";
             NewCompanyCity.Text = "";
             NewCompanyZipCode.Value = 0;
             NewCompanyContactPerson.Text = "";

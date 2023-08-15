@@ -19,7 +19,7 @@ namespace Invoices.src.controllers
             setupModel = model;
             setupView = view;
             setupView.assignSetupController(this);
-            setupView.populateCompaniesList(setupModel.getCompanyNames());
+            setupView.populateCompaniesList(setupModel.getOurCompanyNames());
             setupView.setSelectedCompany(setupModel.getSelectedCompany());
         }
 

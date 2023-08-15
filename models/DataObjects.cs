@@ -15,18 +15,20 @@ namespace Invoices.src.models
                 Number = Int16.Parse(allValues[0].Trim());
                 Name = allValues[1].Trim();
                 Address = allValues[2].Trim();
-                Town = allValues[3].Trim();
-                AreaCode = Int32.Parse(allValues[4].Trim());
-                ContactPerson = allValues[5].Trim();
-                Title = allValues[6].Trim();
-                Numbers = allValues[7].Trim();
-                Email = allValues[8].Trim();
+                Vat = allValues[3].Trim();
+                Town = allValues[4].Trim();
+                AreaCode = Int32.Parse(allValues[5].Trim());
+                ContactPerson = allValues[6].Trim();
+                Title = allValues[7].Trim();
+                Numbers = allValues[8].Trim();
+                Email = allValues[9].Trim();
             }
         }
 
         public Int16 Number { get; set; }
         public string Name { get; set; }
         public string Address { get; set; }
+        public string Vat { get; set; }
         public string Town { get; set; }
         public Int32 AreaCode { get; set; }
         public string ContactPerson { get; set; }
@@ -40,6 +42,7 @@ namespace Invoices.src.models
             if (this.Number == company.Number
                 && this.Name == company.Name
                 && this.Address == company.Address
+                && this.Vat == company.Vat
                 && this.Town == company.Town
                 && this.AreaCode == company.AreaCode
                 && this.ContactPerson == company.ContactPerson
@@ -55,6 +58,7 @@ namespace Invoices.src.models
             this.Number = company.Number;
             this.Name = company.Name;
             this.Address = company.Address;
+            this.Vat = company.Vat;
             this.Town = company.Town;
             this.AreaCode = company.AreaCode;
             this.ContactPerson = company.ContactPerson;
@@ -73,6 +77,7 @@ namespace Invoices.src.models
             myList.Add(this.Number.ToString());
             myList.Add(this.Name);
             myList.Add(this.Address);
+            myList.Add(this.Vat);
             myList.Add(this.Town);
             myList.Add(this.AreaCode.ToString());
             myList.Add(this.ContactPerson);

@@ -33,7 +33,7 @@ namespace Invoices.src.controllers
             setupModel = new SetupModel();
             setupController = new SetupController(setupModel, mainWindow);
 
-            invoiceController.initializeInvoice();
+            //invoiceController.initializeInvoice();
             //Assign controllers to the relevant views
             
         }

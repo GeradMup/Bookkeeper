@@ -13,6 +13,7 @@ namespace Invoices.src.models
 //        InvoiceController invoiceController;
         TextFiles textFiles;
         List<Company> companies = new List<Company>();
+        List<OurCompany> ourCompanies = new List<OurCompany>();
         List<InvoiceItem> invoiceItems = new List<InvoiceItem>();
         List<ScopeItem> scopeItems = new List<ScopeItem>();
         private decimal receiptTotal;
@@ -29,7 +30,7 @@ namespace Invoices.src.models
             //Read companies
             //MessageBox.Show(companiesPath);
             readCompanies();
-            
+            loadOurCompanies();
 
             //Read the prices
 
@@ -44,6 +45,23 @@ namespace Invoices.src.models
             {
                 companies.Add(new Company(companyInfo));
             }
+        }
+
+        private void loadOurCompanies()
+        {
+            List<List<String>> ourCompaniesList = textFiles.readTextFile(Constants.OUR_COMPANIES_PATH);
+
+            ourCompanies.Clear();
+            foreach (List<String> companyInfo in ourCompaniesList)
+            {
+                ourCompanies.Add(new OurCompany(companyInfo));
+            }
+        }
+
+        public string getOurCompany() 
+        {
+            loadOurCompanies();
+            return ourCompanies.FirstOrDefault(comp => comp.CurrentlySelected == "true").Name;
         }
 
         public List<String> getCompanyNames(bool readFirst = false) 
@@ -127,8 +145,23 @@ namespace Invoices.src.models
             Company selectedCompany = companies.FirstOrDefault(comp => comp.Name == companyName);
 
             List<decimal> totals = new List<decimal> { receiptTotal, vat, grandTotal };
-            
-            pdf.createPDF(selectedCompany, scopeItems, invoiceItems, totals);
+
+            string ourCompany = getOurCompany();
+            string logoPath;
+            string footerPath;
+
+            if (ourCompany == "Doryoku")
+            {
+                logoPath = Constants.DORYOKU_LOGO_PATH;
+                footerPath = Constants.DORYOKU_FOOTER_PATH;
+            }
+            else 
+            {
+                logoPath = Constants.PINKY_LOGO_PATH;
+                footerPath = Constants.PINKY_FOOTER_PATH;
+            }
+         
+            pdf.createPDF(selectedCompany, scopeItems, invoiceItems, totals, logoPath, footerPath);
             return true;
         }
 

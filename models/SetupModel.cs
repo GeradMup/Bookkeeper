@@ -27,7 +27,7 @@ namespace Invoices.src.models
             }
         }
 
-        public List<String> getCompanyNames(bool readFirst = false)
+        public List<String> getOurCompanyNames(bool readFirst = false)
         {
             //Check if we need to read the companies first before updating
             if (readFirst == true) loadOurCompanies();
