@@ -39,6 +39,9 @@ namespace Invoices.src.views
             CompaniesGridView.Columns[7].FillWeight = 1;
             CompaniesGridView.Columns[8].FillWeight = 2;
 
+            //Let's also change the currently selected item on the invoice page so that the displayed company details can be updated.
+            CompanyList.SelectedItem = null;
+
         }
 
         private void CompaniesGridView_CellEndEdit(object sender, DataGridViewCellEventArgs e)

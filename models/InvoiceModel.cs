@@ -61,6 +61,7 @@ namespace Invoices.src.models
 
         public List<string> getCompanyDetails(string name) 
         {
+            if (name == "") return new Company().companyToList();
             return companies.FirstOrDefault(comp => comp.Name == name).companyToList();
         }
 

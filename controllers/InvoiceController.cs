@@ -42,6 +42,8 @@ namespace Invoices.src.controllers
             updateCompanies();
             invoiceView.populateItems(items);
             invoiceView.initializeReceipt();
+            string companyName = "";
+            invoiceView.updateRecipientDetails(invoiceModel.getCompanyDetails(companyName));
         }
 
         public void itemChanged(string itemName) 
@@ -96,7 +98,7 @@ namespace Invoices.src.controllers
 
         public void recipientChanged(string companyName) 
         {
-            
+            invoiceView.updateRecipientDetails(invoiceModel.getCompanyDetails(companyName));
         }
 
         public void invoiceGenerationCompleted() 

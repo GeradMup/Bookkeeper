@@ -53,9 +53,20 @@ namespace Invoices.src.views
         //What happens when the selected company changes.
         private void CompanyList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (CompanyList.SelectedItem == null) return;
+            invoiceController.recipientChanged(CompanyList.Text);
+        }
 
-
+        public void updateRecipientDetails(List<string> companyInfo) 
+        {
+            string colon = ": ";
+            RecipientName.Text = colon + companyInfo[1];
+            RecipientAddress.Text = colon + companyInfo[2];
+            RecipientTown.Text = colon + companyInfo[3];
+            RecipientZipCode.Text = colon + companyInfo[4];
+            RecipientRepresentative.Text = colon + companyInfo[5];
+            RecipientTitle.Text = colon + companyInfo[6];
+            RecipientNumbers.Text = colon + companyInfo[7];
+            RecipientEmail.Text = colon + companyInfo[8];
         }
 
         //What happens when the selected item changes

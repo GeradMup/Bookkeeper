@@ -115,6 +115,14 @@ namespace Invoices.src.views
             this.RecipientZipCode = new System.Windows.Forms.Label();
             this.RecipientTown = new System.Windows.Forms.Label();
             this.RecipientEmail = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
             this.EditCompaniesOptions.SuspendLayout();
             this.Tabs.SuspendLayout();
             this.Invoices.SuspendLayout();
@@ -982,6 +990,14 @@ namespace Invoices.src.views
             // 
             this.CompanyDetailspPanel.BackColor = System.Drawing.Color.Ivory;
             this.CompanyDetailspPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.CompanyDetailspPanel.Controls.Add(this.label23);
+            this.CompanyDetailspPanel.Controls.Add(this.label22);
+            this.CompanyDetailspPanel.Controls.Add(this.label21);
+            this.CompanyDetailspPanel.Controls.Add(this.label20);
+            this.CompanyDetailspPanel.Controls.Add(this.label19);
+            this.CompanyDetailspPanel.Controls.Add(this.label18);
+            this.CompanyDetailspPanel.Controls.Add(this.label17);
+            this.CompanyDetailspPanel.Controls.Add(this.label16);
             this.CompanyDetailspPanel.Controls.Add(this.RecipientEmail);
             this.CompanyDetailspPanel.Controls.Add(this.RecipientTown);
             this.CompanyDetailspPanel.Controls.Add(this.RecipientZipCode);
@@ -998,7 +1014,7 @@ namespace Invoices.src.views
             // RecipientName
             // 
             this.RecipientName.AutoSize = true;
-            this.RecipientName.Location = new System.Drawing.Point(14, 7);
+            this.RecipientName.Location = new System.Drawing.Point(187, 7);
             this.RecipientName.Name = "RecipientName";
             this.RecipientName.Size = new System.Drawing.Size(123, 19);
             this.RecipientName.TabIndex = 0;
@@ -1007,7 +1023,7 @@ namespace Invoices.src.views
             // RecipientAddress
             // 
             this.RecipientAddress.AutoSize = true;
-            this.RecipientAddress.Location = new System.Drawing.Point(15, 39);
+            this.RecipientAddress.Location = new System.Drawing.Point(187, 39);
             this.RecipientAddress.Name = "RecipientAddress";
             this.RecipientAddress.Size = new System.Drawing.Size(68, 19);
             this.RecipientAddress.TabIndex = 1;
@@ -1016,7 +1032,7 @@ namespace Invoices.src.views
             // RecipientNumbers
             // 
             this.RecipientNumbers.AutoSize = true;
-            this.RecipientNumbers.Location = new System.Drawing.Point(14, 198);
+            this.RecipientNumbers.Location = new System.Drawing.Point(187, 198);
             this.RecipientNumbers.Name = "RecipientNumbers";
             this.RecipientNumbers.Size = new System.Drawing.Size(63, 19);
             this.RecipientNumbers.TabIndex = 4;
@@ -1025,7 +1041,7 @@ namespace Invoices.src.views
             // RecipientTitle
             // 
             this.RecipientTitle.AutoSize = true;
-            this.RecipientTitle.Location = new System.Drawing.Point(14, 165);
+            this.RecipientTitle.Location = new System.Drawing.Point(187, 165);
             this.RecipientTitle.Name = "RecipientTitle";
             this.RecipientTitle.Size = new System.Drawing.Size(63, 19);
             this.RecipientTitle.TabIndex = 5;
@@ -1034,7 +1050,7 @@ namespace Invoices.src.views
             // RecipientRepresentative
             // 
             this.RecipientRepresentative.AutoSize = true;
-            this.RecipientRepresentative.Location = new System.Drawing.Point(15, 133);
+            this.RecipientRepresentative.Location = new System.Drawing.Point(187, 133);
             this.RecipientRepresentative.Name = "RecipientRepresentative";
             this.RecipientRepresentative.Size = new System.Drawing.Size(63, 19);
             this.RecipientRepresentative.TabIndex = 6;
@@ -1043,7 +1059,7 @@ namespace Invoices.src.views
             // RecipientZipCode
             // 
             this.RecipientZipCode.AutoSize = true;
-            this.RecipientZipCode.Location = new System.Drawing.Point(15, 102);
+            this.RecipientZipCode.Location = new System.Drawing.Point(187, 102);
             this.RecipientZipCode.Name = "RecipientZipCode";
             this.RecipientZipCode.Size = new System.Drawing.Size(63, 19);
             this.RecipientZipCode.TabIndex = 7;
@@ -1052,7 +1068,7 @@ namespace Invoices.src.views
             // RecipientTown
             // 
             this.RecipientTown.AutoSize = true;
-            this.RecipientTown.Location = new System.Drawing.Point(15, 71);
+            this.RecipientTown.Location = new System.Drawing.Point(187, 71);
             this.RecipientTown.Name = "RecipientTown";
             this.RecipientTown.Size = new System.Drawing.Size(86, 19);
             this.RecipientTown.TabIndex = 8;
@@ -1061,11 +1077,83 @@ namespace Invoices.src.views
             // RecipientEmail
             // 
             this.RecipientEmail.AutoSize = true;
-            this.RecipientEmail.Location = new System.Drawing.Point(14, 231);
+            this.RecipientEmail.Location = new System.Drawing.Point(187, 231);
             this.RecipientEmail.Name = "RecipientEmail";
             this.RecipientEmail.Size = new System.Drawing.Size(63, 19);
             this.RecipientEmail.TabIndex = 9;
             this.RecipientEmail.Text = "label18";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(25, 7);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(77, 19);
+            this.label16.TabIndex = 10;
+            this.label16.Text = "Company";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(25, 39);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(68, 19);
+            this.label17.TabIndex = 11;
+            this.label17.Text = "Address";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(25, 71);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(86, 19);
+            this.label18.TabIndex = 12;
+            this.label18.Text = "Town/City";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(25, 102);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(73, 19);
+            this.label19.TabIndex = 13;
+            this.label19.Text = "Zip Code";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(25, 133);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(121, 19);
+            this.label20.TabIndex = 14;
+            this.label20.Text = "Contact Person";
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(25, 163);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(43, 19);
+            this.label21.TabIndex = 15;
+            this.label21.Text = "Title";
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(25, 198);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(136, 19);
+            this.label22.TabIndex = 16;
+            this.label22.Text = "Contact Numbers";
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(25, 227);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(51, 19);
+            this.label23.TabIndex = 17;
+            this.label23.Text = "Email";
             // 
             // MainWindow
             // 
@@ -1201,5 +1289,13 @@ namespace Invoices.src.views
         private System.Windows.Forms.Label RecipientNumbers;
         private System.Windows.Forms.Label RecipientAddress;
         private System.Windows.Forms.Label RecipientName;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label label16;
     }
 }
