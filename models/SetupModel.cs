@@ -100,10 +100,13 @@ namespace Invoices.src.models
 
             if (result == DialogResult.OK)
             {
-                string fileName = openFileDialog.FileName;
+                string fullFilePath = openFileDialog.FileName;
+                string fileName = Path.GetFileName(fullFilePath);
 
-                int index = fileName.LastIndexOf("\\") + 1;
-                fileName = fileName.Substring(index);
+                //First copy the image from wherever it is into the resources folder.
+                string newFilePath = Constants.RESOURCES_DIRECTORY + fileName;
+                File.Copy(fullFilePath, newFilePath);
+
                 return fileName;
             }
             return "";
