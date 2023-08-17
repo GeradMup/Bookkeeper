@@ -114,6 +114,11 @@ namespace Invoices.src.models
             calculateTotals();
         }
 
+        public void removeScopeItem(int rowNumber) 
+        {
+            scopeItems.RemoveAt(rowNumber);
+        }
+
         public List<InvoiceItem> getInvoiceItems() 
         {
             return invoiceItems;
@@ -134,7 +139,7 @@ namespace Invoices.src.models
             return receiptTotal;
         }
 
-        public bool generateReceipt(string companyName, string ourCompanyName) 
+        public bool generateReceipt(string companyName, string ourCompanyName, bool quote) 
         {
             if (invoiceItems.Count == 0) return false;
             string date = DateTime.Now.ToString("dddd dd MMMM yyyy");
@@ -145,11 +150,56 @@ namespace Invoices.src.models
             Company selectedCompany = companies.FirstOrDefault(comp => comp.Name == companyName);
             OurCompany ourCompany = ourCompanies.FirstOrDefault(comp => comp.Name == ourCompanyName);
             List<decimal> totals = new List<decimal> { receiptTotal, vat, grandTotal };
+            string quoteInvoice = quoteOrInvoice(quote);
+            string quoteInvoiceNumber = quoteOrInvoiceNumber(quote); 
+            
+            pdf.createPDF(selectedCompany, 
+                scopeItems, 
+                invoiceItems, 
+                totals, 
+                ourCompany, 
+                quoteInvoice,
+                quoteInvoiceNumber);
 
-         
-            pdf.createPDF(selectedCompany, scopeItems, invoiceItems, totals, ourCompany);
             return true;
         }
+
+        private string quoteOrInvoice(bool quote) 
+        {
+            return quote == true ? "Quote" : "Invoice";
+        }
+
+        private string quoteOrInvoiceNumber(bool quote) 
+        {
+            string pathToFile;
+            string prefix;
+
+            if (quote == true) 
+            { 
+                pathToFile = Constants.QUOTE_NUMBER_PATH;
+                prefix = "Q";
+            }
+            else 
+            { 
+                pathToFile = Constants.INVOICE_NUMBER_PATH;
+                prefix = "INV";
+            }
+
+            List<List<string>> fileLines = textFiles.readTextFile(pathToFile);
+            string storedDateAndMonth = fileLines[0][0].Substring(0, 6);
+            string lastNumber = fileLines[0][0].Substring(6);
+            int number = int.Parse(lastNumber) + 1;
+
+            string currentDateAndMonth = DateTime.Now.ToString("MMyyyy");
+
+            if (storedDateAndMonth != currentDateAndMonth) { storedDateAndMonth = currentDateAndMonth; }
+
+            fileLines[0][0] = storedDateAndMonth + number;
+            textFiles.writeTextFile(pathToFile, fileLines);
+
+            string quoteInvoiceNumber = prefix + storedDateAndMonth + number.ToString();
+            return quoteInvoiceNumber;
+        } 
 
         //Opens the folder where the newly generated invoice will be.
         public void showGeneratedInvoice()

@@ -30,6 +30,5 @@ namespace Invoices.src.views
         {
             disableEditingOurCompany();
         }
-
     }
 }

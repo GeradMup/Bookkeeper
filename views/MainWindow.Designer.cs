@@ -47,6 +47,8 @@ namespace Invoices.src.views
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.InvoiceCheckbox = new System.Windows.Forms.CheckBox();
+            this.QuoteCheckbox = new System.Windows.Forms.CheckBox();
             this.ClearReceiptButton = new System.Windows.Forms.Button();
             this.ReceiptGrandTotal = new System.Windows.Forms.NumericUpDown();
             this.GenerateInvoiceButton = new System.Windows.Forms.Button();
@@ -72,6 +74,7 @@ namespace Invoices.src.views
             this.Quantity = new System.Windows.Forms.NumericUpDown();
             this.ItemNameLabel = new System.Windows.Forms.Label();
             this.ScopeGrid = new System.Windows.Forms.DataGridView();
+            this.ScopeItemsOptions = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.InvoiceItemsGrid = new System.Windows.Forms.DataGridView();
             this.InvoiceItemsOptions = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.DeleteItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -120,6 +123,8 @@ namespace Invoices.src.views
             this.History = new System.Windows.Forms.TabPage();
             this.Setup = new System.Windows.Forms.TabPage();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.OurCompanyNumber = new System.Windows.Forms.TextBox();
+            this.label29 = new System.Windows.Forms.Label();
             this.OurCompanyCancelButton = new System.Windows.Forms.Button();
             this.OurCompanySubmitButton = new System.Windows.Forms.Button();
             this.OurCompanyFooter = new System.Windows.Forms.TextBox();
@@ -134,8 +139,6 @@ namespace Invoices.src.views
             this.label14 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.OurCompanies = new System.Windows.Forms.ComboBox();
-            this.label29 = new System.Windows.Forms.Label();
-            this.OurCompanyNumber = new System.Windows.Forms.TextBox();
             this.EditCompaniesOptions.SuspendLayout();
             this.Tabs.SuspendLayout();
             this.Invoices.SuspendLayout();
@@ -318,6 +321,8 @@ namespace Invoices.src.views
             this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.BackColor = System.Drawing.Color.Ivory;
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.InvoiceCheckbox);
+            this.panel2.Controls.Add(this.QuoteCheckbox);
             this.panel2.Controls.Add(this.ClearReceiptButton);
             this.panel2.Controls.Add(this.ReceiptGrandTotal);
             this.panel2.Controls.Add(this.GenerateInvoiceButton);
@@ -331,16 +336,36 @@ namespace Invoices.src.views
             this.panel2.Size = new System.Drawing.Size(723, 131);
             this.panel2.TabIndex = 17;
             // 
+            // InvoiceCheckbox
+            // 
+            this.InvoiceCheckbox.AutoSize = true;
+            this.InvoiceCheckbox.Location = new System.Drawing.Point(124, 9);
+            this.InvoiceCheckbox.Name = "InvoiceCheckbox";
+            this.InvoiceCheckbox.Size = new System.Drawing.Size(81, 23);
+            this.InvoiceCheckbox.TabIndex = 17;
+            this.InvoiceCheckbox.Text = "Invoice";
+            this.InvoiceCheckbox.UseVisualStyleBackColor = true;
+            // 
+            // QuoteCheckbox
+            // 
+            this.QuoteCheckbox.AutoSize = true;
+            this.QuoteCheckbox.Location = new System.Drawing.Point(11, 9);
+            this.QuoteCheckbox.Name = "QuoteCheckbox";
+            this.QuoteCheckbox.Size = new System.Drawing.Size(72, 23);
+            this.QuoteCheckbox.TabIndex = 16;
+            this.QuoteCheckbox.Text = "Quote";
+            this.QuoteCheckbox.UseVisualStyleBackColor = true;
+            // 
             // ClearReceiptButton
             // 
             this.ClearReceiptButton.BackColor = System.Drawing.Color.DarkSeaGreen;
             this.ClearReceiptButton.FlatAppearance.BorderSize = 2;
             this.ClearReceiptButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.ClearReceiptButton.Location = new System.Drawing.Point(11, 14);
+            this.ClearReceiptButton.Location = new System.Drawing.Point(11, 45);
             this.ClearReceiptButton.Name = "ClearReceiptButton";
-            this.ClearReceiptButton.Size = new System.Drawing.Size(246, 42);
+            this.ClearReceiptButton.Size = new System.Drawing.Size(246, 31);
             this.ClearReceiptButton.TabIndex = 13;
-            this.ClearReceiptButton.Text = "Clear Receipt";
+            this.ClearReceiptButton.Text = "Clear Invoice";
             this.ClearReceiptButton.UseVisualStyleBackColor = false;
             this.ClearReceiptButton.Click += new System.EventHandler(this.ClearReceiptButton_Click);
             // 
@@ -366,9 +391,9 @@ namespace Invoices.src.views
             this.GenerateInvoiceButton.BackColor = System.Drawing.Color.DarkSeaGreen;
             this.GenerateInvoiceButton.FlatAppearance.BorderSize = 2;
             this.GenerateInvoiceButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.GenerateInvoiceButton.Location = new System.Drawing.Point(11, 72);
+            this.GenerateInvoiceButton.Location = new System.Drawing.Point(11, 86);
             this.GenerateInvoiceButton.Name = "GenerateInvoiceButton";
-            this.GenerateInvoiceButton.Size = new System.Drawing.Size(246, 42);
+            this.GenerateInvoiceButton.Size = new System.Drawing.Size(246, 31);
             this.GenerateInvoiceButton.TabIndex = 4;
             this.GenerateInvoiceButton.Text = "Generate Invoice";
             this.GenerateInvoiceButton.UseVisualStyleBackColor = false;
@@ -641,12 +666,22 @@ namespace Invoices.src.views
             | System.Windows.Forms.AnchorStyles.Right)));
             this.ScopeGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.ScopeGrid.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.ScopeGrid.ContextMenuStrip = this.ScopeItemsOptions;
             this.ScopeGrid.GridColor = System.Drawing.SystemColors.ControlDarkDark;
             this.ScopeGrid.Location = new System.Drawing.Point(686, 315);
             this.ScopeGrid.Margin = new System.Windows.Forms.Padding(1);
             this.ScopeGrid.Name = "ScopeGrid";
             this.ScopeGrid.Size = new System.Drawing.Size(723, 285);
             this.ScopeGrid.TabIndex = 15;
+            this.ScopeGrid.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.ScopeGrid_CellBeginEdit);
+            this.ScopeGrid.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.ScopeGrid_CellEndEdit);
+            this.ScopeGrid.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.ScopeGrid_DataError);
+            // 
+            // ScopeItemsOptions
+            // 
+            this.ScopeItemsOptions.Name = "ScopeItemsOptions";
+            this.ScopeItemsOptions.Size = new System.Drawing.Size(61, 4);
+            this.ScopeItemsOptions.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.ScopeItemsOptions_ItemClicked);
             // 
             // InvoiceItemsGrid
             // 
@@ -1150,6 +1185,25 @@ namespace Invoices.src.views
             this.panel4.Size = new System.Drawing.Size(548, 347);
             this.panel4.TabIndex = 2;
             // 
+            // OurCompanyNumber
+            // 
+            this.OurCompanyNumber.Location = new System.Drawing.Point(195, 246);
+            this.OurCompanyNumber.Name = "OurCompanyNumber";
+            this.OurCompanyNumber.ReadOnly = true;
+            this.OurCompanyNumber.Size = new System.Drawing.Size(294, 26);
+            this.OurCompanyNumber.TabIndex = 16;
+            this.OurCompanyNumber.Visible = false;
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Location = new System.Drawing.Point(27, 246);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(56, 19);
+            this.label29.TabIndex = 15;
+            this.label29.Text = "Footer";
+            this.label29.Visible = false;
+            // 
             // OurCompanyCancelButton
             // 
             this.OurCompanyCancelButton.BackColor = System.Drawing.Color.DarkSeaGreen;
@@ -1286,25 +1340,6 @@ namespace Invoices.src.views
             this.OurCompanies.Size = new System.Drawing.Size(294, 27);
             this.OurCompanies.TabIndex = 0;
             this.OurCompanies.SelectedIndexChanged += new System.EventHandler(this.OurCompanies_SelectedIndexChanged);
-            // 
-            // label29
-            // 
-            this.label29.AutoSize = true;
-            this.label29.Location = new System.Drawing.Point(27, 246);
-            this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(56, 19);
-            this.label29.TabIndex = 15;
-            this.label29.Text = "Footer";
-            this.label29.Visible = false;
-            // 
-            // OurCompanyNumber
-            // 
-            this.OurCompanyNumber.Location = new System.Drawing.Point(195, 246);
-            this.OurCompanyNumber.Name = "OurCompanyNumber";
-            this.OurCompanyNumber.ReadOnly = true;
-            this.OurCompanyNumber.Size = new System.Drawing.Size(294, 26);
-            this.OurCompanyNumber.TabIndex = 16;
-            this.OurCompanyNumber.Visible = false;
             // 
             // MainWindow
             // 
@@ -1461,5 +1496,8 @@ namespace Invoices.src.views
         private System.Windows.Forms.Button OurCompanyCancelButton;
         private System.Windows.Forms.TextBox OurCompanyNumber;
         private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.CheckBox InvoiceCheckbox;
+        private System.Windows.Forms.CheckBox QuoteCheckbox;
+        private System.Windows.Forms.ContextMenuStrip ScopeItemsOptions;
     }
 }

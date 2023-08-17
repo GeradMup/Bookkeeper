@@ -93,7 +93,13 @@ namespace Invoices.src.models
             filePath = Constants.INVOICES_PATH + fileName + ".pdf";
         }
 
-        public void createPDF(Company company, List<ScopeItem> scopeItems, List<InvoiceItem> invoiceItems, List<decimal> totals, OurCompany ourCompany)
+        public void createPDF(Company company, 
+            List<ScopeItem> scopeItems, 
+            List<InvoiceItem> invoiceItems, 
+            List<decimal> totals, 
+            OurCompany ourCompany,
+            String quoteOrInvoice,
+            String quoteOrInvoiceNumber)
         {
             // Must have write permissions to the path folder
             PdfDocument pdf = new PdfDocument(new PdfWriter(filePath));
@@ -111,7 +117,7 @@ namespace Invoices.src.models
             firstPage.firstPage();
             pdf.AddEventHandler(PdfDocumentEvent.END_PAGE, new DocumentHeaderAndFooter(document, logoPath, footerPath));
 
-            addCompanyInfo(document, ourCompany);
+            addCompanyInfo(document, ourCompany, quoteOrInvoice, quoteOrInvoiceNumber);
             addCustomerInfo(document, company);
             addScopeItems(document, scopeItems);
             addPricesTable(document, invoiceItems, totals);
@@ -119,17 +125,17 @@ namespace Invoices.src.models
             document.Close();
         }
 
-        private void addCompanyInfo(Document document, OurCompany ourCompany) 
+        private void addCompanyInfo(Document document, OurCompany ourCompany, string quoteOrInvoice, string quoteOrInvoiceNumber) 
         {
             Paragraph companyInfo = creatParagraph(TextAlignment.RIGHT);
 
-            Text quote = new Text("Quote:\n");
+            Text quote = new Text($"{quoteOrInvoice}:\n");
             quote.SetFontSize(15);
             quote.SetBold();
             quote.SetFontColor(ColorConstants.RED);
 
             string dateString = DateTime.Now.ToString("dd MMMM yyyy");
-            Text line1 = new Text($"{ourCompany.Name}/0082\n VAT: {ourCompany.VatNumber}\n Vendor Number: {ourCompany.VendorNumber} \n { dateString }");
+            Text line1 = new Text($"{quoteOrInvoiceNumber}\n VAT: {ourCompany.VatNumber}\n Vendor Number: {ourCompany.VendorNumber} \n { dateString }");
             line1.SetFontSize(STANDARD_FONT_SIZE);
             line1.SetBold();
                 

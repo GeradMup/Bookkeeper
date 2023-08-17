@@ -14,6 +14,7 @@ namespace Invoices.src.views
         InvoiceController invoiceController;
         Color errorColour = Color.LightPink;
         Object previousCellValue = null;
+        Object previousScopeCellValue = null;
 
         public void initializeReceipt() 
         {
@@ -175,6 +176,8 @@ namespace Invoices.src.views
             ItemsList.Text = "";
             Quantity.Value = 0;
             UnitPrice.Value = 0;
+            InvoiceCheckbox.Checked = false;
+            QuoteCheckbox.Checked = false;
             //InvoiceExpiryDate.Value = DateTime.Now;
         }
 
@@ -195,8 +198,17 @@ namespace Invoices.src.views
             if (InvoiceItemsGrid.RowCount == 0) { InvoiceItemsGrid.BackgroundColor = errorColour; return; }
             if (ScopeGrid.RowCount == 0) { ScopeGrid.BackgroundColor = errorColour; return; }
 
-            invoiceController.generateInvoice(CompanyList.Text, QuotingCompany.Text);
+            string invoiceOrQuoteError = "Please indicate if this is a Quote or Invoice";
+            if ((QuoteCheckbox.Checked == false && InvoiceCheckbox.Checked == false) ||
+                (QuoteCheckbox.Checked == true && InvoiceCheckbox.Checked == true)) 
+            {
+                MessageBox.Show(invoiceOrQuoteError);
+                return;
+            }
+
+            invoiceController.generateInvoice(CompanyList.Text, QuotingCompany.Text, QuoteCheckbox.Checked);
             CompanyList.SelectedItem = null;
+            clearReceiptInputs();
         }
 
         public void showSuccess() 
@@ -268,11 +280,45 @@ namespace Invoices.src.views
             previousCellValue = InvoiceItemsGrid.CurrentCell.Value;
         }
 
+        private void ScopeGrid_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
+        {
+            previousScopeCellValue = ScopeGrid.CurrentCell.Value;
+        }
+
+        private void ScopeGrid_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            if (ScopeGrid.CurrentCell.Value == null) 
+            {
+                ScopeGrid.CurrentCell.Value = previousScopeCellValue;
+                MessageBox.Show("Incorrect Data.");
+                return; 
+            }
+
+            if (ScopeGrid.CurrentCell.Value.ToString().Trim() == "")
+            {
+                ScopeGrid.CurrentCell.Value = previousScopeCellValue;
+                MessageBox.Show("Incorrect Data.");
+                return;
+            }
+        }
+
+        private void ScopeGrid_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+            MessageBox.Show("Incorrect Data.");
+        }
+
         private void InvoiceItemsOptions_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
             if(InvoiceItemsGrid.RowCount == 0) { return; }
             invoiceController.removeInvoiceItem(InvoiceItemsGrid.CurrentCell.RowIndex);
         }
+
+        private void ScopeItemsOptions_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            if (ScopeGrid.RowCount == 0) { return; }
+            invoiceController.removeScopeItem(ScopeGrid.CurrentCell.RowIndex);
+        }
+
 
         //When we are showing the progress bar or the sucess message box, we would like disable the rest of the controls.
         void disableAllControlls() 

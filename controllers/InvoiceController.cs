@@ -88,10 +88,10 @@ namespace Invoices.src.controllers
             invoiceView.updateReceiptTotals(invoiceModel.getReceiptTotal(), invoiceModel.getVat(), invoiceModel.getGrandTotal());
         }
 
-        public void generateInvoice(string companyName, string ourCompany) 
+        public void generateInvoice(string companyName, string ourCompany, bool isQuote) 
         {
             invoiceView.showLoadingCursor();
-            bool generated = invoiceModel.generateReceipt(companyName, ourCompany);
+            bool generated = invoiceModel.generateReceipt(companyName, ourCompany, isQuote);
             if (generated == true) 
             {
                 invoiceModel.clearReceipt();
@@ -134,6 +134,12 @@ namespace Invoices.src.controllers
             invoiceModel.removeItem(rowNumber);
             invoiceView.populateItemsGrid(invoiceModel.getInvoiceItems());
             invoiceView.updateReceiptTotals(invoiceModel.getReceiptTotal(), invoiceModel.getVat(), invoiceModel.getGrandTotal());
+        }
+
+        public void removeScopeItem(int rowNumber) 
+        {
+            invoiceModel.removeScopeItem(rowNumber);
+            invoiceView.populateScopeGrid(invoiceModel.getScopeItems());
         }
 
     }
