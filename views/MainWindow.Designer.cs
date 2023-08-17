@@ -120,6 +120,7 @@ namespace Invoices.src.views
             this.History = new System.Windows.Forms.TabPage();
             this.Setup = new System.Windows.Forms.TabPage();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.OurCompanyCancelButton = new System.Windows.Forms.Button();
             this.OurCompanySubmitButton = new System.Windows.Forms.Button();
             this.OurCompanyFooter = new System.Windows.Forms.TextBox();
             this.OurCompanyLogo = new System.Windows.Forms.TextBox();
@@ -133,6 +134,8 @@ namespace Invoices.src.views
             this.label14 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.OurCompanies = new System.Windows.Forms.ComboBox();
+            this.label29 = new System.Windows.Forms.Label();
+            this.OurCompanyNumber = new System.Windows.Forms.TextBox();
             this.EditCompaniesOptions.SuspendLayout();
             this.Tabs.SuspendLayout();
             this.Invoices.SuspendLayout();
@@ -199,6 +202,8 @@ namespace Invoices.src.views
             this.Tabs.SelectedIndex = 0;
             this.Tabs.Size = new System.Drawing.Size(1421, 786);
             this.Tabs.TabIndex = 2;
+            this.Tabs.Deselected += new System.Windows.Forms.TabControlEventHandler(this.Tabs_Deselected);
+            this.Tabs.TabIndexChanged += new System.EventHandler(this.Tabs_TabIndexChanged);
             // 
             // Invoices
             // 
@@ -1123,6 +1128,9 @@ namespace Invoices.src.views
             // 
             this.panel4.BackColor = System.Drawing.Color.Ivory;
             this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel4.Controls.Add(this.OurCompanyNumber);
+            this.panel4.Controls.Add(this.label29);
+            this.panel4.Controls.Add(this.OurCompanyCancelButton);
             this.panel4.Controls.Add(this.OurCompanySubmitButton);
             this.panel4.Controls.Add(this.OurCompanyFooter);
             this.panel4.Controls.Add(this.OurCompanyLogo);
@@ -1139,16 +1147,28 @@ namespace Invoices.src.views
             this.panel4.ForeColor = System.Drawing.SystemColors.ControlText;
             this.panel4.Location = new System.Drawing.Point(3, 3);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(523, 315);
+            this.panel4.Size = new System.Drawing.Size(548, 347);
             this.panel4.TabIndex = 2;
+            // 
+            // OurCompanyCancelButton
+            // 
+            this.OurCompanyCancelButton.BackColor = System.Drawing.Color.DarkSeaGreen;
+            this.OurCompanyCancelButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.OurCompanyCancelButton.Location = new System.Drawing.Point(271, 286);
+            this.OurCompanyCancelButton.Name = "OurCompanyCancelButton";
+            this.OurCompanyCancelButton.Size = new System.Drawing.Size(95, 43);
+            this.OurCompanyCancelButton.TabIndex = 14;
+            this.OurCompanyCancelButton.Text = "CANCEL";
+            this.OurCompanyCancelButton.UseVisualStyleBackColor = false;
+            this.OurCompanyCancelButton.Click += new System.EventHandler(this.OurCompanyCancelButton_Click);
             // 
             // OurCompanySubmitButton
             // 
             this.OurCompanySubmitButton.BackColor = System.Drawing.Color.DarkSeaGreen;
             this.OurCompanySubmitButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.OurCompanySubmitButton.Location = new System.Drawing.Point(357, 253);
+            this.OurCompanySubmitButton.Location = new System.Drawing.Point(388, 286);
             this.OurCompanySubmitButton.Name = "OurCompanySubmitButton";
-            this.OurCompanySubmitButton.Size = new System.Drawing.Size(132, 43);
+            this.OurCompanySubmitButton.Size = new System.Drawing.Size(101, 43);
             this.OurCompanySubmitButton.TabIndex = 13;
             this.OurCompanySubmitButton.Text = "SUBMIT";
             this.OurCompanySubmitButton.UseVisualStyleBackColor = false;
@@ -1194,9 +1214,9 @@ namespace Invoices.src.views
             // 
             this.OurCompanyEditButton.BackColor = System.Drawing.Color.DarkSeaGreen;
             this.OurCompanyEditButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.OurCompanyEditButton.Location = new System.Drawing.Point(31, 253);
+            this.OurCompanyEditButton.Location = new System.Drawing.Point(31, 286);
             this.OurCompanyEditButton.Name = "OurCompanyEditButton";
-            this.OurCompanyEditButton.Size = new System.Drawing.Size(132, 43);
+            this.OurCompanyEditButton.Size = new System.Drawing.Size(96, 43);
             this.OurCompanyEditButton.TabIndex = 8;
             this.OurCompanyEditButton.Text = "EDIT";
             this.OurCompanyEditButton.UseVisualStyleBackColor = false;
@@ -1206,12 +1226,13 @@ namespace Invoices.src.views
             // 
             this.OurCompanyNewButton.BackColor = System.Drawing.Color.DarkSeaGreen;
             this.OurCompanyNewButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.OurCompanyNewButton.Location = new System.Drawing.Point(195, 253);
+            this.OurCompanyNewButton.Location = new System.Drawing.Point(144, 286);
             this.OurCompanyNewButton.Name = "OurCompanyNewButton";
-            this.OurCompanyNewButton.Size = new System.Drawing.Size(132, 43);
+            this.OurCompanyNewButton.Size = new System.Drawing.Size(105, 43);
             this.OurCompanyNewButton.TabIndex = 6;
             this.OurCompanyNewButton.Text = "NEW";
             this.OurCompanyNewButton.UseVisualStyleBackColor = false;
+            this.OurCompanyNewButton.Click += new System.EventHandler(this.OurCompanyNewButton_Click);
             // 
             // OurCompanyVendorNumber
             // 
@@ -1265,6 +1286,25 @@ namespace Invoices.src.views
             this.OurCompanies.Size = new System.Drawing.Size(294, 27);
             this.OurCompanies.TabIndex = 0;
             this.OurCompanies.SelectedIndexChanged += new System.EventHandler(this.OurCompanies_SelectedIndexChanged);
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Location = new System.Drawing.Point(27, 246);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(56, 19);
+            this.label29.TabIndex = 15;
+            this.label29.Text = "Footer";
+            this.label29.Visible = false;
+            // 
+            // OurCompanyNumber
+            // 
+            this.OurCompanyNumber.Location = new System.Drawing.Point(195, 246);
+            this.OurCompanyNumber.Name = "OurCompanyNumber";
+            this.OurCompanyNumber.ReadOnly = true;
+            this.OurCompanyNumber.Size = new System.Drawing.Size(294, 26);
+            this.OurCompanyNumber.TabIndex = 16;
+            this.OurCompanyNumber.Visible = false;
             // 
             // MainWindow
             // 
@@ -1418,5 +1458,8 @@ namespace Invoices.src.views
         private System.Windows.Forms.TextBox OurCompanyFooter;
         private System.Windows.Forms.TextBox OurCompanyLogo;
         private System.Windows.Forms.Button OurCompanySubmitButton;
+        private System.Windows.Forms.Button OurCompanyCancelButton;
+        private System.Windows.Forms.TextBox OurCompanyNumber;
+        private System.Windows.Forms.Label label29;
     }
 }

@@ -15,7 +15,7 @@ namespace Invoices.src.models
         TextFiles textFiles = new TextFiles();
         String logoImageName;
         String footerImageName;
-        Int16 companyNumber;
+
         public SetupModel()
         {
             loadOurCompanies();
@@ -50,8 +50,6 @@ namespace Invoices.src.models
             OurCompany selectedCompany = ourCompanies.FirstOrDefault(comp => comp.CurrentlySelected == "true");
             logoImageName = selectedCompany.LogoImage;
             footerImageName = selectedCompany.FooterImage;
-            companyNumber = selectedCompany.Number;
-
             return selectedCompany.Name;
         }
 
@@ -66,25 +64,30 @@ namespace Invoices.src.models
             textFiles.writeTextFile(Constants.OUR_COMPANIES_PATH, ourCompaniesList);
         }
 
-        public List<string> getCompanyDetails(string name) 
+        private void deselectAllOurCompanies() 
         {
-            foreach (OurCompany company in ourCompanies) 
+            foreach (OurCompany company in ourCompanies)
             {
                 company.CurrentlySelected = "false";
             }
 
+        }
+
+        public OurCompany getCompanyDetails(string name) 
+        {
+            deselectAllOurCompanies();
             OurCompany selectedCompany = ourCompanies.FirstOrDefault(comp => comp.Name == name);
             selectedCompany.CurrentlySelected = "true";
 
             saveAllCompanies();
 
-            return selectedCompany.companyToList();
+            return selectedCompany;
         }
 
         public string getLogoImageName(string currentLogo) 
         {
             logoImageName = fileNameFromDialogBox();
-            return logoImageName == "" ? currentLogo: logoImageName;
+            return logoImageName == "" ? currentLogo : logoImageName;
         }
 
         public string getFooterImageName(string currentFooter) 
@@ -105,7 +108,8 @@ namespace Invoices.src.models
 
                 //First copy the image from wherever it is into the resources folder.
                 string newFilePath = Constants.RESOURCES_DIRECTORY + fileName;
-                File.Copy(fullFilePath, newFilePath);
+                bool overwrite = true;
+                if (fullFilePath != newFilePath) File.Copy(fullFilePath, newFilePath, overwrite);
 
                 return fileName;
             }
@@ -114,9 +118,22 @@ namespace Invoices.src.models
 
         public void editOurCompany(OurCompany modifiedCompany) 
         {
-            OurCompany company = ourCompanies.FirstOrDefault(comp => comp.Number == companyNumber);
+            OurCompany company = ourCompanies.FirstOrDefault(comp => comp.Number == modifiedCompany.Number);
             company.equateTo(modifiedCompany);
 
+            saveAllCompanies();
+        }
+
+        public void addNewOurCompany(OurCompany company) 
+        {
+
+            Int16 nextCompanyNumber = (Int16)(ourCompanies.Count() + 1);
+            company.Number = nextCompanyNumber;
+
+            //The newly added company should automatically become the selected one.
+            deselectAllOurCompanies();
+            company.CurrentlySelected = "true";
+            ourCompanies.Add(company);
             saveAllCompanies();
         }
     }

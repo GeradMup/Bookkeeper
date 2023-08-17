@@ -41,8 +41,20 @@ namespace Invoices.src.controllers
         public void editOurCompany(OurCompany company) 
         {
             setupModel.editOurCompany(company);
-            //setupView.populateCompaniesList(setupModel.getOurCompanyNames());
+            setupView.populateCompaniesList(setupModel.getOurCompanyNames());
         }
 
+        public void addNewOurCompany(OurCompany company) 
+        {
+            setupModel.addNewOurCompany(company);
+            setupView.populateCompaniesList(setupModel.getOurCompanyNames());
+            setupView.setSelectedCompany(setupModel.getSelectedCompany());
+        }
+
+        public void editingCancelled() 
+        {
+            setupView.populateCompaniesList(setupModel.getOurCompanyNames());
+            setupView.setSelectedCompany(setupModel.getSelectedCompany());
+        }
     }
 }

@@ -20,5 +20,16 @@ namespace Invoices.src.views
         {
             InitializeComponent();
         }
+
+        private void Tabs_TabIndexChanged(object sender, EventArgs e)
+        {
+            disableEditingOurCompany();
+        }
+
+        private void Tabs_Deselected(object sender, TabControlEventArgs e)
+        {
+            disableEditingOurCompany();
+        }
+
     }
 }

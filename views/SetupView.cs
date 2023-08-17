@@ -13,16 +13,9 @@ namespace Invoices.src.views
         SetupController setupController;
         bool newOurCompany = false;
         bool editingOurCompany = false;
-        public void assignSetupController(SetupController controller) 
-        {
-            setupController = controller;
-        }
+        bool updatingCompanies = false;
+        Color editingColour = Color.LightBlue;
 
-        public void populateCompaniesList(List<string> companyNames) 
-        {
-            OurCompanies.Items.Clear();
-            OurCompanies.Items.AddRange(companyNames.ToArray());
-        }
 
         //************************************************************************************************************************
         //EVENT HANDLERS FOR THE SETUP TAB
@@ -31,6 +24,8 @@ namespace Invoices.src.views
         {
             //There is no need to check if valid data has been inserted because the user does not type the data
             //So that means data selected will always be valid.
+            if (updatingCompanies == true) return;
+            if (OurCompanies.Text == "") return;
             setupController.companySelected(OurCompanies.Text);
             updateQuotingCompany();
         }
@@ -39,17 +34,93 @@ namespace Invoices.src.views
         {
             newOurCompany = false;
             editingOurCompany = true;
+            OurCompanyNewButton.Enabled = false;
             allowEditing();
         }
 
+        private void OurCompanySubmitButton_Click(object sender, EventArgs e)
+        {
+            if (validInputs() == false) return;
+            models.OurCompany ourCompany = new models.OurCompany();
+
+            ourCompany.Name = OurCompanies.Text;
+            ourCompany.VatNumber = OurCompanyVatNumber.Text;
+            ourCompany.VendorNumber = OurCompanyVendorNumber.Text;
+            ourCompany.LogoImage = OurCompanyLogo.Text;
+            ourCompany.FooterImage = OurCompanyFooter.Text;
+            ourCompany.Number = Int16.Parse(OurCompanyNumber.Text);
+
+            if (editingOurCompany == true)
+            {
+                setupController.editOurCompany(ourCompany);
+            }
+            else if (newOurCompany == true)
+            {
+                setupController.addNewOurCompany(ourCompany);
+            }
+
+            disableEditingOurCompany();
+            editingOurCompany = false;
+            newOurCompany = false;
+        }
+
+        private void OurCompanyLogo_Enter(object sender, EventArgs e)
+        {
+            if (OurCompanyLogo.ReadOnly == true) return;
+            string logoName = setupController.invoiceLogo(OurCompanyLogo.Text);
+            OurCompanyLogo.Text = logoName;
+            OurCompanyLogo.ReadOnly = true;
+        }
+
+        private void OurCompanyFooter_Enter(object sender, EventArgs e)
+        {
+            if (OurCompanyFooter.ReadOnly == true) return;
+            string footerName = setupController.invoiceFooter(OurCompanyFooter.Text);
+            OurCompanyFooter.Text = footerName;
+            OurCompanyFooter.ReadOnly = true;
+        }
+
+        private void OurCompanyNewButton_Click(object sender, EventArgs e)
+        {
+            newOurCompany = true;
+            editingOurCompany = false;
+            OurCompanyEditButton.Enabled = false;
+            clearOurCompanyInputFields();
+            allowEditing();
+        }
+
+        private void OurCompanyCancelButton_Click(object sender, EventArgs e)
+        {
+            disableEditingOurCompany();
+            newOurCompany = false;
+            editingOurCompany = false;
+            setupController.editingCancelled();
+        }
+        //*************************************************************************************************************************
+        // END OF EVENT HANDLERS
         //*************************************************************************************************************************
 
-        public void updateCompanyDetails(List<string> details) 
+        public void assignSetupController(SetupController controller)
         {
-            OurCompanyVatNumber.Text = details[1];
-            OurCompanyVendorNumber.Text = details[2];
-            OurCompanyLogo.Text = details[4];
-            OurCompanyFooter.Text = details[5];
+            setupController = controller;
+        }
+
+        public void populateCompaniesList(List<string> companyNames)
+        {
+            OurCompanies.Items.Clear();
+            OurCompanies.Items.AddRange(companyNames.ToArray());
+        }
+
+        public void updateCompanyDetails(models.OurCompany ourCompany) 
+        {
+            updatingCompanies = true;
+            OurCompanies.Text = ourCompany.Name;
+            OurCompanyVatNumber.Text = ourCompany.VatNumber;
+            OurCompanyVendorNumber.Text = ourCompany.VendorNumber;
+            OurCompanyLogo.Text = ourCompany.LogoImage;
+            OurCompanyFooter.Text = ourCompany.FooterImage;
+            OurCompanyNumber.Text = ourCompany.Number.ToString();
+            updatingCompanies = false;
         }
 
         public void setSelectedCompany(string name) 
@@ -59,27 +130,30 @@ namespace Invoices.src.views
 
         private void allowEditing(bool newCompany = false) 
         {
-            if (newCompany == true) 
-            {
-                clearOurCompanyInputFields();
-            }
-
             OurCompanies.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDown;
             OurCompanyVatNumber.ReadOnly = false;
             OurCompanyVendorNumber.ReadOnly = false;
             OurCompanyLogo.ReadOnly = false;
             OurCompanyFooter.ReadOnly = false;
+
+            showEditingColours();
         }
 
         private void disableEditingOurCompany()
         {
+            string currentlySelectedCompany = OurCompanies.Text;
             OurCompanies.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            OurCompanies.Text = currentlySelectedCompany;
             OurCompanyVatNumber.ReadOnly = true;
             OurCompanyVendorNumber.ReadOnly = true;
             OurCompanyLogo.ReadOnly = true;
             OurCompanyFooter.ReadOnly = true;
-        }
 
+            OurCompanyNewButton.Enabled = true;
+            OurCompanyEditButton.Enabled = true;
+
+            resetOurCompanyInputColours();
+        }
 
         private void clearOurCompanyInputFields() 
         {
@@ -90,35 +164,9 @@ namespace Invoices.src.views
             OurCompanyLogo.Text = "";
         }
 
-        private void OurCompanySubmitButton_Click(object sender, EventArgs e)
-        {
-            if(validInputs() == false) return;
-            models.OurCompany ourCompany = new models.OurCompany();
-            
-            ourCompany.Name = OurCompanies.Text;
-            ourCompany.VatNumber = OurCompanyVatNumber.Text;
-            ourCompany.VendorNumber = OurCompanyVendorNumber.Text;
-            ourCompany.LogoImage = OurCompanyLogo.Text;
-            ourCompany.FooterImage = OurCompanyFooter.Text;
-            
-            if (editingOurCompany == true)
-            {
-                setupController.editOurCompany(ourCompany);   
-            }
-            else if (newOurCompany == true) 
-            {
-                
-            }
-            disableEditingOurCompany();
-
-
-            editingOurCompany = false;
-            newOurCompany = false;
-        }
-
         private bool validInputs() 
         {
-            resetOurCompanyInputColours();
+            showEditingColours();
             if (OurCompanies.Text == "") { OurCompanies.BackColor = errorColour; return false; }
             if (OurCompanyVatNumber.Text == "") { OurCompanyVatNumber.BackColor = errorColour; return false; }
             if (OurCompanyVendorNumber.Text == "") { OurCompanyVendorNumber.BackColor = errorColour; return false; }
@@ -136,19 +184,13 @@ namespace Invoices.src.views
             OurCompanyFooter.BackColor = Color.White;
         }
 
-
-        private void OurCompanyLogo_Enter(object sender, EventArgs e)
+        private void showEditingColours() 
         {
-            string logoName = setupController.invoiceLogo(OurCompanyLogo.Text);
-            OurCompanyLogo.Text = logoName;
-            OurCompanyLogo.ReadOnly = true;
-        }
-
-        private void OurCompanyFooter_Enter(object sender, EventArgs e)
-        {
-            string footerName = setupController.invoiceFooter(OurCompanyFooter.Text);
-            OurCompanyFooter.Text = footerName;
-            OurCompanyFooter.ReadOnly = true;
+            OurCompanies.BackColor = editingColour;
+            OurCompanyVatNumber.BackColor = editingColour;
+            OurCompanyVendorNumber.BackColor = editingColour;
+            OurCompanyLogo.BackColor = editingColour;
+            OurCompanyFooter.BackColor = editingColour;
         }
     }
 }
