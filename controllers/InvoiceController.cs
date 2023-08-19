@@ -142,5 +142,12 @@ namespace Invoices.src.controllers
             invoiceView.populateScopeGrid(invoiceModel.getScopeItems());
         }
 
+        public void referenceInvoice(Object invoiceDataSource, Object scopeDataSource) 
+        {
+            invoiceModel.recallInvoice(invoiceDataSource, scopeDataSource);
+            invoiceView.populateItemsGrid(invoiceModel.getInvoiceItems());
+            invoiceView.updateReceiptTotals(invoiceModel.getReceiptTotal(), invoiceModel.getVat(), invoiceModel.getGrandTotal());
+            invoiceView.populateScopeGrid(invoiceModel.getScopeItems());
+        }
     }
 }

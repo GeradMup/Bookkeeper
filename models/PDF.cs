@@ -134,7 +134,7 @@ namespace Invoices.src.models
             quote.SetBold();
             quote.SetFontColor(ColorConstants.RED);
 
-            string dateString = DateTime.Now.ToString("dd MMMM yyyy");
+            string dateString = DateTime.Now.ToString(Constants.DATE_FORMAT);
             Text line1 = new Text($"{quoteOrInvoiceNumber}\n VAT: {ourCompany.VatNumber}\n Vendor Number: {ourCompany.VendorNumber} \n { dateString }");
             line1.SetFontSize(STANDARD_FONT_SIZE);
             line1.SetBold();
@@ -309,58 +309,5 @@ namespace Invoices.src.models
         }
     }
 }
-
-
-        //private void button1_Click(object sender, EventArgs e)
-        //{
-        //            if (File.Exists(save.FileName))
-        //            {
-        //                try
-        //                {
-        //                    File.Delete(save.FileName);
-        //                }
-        //                catch (Exception ex)
-        //                {
-        //                    ErrorMessage = true;
-        //                    MessageBox.Show("Unable to wride data in disk" + ex.Message);
-        //                }
-        //            }
-        //            if (!ErrorMessage)
-        //            {
-        //                try
-        //                {
-        //                    PdfPTable pTable = new PdfPTable(dataGridView1.Columns.Count);
-        //                    pTable.DefaultCell.Padding = 2;
-        //                    pTable.WidthPercentage = 100;
-        //                    pTable.HorizontalAlignment = Element.ALIGN_LEFT;
-        //                    foreach (DataGridViewColumn col in dataGridView1.Columns)
-        //                    {
-        //                        PdfPCell pCell = new PdfPCell(new Phrase(col.HeaderText));
-        //                        pTable.AddCell(pCell);
-        //                    }
-        //                    foreach (DataGridViewRow viewRow in dataGridView1.Rows)
-        //                    {
-        //                        foreach (DataGridViewCell dcell in viewRow.Cells)
-        //                        {
-        //                            pTable.AddCell(dcell.Value.ToString());
-        //                        }
-        //                    }
-        //                    using (FileStream fileStream = new FileStream(save.FileName, FileMode.Create))
-        //                    {
-        //                        Document document = new Document(PageSize.A4, 8f, 16f, 16f, 8f);
-        //                        PdfWriter.GetInstance(document, fileStream);
-        //                        document.Open();
-        //                        document.Add(pTable);
-        //                        document.Close();
-        //                        fileStream.Close();
-        //                    }
-        //                    MessageBox.Show("Data Export Successfully", "info");
-        //                }
-        //                catch (Exception ex)
-        //                {
-        //                    MessageBox.Show("Error while exporting Data" + ex.Message);
-        //                }
-        //            }
-
 
 

@@ -361,5 +361,11 @@ namespace Invoices.src.views
         {
             resetReceiptInputsColours();
         }
+
+        private void referenceInvoice(Object invoiceDataSource, Object scopeDataSource) 
+        {
+            invoiceController.referenceInvoice(invoiceDataSource, scopeDataSource);
+            MessageBox.Show("You data has been copied!");
+        }
     }
 }

@@ -150,6 +150,7 @@ namespace Invoices.src.views
             this.label14 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.OurCompanies = new System.Windows.Forms.ComboBox();
+            this.DeleteScope = new System.Windows.Forms.ToolStripMenuItem();
             this.EditCompaniesOptions.SuspendLayout();
             this.Tabs.SuspendLayout();
             this.Invoices.SuspendLayout();
@@ -164,6 +165,7 @@ namespace Invoices.src.views
             ((System.ComponentModel.ISupportInitialize)(this.UnitPrice)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Quantity)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ScopeGrid)).BeginInit();
+            this.ScopeItemsOptions.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.InvoiceItemsGrid)).BeginInit();
             this.InvoiceItemsOptions.SuspendLayout();
             this.CompanyDetailspPanel.SuspendLayout();
@@ -695,8 +697,10 @@ namespace Invoices.src.views
             // 
             // ScopeItemsOptions
             // 
+            this.ScopeItemsOptions.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.DeleteScope});
             this.ScopeItemsOptions.Name = "ScopeItemsOptions";
-            this.ScopeItemsOptions.Size = new System.Drawing.Size(61, 4);
+            this.ScopeItemsOptions.Size = new System.Drawing.Size(113, 26);
             this.ScopeItemsOptions.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.ScopeItemsOptions_ItemClicked);
             // 
             // InvoiceItemsGrid
@@ -1229,13 +1233,20 @@ namespace Invoices.src.views
             // 
             // HistoryAllInvoicesGrid
             // 
+            this.HistoryAllInvoicesGrid.AllowUserToAddRows = false;
+            this.HistoryAllInvoicesGrid.AllowUserToDeleteRows = false;
+            this.HistoryAllInvoicesGrid.AllowUserToResizeColumns = false;
+            this.HistoryAllInvoicesGrid.AllowUserToResizeRows = false;
             this.HistoryAllInvoicesGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.HistoryAllInvoicesGrid.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
             this.HistoryAllInvoicesGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.HistoryAllInvoicesGrid.Location = new System.Drawing.Point(17, 81);
             this.HistoryAllInvoicesGrid.Name = "HistoryAllInvoicesGrid";
-            this.HistoryAllInvoicesGrid.Size = new System.Drawing.Size(699, 665);
+            this.HistoryAllInvoicesGrid.ReadOnly = true;
+            this.HistoryAllInvoicesGrid.Size = new System.Drawing.Size(633, 665);
             this.HistoryAllInvoicesGrid.TabIndex = 6;
+            this.HistoryAllInvoicesGrid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.HistoryAllInvoicesGrid_CellClick);
+            this.HistoryAllInvoicesGrid.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.HistoryAllInvoicesGrid_CellDoubleClick);
             // 
             // HistoryInvoiceTotal
             // 
@@ -1273,9 +1284,10 @@ namespace Invoices.src.views
             this.HistoryScopeItemsGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.HistoryScopeItemsGrid.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
             this.HistoryScopeItemsGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.HistoryScopeItemsGrid.Location = new System.Drawing.Point(722, 400);
+            this.HistoryScopeItemsGrid.Location = new System.Drawing.Point(656, 400);
             this.HistoryScopeItemsGrid.Name = "HistoryScopeItemsGrid";
-            this.HistoryScopeItemsGrid.Size = new System.Drawing.Size(691, 346);
+            this.HistoryScopeItemsGrid.ReadOnly = true;
+            this.HistoryScopeItemsGrid.Size = new System.Drawing.Size(757, 346);
             this.HistoryScopeItemsGrid.TabIndex = 2;
             // 
             // HistoryInvoicesGrid
@@ -1285,9 +1297,10 @@ namespace Invoices.src.views
             this.HistoryInvoicesGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.HistoryInvoicesGrid.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
             this.HistoryInvoicesGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.HistoryInvoicesGrid.Location = new System.Drawing.Point(722, 81);
+            this.HistoryInvoicesGrid.Location = new System.Drawing.Point(656, 81);
             this.HistoryInvoicesGrid.Name = "HistoryInvoicesGrid";
-            this.HistoryInvoicesGrid.Size = new System.Drawing.Size(691, 313);
+            this.HistoryInvoicesGrid.ReadOnly = true;
+            this.HistoryInvoicesGrid.Size = new System.Drawing.Size(757, 313);
             this.HistoryInvoicesGrid.TabIndex = 1;
             // 
             // Setup
@@ -1482,6 +1495,12 @@ namespace Invoices.src.views
             this.OurCompanies.TabIndex = 0;
             this.OurCompanies.SelectedIndexChanged += new System.EventHandler(this.OurCompanies_SelectedIndexChanged);
             // 
+            // DeleteScope
+            // 
+            this.DeleteScope.Name = "DeleteScope";
+            this.DeleteScope.Size = new System.Drawing.Size(112, 22);
+            this.DeleteScope.Text = "DELETE";
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1514,6 +1533,7 @@ namespace Invoices.src.views
             ((System.ComponentModel.ISupportInitialize)(this.UnitPrice)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Quantity)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ScopeGrid)).EndInit();
+            this.ScopeItemsOptions.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.InvoiceItemsGrid)).EndInit();
             this.InvoiceItemsOptions.ResumeLayout(false);
             this.CompanyDetailspPanel.ResumeLayout(false);
@@ -1657,5 +1677,6 @@ namespace Invoices.src.views
         private System.Windows.Forms.TextBox HistoryNumberFilter;
         private System.Windows.Forms.TextBox HistoryCompanyFilter;
         private System.Windows.Forms.TextBox HistoryDateFilter;
+        private System.Windows.Forms.ToolStripMenuItem DeleteScope;
     }
 }

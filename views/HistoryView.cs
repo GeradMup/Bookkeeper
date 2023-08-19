@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using Invoices.src.controllers;
 
 namespace Invoices.src.views
@@ -14,12 +15,29 @@ namespace Invoices.src.views
         //**********************************************************************************************************************
         // EVENT HANDLERS FOR THE HISTORY TAB
         //**********************************************************************************************************************
+        private void HistoryAllInvoicesGrid_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex == -1) return;
 
+            string selectedInvoice = HistoryAllInvoicesGrid.Rows[e.RowIndex].Cells[2].Value.ToString();
+            historyController.invoiceSelected(selectedInvoice);
+
+        }
         private void HistoryUseButton_Click(object sender, EventArgs e)
         {
-            //if (HistoryInvoicesList.SelectedItem == null) return;
+            if (HistoryAllInvoicesGrid.SelectedRows.Count == 0) return;
+            if (HistoryAllInvoicesGrid.CurrentRow.Index == -1) return;
 
+            referenceInvoice(HistoryInvoicesGrid.DataSource, HistoryScopeItemsGrid.DataSource);     //This is a function from the Invoice Views Tab.
 
+        }
+
+        private void HistoryAllInvoicesGrid_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (HistoryAllInvoicesGrid.CurrentRow.Index == 0) return;
+            if (HistoryAllInvoicesGrid.CurrentRow.Index == -1) return;
+
+            referenceInvoice(HistoryInvoicesGrid.DataSource, HistoryScopeItemsGrid.DataSource);     //This is a function from the Invoice Views Tab.
         }
 
         private void HistoryDateFilter_TextChanged(object sender, EventArgs e)
@@ -62,6 +80,8 @@ namespace Invoices.src.views
             HistoryAllInvoicesGrid.Columns[0].FillWeight = 1;
             HistoryAllInvoicesGrid.Columns[1].FillWeight = 1.5F;
             HistoryAllInvoicesGrid.Columns[2].FillWeight = 1;
+
+            HistoryAllInvoicesGrid.Columns[0].DefaultCellStyle.Format = "dd MMM yyyy";
         }
 
         public void newInvoiceAdded() 
@@ -77,7 +97,6 @@ namespace Invoices.src.views
             HistoryInvoicesGrid.Columns[1].FillWeight = 1.5F;
             HistoryInvoicesGrid.Columns[2].FillWeight = 1.5F;
             HistoryInvoicesGrid.Columns[3].FillWeight = 2.0F;
-
 
             HistoryInvoicesGrid.Columns[2].DefaultCellStyle.Format = "#,0.###";    //String formatted to comma seperate thousands
             HistoryInvoicesGrid.Columns[3].DefaultCellStyle.Format = "#,0.###";    //String formatted to comma seperate thousands

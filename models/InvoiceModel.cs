@@ -180,7 +180,7 @@ namespace Invoices.src.models
                 invoiceFileItems.Add(item.scopeItemToList());
             }
 
-            string pathToFile = Constants.INVOICE_TEXT_FILES_PATH + DateTime.Now.ToString("dd MMMM yyyy") + " " + companyName + " " + invoiceNumber + ".txt";
+            string pathToFile = Constants.INVOICE_TEXT_FILES_PATH + DateTime.Now.ToString(Constants.DATE_FORMAT) + " " + companyName + " " + invoiceNumber + ".txt";
             bool createFile = true;
             textFiles.writeTextFile(pathToFile, invoiceFileItems, createFile);
         }
@@ -213,7 +213,11 @@ namespace Invoices.src.models
 
             string currentDateAndMonth = DateTime.Now.ToString("MMyyyy");
 
-            if (storedDateAndMonth != currentDateAndMonth) { storedDateAndMonth = currentDateAndMonth; }
+            if (storedDateAndMonth != currentDateAndMonth) 
+            { 
+                storedDateAndMonth = currentDateAndMonth;
+                number = 1;
+            }
 
             fileLines[0][0] = storedDateAndMonth + number;
             textFiles.writeTextFile(pathToFile, fileLines);
@@ -247,6 +251,17 @@ namespace Invoices.src.models
         public List<ScopeItem> getScopeItems() 
         {
             return scopeItems;
+        }
+
+        public void recallInvoice(Object invoiceDataSource, Object scopeDataSource) 
+        {
+            clearReceipt();
+            invoiceItems.Clear();
+            scopeItems.Clear();
+            invoiceItems = new List<InvoiceItem>((List<InvoiceItem>)invoiceDataSource);
+            scopeItems = new List<ScopeItem>((List<ScopeItem>)scopeDataSource);
+
+            calculateTotals();
         }
         
     }

@@ -55,7 +55,7 @@ namespace Invoices.src.models
             DataTable table = new DataTable();
 
             using (var reader = ObjectReader.Create(invoiceFileInfos, "Date", "Company", "Number")) { table.Load(reader); }
-
+            table.DefaultView.Sort = "Date desc";
 
             return table;
         }
@@ -66,7 +66,9 @@ namespace Invoices.src.models
             scopeItems.Clear();
             invoiceInformation.Clear();
 
-            string pathToInvoiceFile = Constants.INVOICE_TEXT_FILES_PATH + invoiceNumber + ".txt";
+            InvoiceFileInfo fileInfo = invoiceFileInfos.FirstOrDefault(obj => obj.Number == invoiceNumber);
+            string invoiceDate = fileInfo.Date.ToString(Constants.DATE_FORMAT);
+            string pathToInvoiceFile = Constants.INVOICE_TEXT_FILES_PATH + invoiceDate + " " + fileInfo.Company + " " + invoiceNumber + ".txt";
             invoiceInformation = textFiles.readTextFile(pathToInvoiceFile);
 
             foreach (List<string> lines in invoiceInformation) 
