@@ -91,7 +91,7 @@ namespace Invoices.src.controllers
         public void generateInvoice(string companyName, string ourCompany, bool isQuote) 
         {
             invoiceView.showLoadingCursor();
-            bool generated = invoiceModel.generateReceipt(companyName, ourCompany, isQuote);
+            bool generated = invoiceModel.generateInvoice(companyName, ourCompany, isQuote);
             if (generated == true) 
             {
                 invoiceModel.clearReceipt();

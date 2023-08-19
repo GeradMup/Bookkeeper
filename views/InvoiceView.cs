@@ -225,6 +225,7 @@ namespace Invoices.src.views
             SuccessPanel.Visible = false;
             SuccessPanel.Visible = false;
             invoiceController.invoiceGenerationCompleted();
+            newInvoiceAdded();      //This is a function in the histories views.      
         }
 
         private void AddScopeButton_Click(object sender, EventArgs e)
@@ -243,9 +244,14 @@ namespace Invoices.src.views
             ScopeDescription.Text = "";
         }
 
+        private void incorrectDataError(string errorMessage = "Incorrect Data!") 
+        {
+            MessageBox.Show(errorMessage);
+        }
+
         private void InvoiceItemsGrid_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
-            MessageBox.Show("Incorrect Value. Please enter a number!");
+            incorrectDataError();
         }
 
         private void InvoiceItemsGrid_CellEndEdit(object sender, DataGridViewCellEventArgs e)
@@ -257,7 +263,7 @@ namespace Invoices.src.views
                 inputData = InvoiceItemsGrid.CurrentCell.Value.ToString().Trim();
                 if (inputData == "")
                 {
-                    MessageBox.Show("Incorrect Value!");
+                    incorrectDataError();
                     InvoiceItemsGrid.CurrentCell.Value = previousCellValue;
                     return;
                 }
@@ -269,7 +275,7 @@ namespace Invoices.src.views
 
             else 
             {
-                MessageBox.Show("Incorrect Value!");
+                incorrectDataError();
                 InvoiceItemsGrid.CurrentCell.Value = previousCellValue;
             }
             
@@ -290,21 +296,21 @@ namespace Invoices.src.views
             if (ScopeGrid.CurrentCell.Value == null) 
             {
                 ScopeGrid.CurrentCell.Value = previousScopeCellValue;
-                MessageBox.Show("Incorrect Data.");
+                incorrectDataError();
                 return; 
             }
 
             if (ScopeGrid.CurrentCell.Value.ToString().Trim() == "")
             {
                 ScopeGrid.CurrentCell.Value = previousScopeCellValue;
-                MessageBox.Show("Incorrect Data.");
+                incorrectDataError();
                 return;
             }
         }
 
         private void ScopeGrid_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
-            MessageBox.Show("Incorrect Data.");
+            incorrectDataError();
         }
 
         private void InvoiceItemsOptions_ItemClicked(object sender, ToolStripItemClickedEventArgs e)

@@ -21,6 +21,8 @@ namespace Invoices.src.controllers
         CompaniesController companiesController;
         SetupModel setupModel;
         SetupController setupController;
+        HistoryController historyController;
+        HistoryModel historyModel;
 
         public MainController() 
         {
@@ -32,6 +34,8 @@ namespace Invoices.src.controllers
             companiesController = new CompaniesController(companiesModel, mainWindow, invoiceController.getCallBack());
             setupModel = new SetupModel();
             setupController = new SetupController(setupModel, mainWindow);
+            historyModel = new HistoryModel();
+            historyController = new HistoryController(mainWindow, historyModel);
 
             //invoiceController.initializeInvoice();
             //Assign controllers to the relevant views

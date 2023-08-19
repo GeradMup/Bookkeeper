@@ -107,6 +107,16 @@ namespace Invoices.src.models
         {
             this.TotalPrice = this.Quantity * this.UnitPrice;
         }
+
+        public List<string> invoiceItemToList() 
+        {
+            List<string> itemList = new List<string>();
+            itemList.Add(this.Name);
+            itemList.Add(this.Quantity.ToString());
+            itemList.Add(this.UnitPrice.ToString());
+            itemList.Add(this.TotalPrice.ToString());
+            return itemList;
+        }
     }
 
     public class ScopeItem 
@@ -119,6 +129,15 @@ namespace Invoices.src.models
 
         public string Title { get; set; }
         public string Comment { get; set; }
+
+        public List<string> scopeItemToList() 
+        {
+            List<string> itemList = new List<string>();
+            itemList.Add(this.Title);
+            itemList.Add(this.Comment);
+            return itemList;
+        }
+        
     }
 
     public class OurCompany 
@@ -169,5 +188,17 @@ namespace Invoices.src.models
                ) return true;
             else return false;
         }
+    }
+
+    public class InvoiceFileInfo 
+    {
+        public InvoiceFileInfo(DateTime date, string company, string number) 
+        {
+            (Date, Company, Number) = (date, company, number);
+        }
+
+        public DateTime Date { get; }
+        public string Company { get; }
+        public string Number { get; }
     }
 }

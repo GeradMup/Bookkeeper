@@ -139,18 +139,20 @@ namespace Invoices.src.models
             return receiptTotal;
         }
 
-        public bool generateReceipt(string companyName, string ourCompanyName, bool quote) 
+        public bool generateInvoice(string companyName, string ourCompanyName, bool quote) 
         {
             if (invoiceItems.Count == 0) return false;
             string date = DateTime.Now.ToString("dddd dd MMMM yyyy");
-            string fileName = companyName + " " + date;
+            string quoteInvoice = quoteOrInvoice(quote);
+
+            string fileName = companyName + " " + date + " " + quoteInvoice;
             PDF pdf = new PDF(fileName);
 
             //Get company details based on user selection
             Company selectedCompany = companies.FirstOrDefault(comp => comp.Name == companyName);
             OurCompany ourCompany = ourCompanies.FirstOrDefault(comp => comp.Name == ourCompanyName);
             List<decimal> totals = new List<decimal> { receiptTotal, vat, grandTotal };
-            string quoteInvoice = quoteOrInvoice(quote);
+            
             string quoteInvoiceNumber = quoteOrInvoiceNumber(quote); 
             
             pdf.createPDF(selectedCompany, 
@@ -161,7 +163,26 @@ namespace Invoices.src.models
                 quoteInvoice,
                 quoteInvoiceNumber);
 
+            createInvoiceFile(quoteInvoiceNumber, selectedCompany.Name);
             return true;
+        }
+
+        public void createInvoiceFile(string invoiceNumber, string companyName) 
+        {
+            List<List<string>> invoiceFileItems = new List<List<string>>();
+            foreach (InvoiceItem item in invoiceItems) 
+            {
+                invoiceFileItems.Add(item.invoiceItemToList());
+            }
+
+            foreach (ScopeItem item in scopeItems) 
+            {
+                invoiceFileItems.Add(item.scopeItemToList());
+            }
+
+            string pathToFile = Constants.INVOICE_TEXT_FILES_PATH + DateTime.Now.ToString("dd MMMM yyyy") + " " + companyName + " " + invoiceNumber + ".txt";
+            bool createFile = true;
+            textFiles.writeTextFile(pathToFile, invoiceFileItems, createFile);
         }
 
         private string quoteOrInvoice(bool quote) 
