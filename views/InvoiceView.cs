@@ -117,6 +117,8 @@ namespace Invoices.src.views
             InvoiceItemsGrid.Columns[3].DefaultCellStyle.Format = "#,0.###";
 
             InvoiceItemsGrid.Columns[3].ReadOnly = true;
+
+            InvoiceItemsGrid.ClearSelection();
         }
 
         public void populateScopeGrid<T>(List<T> gridData)
@@ -128,6 +130,7 @@ namespace Invoices.src.views
             ScopeGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             ScopeGrid.Columns[0].FillWeight = 1;
             ScopeGrid.Columns[1].FillWeight = 4;
+            ScopeGrid.ClearSelection();
         }
 
 
@@ -366,6 +369,7 @@ namespace Invoices.src.views
         {
             invoiceController.referenceInvoice(invoiceDataSource, scopeDataSource);
             MessageBox.Show("You data has been copied!");
+            Tabs.SelectedTab = Invoices; //Change to the invoice tab
         }
     }
 }

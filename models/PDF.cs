@@ -101,8 +101,13 @@ namespace Invoices.src.models
             String quoteOrInvoice,
             String quoteOrInvoiceNumber)
         {
+
+            //First verify that the path we are trying to write to does not already exist.
+            //If it exists, under_score plus incrementing numbers. 
+            string verifiedPath = checkPath();
+
             // Must have write permissions to the path folder
-            PdfDocument pdf = new PdfDocument(new PdfWriter(filePath));
+            PdfDocument pdf = new PdfDocument(new PdfWriter(verifiedPath));
             
 
             Document document = new Document(pdf);
@@ -123,6 +128,24 @@ namespace Invoices.src.models
             addPricesTable(document, invoiceItems, totals);
             addFinalComment(document);
             document.Close();
+        }
+
+        private string checkPath() 
+        {
+            string newFilePath = filePath;
+            bool fileExists = File.Exists(newFilePath);
+            int fileNumber = 1;
+            int fileNameLength = newFilePath.Length - 4;
+            string noExtensionPath = newFilePath.Substring(0, fileNameLength);
+            
+            while (fileExists == true) 
+            {
+                newFilePath = noExtensionPath + "_" + fileNumber + ".pdf";
+                fileExists = File.Exists(newFilePath);
+                fileNumber++;
+            }
+
+            return newFilePath;
         }
 
         private void addCompanyInfo(Document document, OurCompany ourCompany, string quoteOrInvoice, string quoteOrInvoiceNumber) 

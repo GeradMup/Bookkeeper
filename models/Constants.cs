@@ -19,5 +19,6 @@ namespace Invoices.src.models
         public readonly static string INVOICE_NUMBER_PATH = RESOURCES_DIRECTORY + "Invoice Numbers.txt";
         public readonly static string INVOICE_TEXT_FILES_PATH = RESOURCES_DIRECTORY + "\\Invoices\\";
         public readonly static string DATE_FORMAT = "dd MMMM yyyy";
+        public readonly static string INVOICE_TEXTFILES_DATE_FORMAT = "dd MMMM yyyy HHmm";
     }
 }

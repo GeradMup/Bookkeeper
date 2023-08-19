@@ -129,7 +129,6 @@ namespace Invoices.src.views
             this.HistoryDateFilter = new System.Windows.Forms.TextBox();
             this.HistoryAllInvoicesGrid = new System.Windows.Forms.DataGridView();
             this.HistoryInvoiceTotal = new System.Windows.Forms.NumericUpDown();
-            this.HistoryUseButton = new System.Windows.Forms.Button();
             this.HistoryScopeItemsGrid = new System.Windows.Forms.DataGridView();
             this.HistoryInvoicesGrid = new System.Windows.Forms.DataGridView();
             this.Setup = new System.Windows.Forms.TabPage();
@@ -213,8 +212,8 @@ namespace Invoices.src.views
             // Tabs
             // 
             this.Tabs.Controls.Add(this.Invoices);
-            this.Tabs.Controls.Add(this.Companies);
             this.Tabs.Controls.Add(this.History);
+            this.Tabs.Controls.Add(this.Companies);
             this.Tabs.Controls.Add(this.Setup);
             this.Tabs.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Tabs.Font = new System.Drawing.Font("Cambria", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1170,7 +1169,6 @@ namespace Invoices.src.views
             this.History.Controls.Add(this.HistoryDateFilter);
             this.History.Controls.Add(this.HistoryAllInvoicesGrid);
             this.History.Controls.Add(this.HistoryInvoiceTotal);
-            this.History.Controls.Add(this.HistoryUseButton);
             this.History.Controls.Add(this.HistoryScopeItemsGrid);
             this.History.Controls.Add(this.HistoryInvoicesGrid);
             this.History.Location = new System.Drawing.Point(4, 28);
@@ -1264,18 +1262,6 @@ namespace Invoices.src.views
             this.HistoryInvoiceTotal.Size = new System.Drawing.Size(244, 26);
             this.HistoryInvoiceTotal.TabIndex = 5;
             this.HistoryInvoiceTotal.ThousandsSeparator = true;
-            // 
-            // HistoryUseButton
-            // 
-            this.HistoryUseButton.BackColor = System.Drawing.Color.DarkSeaGreen;
-            this.HistoryUseButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.HistoryUseButton.Location = new System.Drawing.Point(722, 47);
-            this.HistoryUseButton.Name = "HistoryUseButton";
-            this.HistoryUseButton.Size = new System.Drawing.Size(177, 27);
-            this.HistoryUseButton.TabIndex = 4;
-            this.HistoryUseButton.Text = "Use As Reference";
-            this.HistoryUseButton.UseVisualStyleBackColor = false;
-            this.HistoryUseButton.Click += new System.EventHandler(this.HistoryUseButton_Click);
             // 
             // HistoryScopeItemsGrid
             // 
@@ -1668,7 +1654,6 @@ namespace Invoices.src.views
         private System.Windows.Forms.ContextMenuStrip ScopeItemsOptions;
         private System.Windows.Forms.DataGridView HistoryScopeItemsGrid;
         private System.Windows.Forms.DataGridView HistoryInvoicesGrid;
-        private System.Windows.Forms.Button HistoryUseButton;
         private System.Windows.Forms.NumericUpDown HistoryInvoiceTotal;
         private System.Windows.Forms.DataGridView HistoryAllInvoicesGrid;
         private System.Windows.Forms.Label Label222;

@@ -47,12 +47,12 @@ namespace Invoices.src.views
 
         private void EditCompaniesOptions_Click(object sender, ToolStripItemClickedEventArgs e)
         {
+            int currentRow = CompaniesGridView.CurrentCell.RowIndex;
             if (e.ClickedItem.ToString() == "EDIT")
             {
                 newClient = false;
                 EditCompaniesPanel.Visible = true;
 
-                int currentRow = CompaniesGridView.CurrentCell.RowIndex;
                 NewCompanyName.Text = CompaniesGridView.Rows[currentRow].Cells[1].Value.ToString();
                 NewCompanyAddress.Text = CompaniesGridView.Rows[currentRow].Cells[2].Value.ToString();
                 NewCompanyVat.Text = CompaniesGridView.Rows[currentRow].Cells[3].Value.ToString();
@@ -70,8 +70,14 @@ namespace Invoices.src.views
             }
             else if (e.ClickedItem.ToString() == "DELETE") 
             {
-                int currentRow = CompaniesGridView.CurrentCell.RowIndex;
-                companiesController.deleteCompany(currentRow);
+                string warning = "Are you sure you want to delete the company:";
+                string companyName = CompaniesGridView.Rows[currentRow].Cells[1].Value.ToString();
+                DialogResult dialogResult = MessageBox.Show($"{warning} {companyName}", "Warning!", MessageBoxButtons.YesNo);
+
+                if (dialogResult == DialogResult.Yes)
+                {
+                    companiesController.deleteCompany(currentRow);
+                }    
             }
         }
 

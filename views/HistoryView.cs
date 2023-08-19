@@ -18,26 +18,21 @@ namespace Invoices.src.views
         private void HistoryAllInvoicesGrid_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex == -1) return;
-
             string selectedInvoice = HistoryAllInvoicesGrid.Rows[e.RowIndex].Cells[2].Value.ToString();
             historyController.invoiceSelected(selectedInvoice);
-
-        }
-        private void HistoryUseButton_Click(object sender, EventArgs e)
-        {
-            if (HistoryAllInvoicesGrid.SelectedRows.Count == 0) return;
-            if (HistoryAllInvoicesGrid.CurrentRow.Index == -1) return;
-
-            referenceInvoice(HistoryInvoicesGrid.DataSource, HistoryScopeItemsGrid.DataSource);     //This is a function from the Invoice Views Tab.
 
         }
 
         private void HistoryAllInvoicesGrid_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (HistoryAllInvoicesGrid.CurrentRow.Index == 0) return;
+            if ((HistoryAllInvoicesGrid.DataSource as DataTable).Rows.Count < 1) return;
             if (HistoryAllInvoicesGrid.CurrentRow.Index == -1) return;
 
             referenceInvoice(HistoryInvoicesGrid.DataSource, HistoryScopeItemsGrid.DataSource);     //This is a function from the Invoice Views Tab.
+            Object invoiceData = null;
+            Object scopeData = null;
+            populateHistoryGrids(invoiceData, scopeData);
+            HistoryAllInvoicesGrid.ClearSelection();
         }
 
         private void HistoryDateFilter_TextChanged(object sender, EventArgs e)
@@ -65,6 +60,11 @@ namespace Invoices.src.views
         // END OF EVENT HANDLERS FOR THE HISTORY TAB
         //**********************************************************************************************************************
 
+        public void initialiazeHistoryTab() 
+        {
+            HistoryInvoiceTotal.Controls[0].Visible = false;
+        }
+
         public void assignHistoryController(HistoryController controller)
         {
             historyController = controller;
@@ -75,6 +75,8 @@ namespace Invoices.src.views
             //HistoryInvoicesList.Items.Clear();
             //HistoryInvoicesList.Items.AddRange(invoiceNames.ToArray());
             HistoryAllInvoicesGrid.DataSource = null;
+            if (data == null) return;
+
             HistoryAllInvoicesGrid.DataSource = data;
 
             HistoryAllInvoicesGrid.Columns[0].FillWeight = 1;
@@ -82,6 +84,8 @@ namespace Invoices.src.views
             HistoryAllInvoicesGrid.Columns[2].FillWeight = 1;
 
             HistoryAllInvoicesGrid.Columns[0].DefaultCellStyle.Format = "dd MMM yyyy";
+
+            HistoryAllInvoicesGrid.ClearSelection();
         }
 
         public void newInvoiceAdded() 
@@ -91,20 +95,27 @@ namespace Invoices.src.views
 
         public void populateHistoryGrids(Object invoiceData, Object scopeData) 
         {
+            
             HistoryInvoicesGrid.DataSource = null;
+            HistoryScopeItemsGrid.DataSource = null;
+            if (invoiceData == null || scopeData == null) return;
+
             HistoryInvoicesGrid.DataSource = invoiceData;
             HistoryInvoicesGrid.Columns[0].FillWeight = 3.0F;
             HistoryInvoicesGrid.Columns[1].FillWeight = 1.5F;
             HistoryInvoicesGrid.Columns[2].FillWeight = 1.5F;
             HistoryInvoicesGrid.Columns[3].FillWeight = 2.0F;
+            HistoryInvoicesGrid.ClearSelection();
 
             HistoryInvoicesGrid.Columns[2].DefaultCellStyle.Format = "#,0.###";    //String formatted to comma seperate thousands
             HistoryInvoicesGrid.Columns[3].DefaultCellStyle.Format = "#,0.###";    //String formatted to comma seperate thousands
 
-            HistoryScopeItemsGrid.DataSource = null;
+           
             HistoryScopeItemsGrid.DataSource = scopeData;
             HistoryScopeItemsGrid.Columns[0].FillWeight = 1;
             HistoryScopeItemsGrid.Columns[1].FillWeight = 2;
+            HistoryScopeItemsGrid.ClearSelection();
+
         }
 
         public void insertHistoryInvoiceTotal(decimal total) 

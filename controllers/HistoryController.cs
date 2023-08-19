@@ -19,6 +19,7 @@ namespace Invoices.src.controllers
             historyView = view;
 
             historyView.assignHistoryController(this);
+            historyView.initialiazeHistoryTab();
             historyView.populateAllHistoryInvoicesGrid(historyModel.getInvoiceHistory());
         }
 

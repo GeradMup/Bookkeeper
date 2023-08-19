@@ -180,7 +180,8 @@ namespace Invoices.src.models
                 invoiceFileItems.Add(item.scopeItemToList());
             }
 
-            string pathToFile = Constants.INVOICE_TEXT_FILES_PATH + DateTime.Now.ToString(Constants.DATE_FORMAT) + " " + companyName + " " + invoiceNumber + ".txt";
+            string dateAndTime = DateTime.Now.ToString(Constants.INVOICE_TEXTFILES_DATE_FORMAT);
+            string pathToFile = Constants.INVOICE_TEXT_FILES_PATH + dateAndTime + " " + companyName + " " + invoiceNumber + ".txt";
             bool createFile = true;
             textFiles.writeTextFile(pathToFile, invoiceFileItems, createFile);
         }

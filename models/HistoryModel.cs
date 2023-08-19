@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,7 +30,7 @@ namespace Invoices.src.models
             quoteInvoiceFileNames.Clear();
             quoteInvoiceFileNames = textFiles.getFileNamesInFolder(Constants.INVOICE_TEXT_FILES_PATH);
 
-            int indexOfThirdSpace;
+            int indexOfFourthSpace;
             int indexOfLastSpace;
 
             string dateString;
@@ -39,17 +40,19 @@ namespace Invoices.src.models
             
             foreach (string invoiceFile in quoteInvoiceFileNames) 
             {
-                indexOfThirdSpace = invoiceFile.IndexOf(" ");                    //First Space
-                indexOfThirdSpace = invoiceFile.IndexOf(" ", indexOfThirdSpace + 1);  //Second Space
-                indexOfThirdSpace = invoiceFile.IndexOf(" ", indexOfThirdSpace + 1);  //Third Space
+                indexOfFourthSpace = invoiceFile.IndexOf(" ");                    //First Space
+                indexOfFourthSpace = invoiceFile.IndexOf(" ", indexOfFourthSpace + 1);  //Second Space
+                indexOfFourthSpace = invoiceFile.IndexOf(" ", indexOfFourthSpace + 1);  //Third Space
+                indexOfFourthSpace = invoiceFile.IndexOf(" ", indexOfFourthSpace + 1);  //Fourth Space
                 indexOfLastSpace = invoiceFile.LastIndexOf(" ");
-                companyNameLength = indexOfLastSpace - indexOfThirdSpace - 1;
+                companyNameLength = indexOfLastSpace - indexOfFourthSpace - 1;
 
-                dateString = invoiceFile.Substring(0, indexOfThirdSpace);
-                companyName = invoiceFile.Substring(indexOfThirdSpace + 1, companyNameLength);
+                dateString = invoiceFile.Substring(0, indexOfFourthSpace);
+                companyName = invoiceFile.Substring(indexOfFourthSpace + 1, companyNameLength);
                 invoiceNumber = invoiceFile.Substring(indexOfLastSpace + 1);
 
-                invoiceFileInfos.Add(new InvoiceFileInfo(DateTime.Parse(dateString), companyName, invoiceNumber));
+                DateTime date = DateTime.ParseExact(dateString, Constants.INVOICE_TEXTFILES_DATE_FORMAT, CultureInfo.InvariantCulture);
+                invoiceFileInfos.Add(new InvoiceFileInfo(date, companyName, invoiceNumber));
             }
 
             DataTable table = new DataTable();
@@ -67,7 +70,7 @@ namespace Invoices.src.models
             invoiceInformation.Clear();
 
             InvoiceFileInfo fileInfo = invoiceFileInfos.FirstOrDefault(obj => obj.Number == invoiceNumber);
-            string invoiceDate = fileInfo.Date.ToString(Constants.DATE_FORMAT);
+            string invoiceDate = fileInfo.Date.ToString(Constants.INVOICE_TEXTFILES_DATE_FORMAT);
             string pathToInvoiceFile = Constants.INVOICE_TEXT_FILES_PATH + invoiceDate + " " + fileInfo.Company + " " + invoiceNumber + ".txt";
             invoiceInformation = textFiles.readTextFile(pathToInvoiceFile);
 
