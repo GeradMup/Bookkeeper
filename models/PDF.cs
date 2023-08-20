@@ -112,8 +112,12 @@ namespace Invoices.src.models
 
             Document document = new Document(pdf);
             document.SetMargins(150f, 0f, 100f, 0f);
+
+            FontProgram documentFont = FontProgramFactory.CreateFont(Constants.CALIBRI_FONT_PATH);
+            PdfFont pdfFont = PdfFontFactory.CreateFont(documentFont, PdfEncodings.WINANSI);
+
             //PdfFont docFont = PdfFontFactory.CreateFont(FontProgram.)
-            //document.SetFont(new PdfFont())
+            document.SetFont(pdfFont);
 
             string logoPath = Constants.RESOURCES_DIRECTORY + ourCompany.LogoImage;
             string footerPath = Constants.RESOURCES_DIRECTORY + ourCompany.FooterImage;
