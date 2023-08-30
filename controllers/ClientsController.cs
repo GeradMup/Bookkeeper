@@ -8,50 +8,50 @@ using Invoices.src.models;
 
 namespace Invoices.src.controllers
 {
-    public class CompaniesController
+    public class ClientsController
     {
-        CompaniesModel companiesModel;
+        ClientsModel clientsModel;
         MainWindow companiesWindow;
         Action<bool> updatedInvoiceCompanies;   //This is a callback function from the InvoiceController.
 
-        public CompaniesController(CompaniesModel model, MainWindow window, Action<bool> invCompanies) 
+        public ClientsController(ClientsModel model, MainWindow window, Action<bool> invCompanies) 
         {
             updatedInvoiceCompanies = invCompanies;
-            companiesModel = model;
+            clientsModel = model;
             companiesWindow = window;
             initializeCompanies();
         }
 
         private void initializeCompanies() 
         {
-            companiesWindow.assignCompaniesController(this);
-            companiesWindow.populateCompaniesGrid(companiesModel.getCompanies());
+            companiesWindow.assignclientsController(this);
+            companiesWindow.populateCompaniesGrid(clientsModel.getCompanies());
         }
 
         public void editCompanies(int number, List<string> companyinfo) 
         {
-            bool companiesUpdated = companiesModel.updateCompanies(number, companyinfo);
+            bool companiesUpdated = clientsModel.updateCompanies(number, companyinfo);
             if (companiesUpdated == true)
             {
                 bool readFirst = true;
-                companiesWindow.populateCompaniesGrid(companiesModel.getCompanies(readFirst));
+                companiesWindow.populateCompaniesGrid(clientsModel.getCompanies(readFirst));
                 updatedInvoiceCompanies(readFirst);  //This is a callback function from the Invoices Controller
             }
         }
 
         public void addCompany(List<string> companyinfo) 
         {
-            companiesModel.addCompany(companyinfo);
+            clientsModel.addCompany(companyinfo);
             bool readFirst = true;
-            companiesWindow.populateCompaniesGrid(companiesModel.getCompanies(readFirst));
+            companiesWindow.populateCompaniesGrid(clientsModel.getCompanies(readFirst));
             updatedInvoiceCompanies(readFirst);
         }
 
         public void deleteCompany(int number) 
         {
-            companiesModel.deleteCompany(number);
+            clientsModel.deleteCompany(number);
             bool readFirst = true;
-            companiesWindow.populateCompaniesGrid(companiesModel.getCompanies(readFirst));
+            companiesWindow.populateCompaniesGrid(clientsModel.getCompanies(readFirst));
             updatedInvoiceCompanies(readFirst);
         }
     }

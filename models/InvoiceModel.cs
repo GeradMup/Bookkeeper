@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,6 +20,8 @@ namespace Invoices.src.models
         private decimal receiptTotal;
         private decimal vat;
         private decimal grandTotal;
+
+        string pathToPreviousInvoiceQuote;
         public InvoiceModel() 
         {
             textFiles = new TextFiles();
@@ -139,29 +142,42 @@ namespace Invoices.src.models
             return receiptTotal;
         }
 
-        public bool generateInvoice(string companyName, string ourCompanyName, bool quote) 
+        public bool generateInvoice(string companyName, string ourCompanyName, bool quote, DateTime expiryDate, InvoiceFileInfo referenceFile) 
         {
             if (invoiceItems.Count == 0) return false;
             string date = DateTime.Now.ToString("dddd dd MMMM yyyy");
             string quoteInvoice = quoteOrInvoice(quote);
 
             string fileName = companyName + " " + date + " " + quoteInvoice;
-            PDF pdf = new PDF(fileName);
+           
 
             //Get company details based on user selection
             Company selectedCompany = companies.FirstOrDefault(comp => comp.Name == companyName);
             OurCompany ourCompany = ourCompanies.FirstOrDefault(comp => comp.Name == ourCompanyName);
             List<decimal> totals = new List<decimal> { receiptTotal, vat, grandTotal };
-            
-            string quoteInvoiceNumber = quoteOrInvoiceNumber(quote); 
-            
-            pdf.createPDF(selectedCompany, 
-                scopeItems, 
-                invoiceItems, 
-                totals, 
-                ourCompany, 
-                quoteInvoice,
-                quoteInvoiceNumber);
+            string quoteInvoiceNumber;
+
+            if (referenceFile == null) quoteInvoiceNumber = quoteOrInvoiceNumber(quote);
+            else
+            {
+                quoteInvoiceNumber = referenceFile.Number;
+                string refDate = referenceFile.Date.ToString(Constants.INVOICE_TEXTFILES_DATE_FORMAT);
+                string previousInvoicePath = Constants.INVOICE_TEXT_FILES_PATH + refDate + " " + referenceFile.Company + " " + quoteInvoiceNumber + ".txt";
+
+                File.Delete(previousInvoicePath);
+            }
+
+            PDF pdf = new PDF(fileName, quoteInvoiceNumber);
+            pathToPreviousInvoiceQuote = pdf.createPDF(
+                                            selectedCompany, 
+                                            scopeItems, 
+                                            invoiceItems, 
+                                            totals, 
+                                            ourCompany, 
+                                            quoteInvoice,
+                                            quoteInvoiceNumber,
+                                            expiryDate);
+
 
             createInvoiceFile(quoteInvoiceNumber, selectedCompany.Name);
             return true;
@@ -181,7 +197,13 @@ namespace Invoices.src.models
             }
 
             string dateAndTime = DateTime.Now.ToString(Constants.INVOICE_TEXTFILES_DATE_FORMAT);
-            string pathToFile = Constants.INVOICE_TEXT_FILES_PATH + dateAndTime + " " + companyName + " " + invoiceNumber + ".txt";
+
+            string folder = Constants.INVOICE_TEXT_FILES_PATH + "\\" + invoiceNumber + "\\";
+
+            //Create the directory needed for the invoices.
+            if (System.IO.Directory.Exists(folder) == false) { System.IO.Directory.CreateDirectory(folder); }
+
+            string pathToFile = folder + dateAndTime + " " + companyName + " " + invoiceNumber + ".txt";
             bool createFile = true;
             textFiles.writeTextFile(pathToFile, invoiceFileItems, createFile);
         }
@@ -231,7 +253,7 @@ namespace Invoices.src.models
         public void showGeneratedInvoice()
         {
             //Open the folder where the new invoice has been created and stored.
-            Process.Start(Constants.INVOICES_PATH);
+            Process.Start(pathToPreviousInvoiceQuote);
         }
 
         public void clearReceipt() 

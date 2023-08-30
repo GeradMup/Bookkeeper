@@ -37,6 +37,7 @@ namespace Invoices.src.views
             this.DELETE = new System.Windows.Forms.ToolStripMenuItem();
             this.Tabs = new System.Windows.Forms.TabControl();
             this.Invoices = new System.Windows.Forms.TabPage();
+            this.RefInvoice = new System.Windows.Forms.Label();
             this.SuccessPanel = new System.Windows.Forms.Panel();
             this.SuccessOkButton = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
@@ -75,6 +76,7 @@ namespace Invoices.src.views
             this.ItemNameLabel = new System.Windows.Forms.Label();
             this.ScopeGrid = new System.Windows.Forms.DataGridView();
             this.ScopeItemsOptions = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.DeleteScope = new System.Windows.Forms.ToolStripMenuItem();
             this.InvoiceItemsGrid = new System.Windows.Forms.DataGridView();
             this.InvoiceItemsOptions = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.DeleteItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -97,30 +99,10 @@ namespace Invoices.src.views
             this.RecipientNumbers = new System.Windows.Forms.Label();
             this.RecipientAddress = new System.Windows.Forms.Label();
             this.RecipientName = new System.Windows.Forms.Label();
-            this.Companies = new System.Windows.Forms.TabPage();
-            this.EditCompaniesPanel = new System.Windows.Forms.Panel();
-            this.label25 = new System.Windows.Forms.Label();
-            this.NewCompanyVat = new System.Windows.Forms.TextBox();
-            this.NewCompanyContactEmail = new System.Windows.Forms.TextBox();
-            this.NewCompanyContactNumbers = new System.Windows.Forms.TextBox();
-            this.NewCompanyContactTitle = new System.Windows.Forms.TextBox();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.NewCompanyContactPerson = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.NewCompanyZipCode = new System.Windows.Forms.NumericUpDown();
-            this.NewCompanyCity = new System.Windows.Forms.TextBox();
-            this.NewCompanyAddress = new System.Windows.Forms.TextBox();
-            this.NewCompanyName = new System.Windows.Forms.TextBox();
-            this.NewCompanyCancelButton = new System.Windows.Forms.Button();
-            this.NewCompanyDoneButton = new System.Windows.Forms.Button();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.CompaniesGridView = new System.Windows.Forms.DataGridView();
             this.History = new System.Windows.Forms.TabPage();
+            this.HistoryAddAttachments = new System.Windows.Forms.Button();
+            this.HistoryAttachmentsGrid = new System.Windows.Forms.DataGridView();
+            this.UseAsReferenceButton = new System.Windows.Forms.Button();
             this.Label222 = new System.Windows.Forms.Label();
             this.label31 = new System.Windows.Forms.Label();
             this.label30 = new System.Windows.Forms.Label();
@@ -131,7 +113,30 @@ namespace Invoices.src.views
             this.HistoryInvoiceTotal = new System.Windows.Forms.NumericUpDown();
             this.HistoryScopeItemsGrid = new System.Windows.Forms.DataGridView();
             this.HistoryInvoicesGrid = new System.Windows.Forms.DataGridView();
-            this.Setup = new System.Windows.Forms.TabPage();
+            this.Clients = new System.Windows.Forms.TabPage();
+            this.EditCompaniesPanel = new System.Windows.Forms.Panel();
+            this.label25 = new System.Windows.Forms.Label();
+            this.NewClientVat = new System.Windows.Forms.TextBox();
+            this.NewClientContactEmail = new System.Windows.Forms.TextBox();
+            this.NewClientContactNumbers = new System.Windows.Forms.TextBox();
+            this.NewClientContactTitle = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.NewClientContactPerson = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.NewClientZipCode = new System.Windows.Forms.NumericUpDown();
+            this.NewClientCity = new System.Windows.Forms.TextBox();
+            this.NewClientAddress = new System.Windows.Forms.TextBox();
+            this.NewClientName = new System.Windows.Forms.TextBox();
+            this.NewClientCancelButton = new System.Windows.Forms.Button();
+            this.NewClientDoneButton = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.ClientsGridView = new System.Windows.Forms.DataGridView();
+            this.Companies = new System.Windows.Forms.TabPage();
             this.panel4 = new System.Windows.Forms.Panel();
             this.OurCompanyNumber = new System.Windows.Forms.TextBox();
             this.label29 = new System.Windows.Forms.Label();
@@ -149,7 +154,6 @@ namespace Invoices.src.views
             this.label14 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.OurCompanies = new System.Windows.Forms.ComboBox();
-            this.DeleteScope = new System.Windows.Forms.ToolStripMenuItem();
             this.EditCompaniesOptions.SuspendLayout();
             this.Tabs.SuspendLayout();
             this.Invoices.SuspendLayout();
@@ -168,16 +172,17 @@ namespace Invoices.src.views
             ((System.ComponentModel.ISupportInitialize)(this.InvoiceItemsGrid)).BeginInit();
             this.InvoiceItemsOptions.SuspendLayout();
             this.CompanyDetailspPanel.SuspendLayout();
-            this.Companies.SuspendLayout();
-            this.EditCompaniesPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.NewCompanyZipCode)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.CompaniesGridView)).BeginInit();
             this.History.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.HistoryAttachmentsGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.HistoryAllInvoicesGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.HistoryInvoiceTotal)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.HistoryScopeItemsGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.HistoryInvoicesGrid)).BeginInit();
-            this.Setup.SuspendLayout();
+            this.Clients.SuspendLayout();
+            this.EditCompaniesPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NewClientZipCode)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ClientsGridView)).BeginInit();
+            this.Companies.SuspendLayout();
             this.panel4.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -213,20 +218,21 @@ namespace Invoices.src.views
             // 
             this.Tabs.Controls.Add(this.Invoices);
             this.Tabs.Controls.Add(this.History);
+            this.Tabs.Controls.Add(this.Clients);
             this.Tabs.Controls.Add(this.Companies);
-            this.Tabs.Controls.Add(this.Setup);
             this.Tabs.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Tabs.Font = new System.Drawing.Font("Cambria", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Tabs.Location = new System.Drawing.Point(0, 0);
             this.Tabs.Name = "Tabs";
             this.Tabs.SelectedIndex = 0;
-            this.Tabs.Size = new System.Drawing.Size(1421, 786);
+            this.Tabs.Size = new System.Drawing.Size(1459, 818);
             this.Tabs.TabIndex = 2;
             this.Tabs.Deselected += new System.Windows.Forms.TabControlEventHandler(this.Tabs_Deselected);
             this.Tabs.TabIndexChanged += new System.EventHandler(this.Tabs_TabIndexChanged);
             // 
             // Invoices
             // 
+            this.Invoices.Controls.Add(this.RefInvoice);
             this.Invoices.Controls.Add(this.SuccessPanel);
             this.Invoices.Controls.Add(this.panel3);
             this.Invoices.Controls.Add(this.panel2);
@@ -237,10 +243,20 @@ namespace Invoices.src.views
             this.Invoices.Location = new System.Drawing.Point(4, 28);
             this.Invoices.Name = "Invoices";
             this.Invoices.Padding = new System.Windows.Forms.Padding(3);
-            this.Invoices.Size = new System.Drawing.Size(1413, 754);
+            this.Invoices.Size = new System.Drawing.Size(1451, 786);
             this.Invoices.TabIndex = 0;
             this.Invoices.Text = "Invoices";
             this.Invoices.UseVisualStyleBackColor = true;
+            // 
+            // RefInvoice
+            // 
+            this.RefInvoice.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.RefInvoice.AutoSize = true;
+            this.RefInvoice.Location = new System.Drawing.Point(686, 749);
+            this.RefInvoice.Name = "RefInvoice";
+            this.RefInvoice.Size = new System.Drawing.Size(147, 19);
+            this.RefInvoice.TabIndex = 20;
+            this.RefInvoice.Text = "Reference Invoice :";
             // 
             // SuccessPanel
             // 
@@ -248,7 +264,7 @@ namespace Invoices.src.views
             this.SuccessPanel.BackColor = System.Drawing.Color.Lime;
             this.SuccessPanel.Controls.Add(this.SuccessOkButton);
             this.SuccessPanel.Controls.Add(this.label6);
-            this.SuccessPanel.Location = new System.Drawing.Point(837, 393);
+            this.SuccessPanel.Location = new System.Drawing.Point(856, 409);
             this.SuccessPanel.Name = "SuccessPanel";
             this.SuccessPanel.Size = new System.Drawing.Size(417, 85);
             this.SuccessPanel.TabIndex = 14;
@@ -350,13 +366,13 @@ namespace Invoices.src.views
             this.panel2.Controls.Add(this.Vat);
             this.panel2.Location = new System.Drawing.Point(686, 604);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(723, 131);
+            this.panel2.Size = new System.Drawing.Size(761, 142);
             this.panel2.TabIndex = 17;
             // 
             // InvoiceCheckbox
             // 
             this.InvoiceCheckbox.AutoSize = true;
-            this.InvoiceCheckbox.Location = new System.Drawing.Point(124, 9);
+            this.InvoiceCheckbox.Location = new System.Drawing.Point(124, 14);
             this.InvoiceCheckbox.Name = "InvoiceCheckbox";
             this.InvoiceCheckbox.Size = new System.Drawing.Size(81, 23);
             this.InvoiceCheckbox.TabIndex = 17;
@@ -366,7 +382,7 @@ namespace Invoices.src.views
             // QuoteCheckbox
             // 
             this.QuoteCheckbox.AutoSize = true;
-            this.QuoteCheckbox.Location = new System.Drawing.Point(11, 9);
+            this.QuoteCheckbox.Location = new System.Drawing.Point(11, 14);
             this.QuoteCheckbox.Name = "QuoteCheckbox";
             this.QuoteCheckbox.Size = new System.Drawing.Size(72, 23);
             this.QuoteCheckbox.TabIndex = 16;
@@ -378,7 +394,7 @@ namespace Invoices.src.views
             this.ClearReceiptButton.BackColor = System.Drawing.Color.DarkSeaGreen;
             this.ClearReceiptButton.FlatAppearance.BorderSize = 2;
             this.ClearReceiptButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.ClearReceiptButton.Location = new System.Drawing.Point(11, 45);
+            this.ClearReceiptButton.Location = new System.Drawing.Point(11, 50);
             this.ClearReceiptButton.Name = "ClearReceiptButton";
             this.ClearReceiptButton.Size = new System.Drawing.Size(246, 31);
             this.ClearReceiptButton.TabIndex = 13;
@@ -391,7 +407,7 @@ namespace Invoices.src.views
             this.ReceiptGrandTotal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.ReceiptGrandTotal.DecimalPlaces = 2;
             this.ReceiptGrandTotal.InterceptArrowKeys = false;
-            this.ReceiptGrandTotal.Location = new System.Drawing.Point(447, 88);
+            this.ReceiptGrandTotal.Location = new System.Drawing.Point(485, 93);
             this.ReceiptGrandTotal.Maximum = new decimal(new int[] {
             -727379968,
             232,
@@ -408,7 +424,7 @@ namespace Invoices.src.views
             this.GenerateInvoiceButton.BackColor = System.Drawing.Color.DarkSeaGreen;
             this.GenerateInvoiceButton.FlatAppearance.BorderSize = 2;
             this.GenerateInvoiceButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.GenerateInvoiceButton.Location = new System.Drawing.Point(11, 86);
+            this.GenerateInvoiceButton.Location = new System.Drawing.Point(11, 91);
             this.GenerateInvoiceButton.Name = "GenerateInvoiceButton";
             this.GenerateInvoiceButton.Size = new System.Drawing.Size(246, 31);
             this.GenerateInvoiceButton.TabIndex = 4;
@@ -421,7 +437,7 @@ namespace Invoices.src.views
             this.ReceiptTotal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.ReceiptTotal.DecimalPlaces = 2;
             this.ReceiptTotal.InterceptArrowKeys = false;
-            this.ReceiptTotal.Location = new System.Drawing.Point(447, 8);
+            this.ReceiptTotal.Location = new System.Drawing.Point(485, 13);
             this.ReceiptTotal.Maximum = new decimal(new int[] {
             -727379968,
             232,
@@ -438,7 +454,7 @@ namespace Invoices.src.views
             this.ReceiptVat.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.ReceiptVat.DecimalPlaces = 2;
             this.ReceiptVat.InterceptArrowKeys = false;
-            this.ReceiptVat.Location = new System.Drawing.Point(447, 49);
+            this.ReceiptVat.Location = new System.Drawing.Point(485, 54);
             this.ReceiptVat.Maximum = new decimal(new int[] {
             -727379968,
             232,
@@ -454,7 +470,7 @@ namespace Invoices.src.views
             // 
             this.Totals.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.Totals.AutoSize = true;
-            this.Totals.Location = new System.Drawing.Point(266, 10);
+            this.Totals.Location = new System.Drawing.Point(304, 15);
             this.Totals.Name = "Totals";
             this.Totals.Size = new System.Drawing.Size(152, 19);
             this.Totals.TabIndex = 6;
@@ -464,7 +480,7 @@ namespace Invoices.src.views
             // 
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(266, 89);
+            this.label5.Location = new System.Drawing.Point(304, 94);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(97, 19);
             this.label5.TabIndex = 10;
@@ -474,7 +490,7 @@ namespace Invoices.src.views
             // 
             this.Vat.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.Vat.AutoSize = true;
-            this.Vat.Location = new System.Drawing.Point(266, 51);
+            this.Vat.Location = new System.Drawing.Point(304, 56);
             this.Vat.Name = "Vat";
             this.Vat.Size = new System.Drawing.Size(37, 19);
             this.Vat.TabIndex = 8;
@@ -688,7 +704,7 @@ namespace Invoices.src.views
             this.ScopeGrid.Location = new System.Drawing.Point(686, 315);
             this.ScopeGrid.Margin = new System.Windows.Forms.Padding(1);
             this.ScopeGrid.Name = "ScopeGrid";
-            this.ScopeGrid.Size = new System.Drawing.Size(723, 285);
+            this.ScopeGrid.Size = new System.Drawing.Size(761, 285);
             this.ScopeGrid.TabIndex = 15;
             this.ScopeGrid.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.ScopeGrid_CellBeginEdit);
             this.ScopeGrid.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.ScopeGrid_CellEndEdit);
@@ -701,6 +717,12 @@ namespace Invoices.src.views
             this.ScopeItemsOptions.Name = "ScopeItemsOptions";
             this.ScopeItemsOptions.Size = new System.Drawing.Size(113, 26);
             this.ScopeItemsOptions.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.ScopeItemsOptions_ItemClicked);
+            // 
+            // DeleteScope
+            // 
+            this.DeleteScope.Name = "DeleteScope";
+            this.DeleteScope.Size = new System.Drawing.Size(112, 22);
+            this.DeleteScope.Text = "DELETE";
             // 
             // InvoiceItemsGrid
             // 
@@ -716,7 +738,7 @@ namespace Invoices.src.views
             this.InvoiceItemsGrid.Location = new System.Drawing.Point(686, 6);
             this.InvoiceItemsGrid.Margin = new System.Windows.Forms.Padding(1);
             this.InvoiceItemsGrid.Name = "InvoiceItemsGrid";
-            this.InvoiceItemsGrid.Size = new System.Drawing.Size(723, 300);
+            this.InvoiceItemsGrid.Size = new System.Drawing.Size(761, 300);
             this.InvoiceItemsGrid.TabIndex = 3;
             this.InvoiceItemsGrid.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.InvoiceItemsGrid_CellBeginEdit);
             this.InvoiceItemsGrid.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.InvoiceItemsGrid_CellEndEdit);
@@ -925,16 +947,186 @@ namespace Invoices.src.views
             this.RecipientName.TabIndex = 0;
             this.RecipientName.Text = "Company Name";
             // 
-            // Companies
+            // History
             // 
-            this.Companies.Controls.Add(this.EditCompaniesPanel);
-            this.Companies.Controls.Add(this.CompaniesGridView);
-            this.Companies.Location = new System.Drawing.Point(4, 28);
-            this.Companies.Name = "Companies";
-            this.Companies.Size = new System.Drawing.Size(1413, 754);
-            this.Companies.TabIndex = 4;
-            this.Companies.Text = "Companies";
-            this.Companies.UseVisualStyleBackColor = true;
+            this.History.Controls.Add(this.HistoryAddAttachments);
+            this.History.Controls.Add(this.HistoryAttachmentsGrid);
+            this.History.Controls.Add(this.UseAsReferenceButton);
+            this.History.Controls.Add(this.Label222);
+            this.History.Controls.Add(this.label31);
+            this.History.Controls.Add(this.label30);
+            this.History.Controls.Add(this.HistoryNumberFilter);
+            this.History.Controls.Add(this.HistoryCompanyFilter);
+            this.History.Controls.Add(this.HistoryDateFilter);
+            this.History.Controls.Add(this.HistoryAllInvoicesGrid);
+            this.History.Controls.Add(this.HistoryInvoiceTotal);
+            this.History.Controls.Add(this.HistoryScopeItemsGrid);
+            this.History.Controls.Add(this.HistoryInvoicesGrid);
+            this.History.Location = new System.Drawing.Point(4, 28);
+            this.History.Name = "History";
+            this.History.Size = new System.Drawing.Size(1451, 786);
+            this.History.TabIndex = 2;
+            this.History.Text = "History";
+            this.History.UseVisualStyleBackColor = true;
+            // 
+            // HistoryAddAttachments
+            // 
+            this.HistoryAddAttachments.BackColor = System.Drawing.Color.DarkSeaGreen;
+            this.HistoryAddAttachments.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.HistoryAddAttachments.Location = new System.Drawing.Point(348, 570);
+            this.HistoryAddAttachments.Name = "HistoryAddAttachments";
+            this.HistoryAddAttachments.Size = new System.Drawing.Size(331, 29);
+            this.HistoryAddAttachments.TabIndex = 15;
+            this.HistoryAddAttachments.Text = "Add Attachement";
+            this.HistoryAddAttachments.UseVisualStyleBackColor = false;
+            this.HistoryAddAttachments.Click += new System.EventHandler(this.HistoryAddAttachments_Click);
+            // 
+            // HistoryAttachmentsGrid
+            // 
+            this.HistoryAttachmentsGrid.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.HistoryAttachmentsGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.HistoryAttachmentsGrid.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
+            this.HistoryAttachmentsGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.HistoryAttachmentsGrid.Location = new System.Drawing.Point(685, 570);
+            this.HistoryAttachmentsGrid.Name = "HistoryAttachmentsGrid";
+            this.HistoryAttachmentsGrid.ReadOnly = true;
+            this.HistoryAttachmentsGrid.Size = new System.Drawing.Size(766, 213);
+            this.HistoryAttachmentsGrid.TabIndex = 14;
+            // 
+            // UseAsReferenceButton
+            // 
+            this.UseAsReferenceButton.BackColor = System.Drawing.Color.DarkSeaGreen;
+            this.UseAsReferenceButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.UseAsReferenceButton.Location = new System.Drawing.Point(17, 570);
+            this.UseAsReferenceButton.Name = "UseAsReferenceButton";
+            this.UseAsReferenceButton.Size = new System.Drawing.Size(325, 29);
+            this.UseAsReferenceButton.TabIndex = 13;
+            this.UseAsReferenceButton.Text = "Use As Reference";
+            this.UseAsReferenceButton.UseVisualStyleBackColor = false;
+            this.UseAsReferenceButton.Click += new System.EventHandler(this.UseAsReferenceButton_Click);
+            // 
+            // Label222
+            // 
+            this.Label222.AutoSize = true;
+            this.Label222.Location = new System.Drawing.Point(463, 27);
+            this.Label222.Name = "Label222";
+            this.Label222.Size = new System.Drawing.Size(112, 19);
+            this.Label222.TabIndex = 12;
+            this.Label222.Text = "Number Filter";
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Location = new System.Drawing.Point(221, 27);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(121, 19);
+            this.label31.TabIndex = 11;
+            this.label31.Text = "Company Filter";
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Location = new System.Drawing.Point(13, 27);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(87, 19);
+            this.label30.TabIndex = 10;
+            this.label30.Text = "Date Filter";
+            // 
+            // HistoryNumberFilter
+            // 
+            this.HistoryNumberFilter.Location = new System.Drawing.Point(467, 49);
+            this.HistoryNumberFilter.Name = "HistoryNumberFilter";
+            this.HistoryNumberFilter.Size = new System.Drawing.Size(212, 26);
+            this.HistoryNumberFilter.TabIndex = 9;
+            this.HistoryNumberFilter.TextChanged += new System.EventHandler(this.HistoryNumberFilter_TextChanged);
+            // 
+            // HistoryCompanyFilter
+            // 
+            this.HistoryCompanyFilter.Location = new System.Drawing.Point(225, 49);
+            this.HistoryCompanyFilter.Name = "HistoryCompanyFilter";
+            this.HistoryCompanyFilter.Size = new System.Drawing.Size(236, 26);
+            this.HistoryCompanyFilter.TabIndex = 8;
+            this.HistoryCompanyFilter.TextChanged += new System.EventHandler(this.HistoryCompanyFilter_TextChanged);
+            // 
+            // HistoryDateFilter
+            // 
+            this.HistoryDateFilter.Location = new System.Drawing.Point(8, 49);
+            this.HistoryDateFilter.Name = "HistoryDateFilter";
+            this.HistoryDateFilter.Size = new System.Drawing.Size(211, 26);
+            this.HistoryDateFilter.TabIndex = 7;
+            this.HistoryDateFilter.TextChanged += new System.EventHandler(this.HistoryDateFilter_TextChanged);
+            // 
+            // HistoryAllInvoicesGrid
+            // 
+            this.HistoryAllInvoicesGrid.AllowUserToAddRows = false;
+            this.HistoryAllInvoicesGrid.AllowUserToDeleteRows = false;
+            this.HistoryAllInvoicesGrid.AllowUserToResizeColumns = false;
+            this.HistoryAllInvoicesGrid.AllowUserToResizeRows = false;
+            this.HistoryAllInvoicesGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.HistoryAllInvoicesGrid.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
+            this.HistoryAllInvoicesGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.HistoryAllInvoicesGrid.Location = new System.Drawing.Point(17, 81);
+            this.HistoryAllInvoicesGrid.Name = "HistoryAllInvoicesGrid";
+            this.HistoryAllInvoicesGrid.ReadOnly = true;
+            this.HistoryAllInvoicesGrid.Size = new System.Drawing.Size(662, 483);
+            this.HistoryAllInvoicesGrid.TabIndex = 6;
+            this.HistoryAllInvoicesGrid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.HistoryAllInvoicesGrid_CellClick);
+            this.HistoryAllInvoicesGrid.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.HistoryAllInvoicesGrid_CellDoubleClick);
+            // 
+            // HistoryInvoiceTotal
+            // 
+            this.HistoryInvoiceTotal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.HistoryInvoiceTotal.DecimalPlaces = 2;
+            this.HistoryInvoiceTotal.InterceptArrowKeys = false;
+            this.HistoryInvoiceTotal.Location = new System.Drawing.Point(1204, 49);
+            this.HistoryInvoiceTotal.Maximum = new decimal(new int[] {
+            -727379968,
+            232,
+            0,
+            0});
+            this.HistoryInvoiceTotal.Name = "HistoryInvoiceTotal";
+            this.HistoryInvoiceTotal.ReadOnly = true;
+            this.HistoryInvoiceTotal.Size = new System.Drawing.Size(244, 26);
+            this.HistoryInvoiceTotal.TabIndex = 5;
+            this.HistoryInvoiceTotal.ThousandsSeparator = true;
+            // 
+            // HistoryScopeItemsGrid
+            // 
+            this.HistoryScopeItemsGrid.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.HistoryScopeItemsGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.HistoryScopeItemsGrid.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
+            this.HistoryScopeItemsGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.HistoryScopeItemsGrid.Location = new System.Drawing.Point(685, 322);
+            this.HistoryScopeItemsGrid.Name = "HistoryScopeItemsGrid";
+            this.HistoryScopeItemsGrid.ReadOnly = true;
+            this.HistoryScopeItemsGrid.Size = new System.Drawing.Size(766, 242);
+            this.HistoryScopeItemsGrid.TabIndex = 2;
+            // 
+            // HistoryInvoicesGrid
+            // 
+            this.HistoryInvoicesGrid.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.HistoryInvoicesGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.HistoryInvoicesGrid.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
+            this.HistoryInvoicesGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.HistoryInvoicesGrid.Location = new System.Drawing.Point(685, 81);
+            this.HistoryInvoicesGrid.Name = "HistoryInvoicesGrid";
+            this.HistoryInvoicesGrid.ReadOnly = true;
+            this.HistoryInvoicesGrid.Size = new System.Drawing.Size(766, 235);
+            this.HistoryInvoicesGrid.TabIndex = 1;
+            // 
+            // Clients
+            // 
+            this.Clients.Controls.Add(this.EditCompaniesPanel);
+            this.Clients.Controls.Add(this.ClientsGridView);
+            this.Clients.Location = new System.Drawing.Point(4, 28);
+            this.Clients.Name = "Clients";
+            this.Clients.Size = new System.Drawing.Size(1451, 786);
+            this.Clients.TabIndex = 4;
+            this.Clients.Text = "Clients";
+            this.Clients.UseVisualStyleBackColor = true;
             // 
             // EditCompaniesPanel
             // 
@@ -943,21 +1135,21 @@ namespace Invoices.src.views
             this.EditCompaniesPanel.BackColor = System.Drawing.Color.SlateGray;
             this.EditCompaniesPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.EditCompaniesPanel.Controls.Add(this.label25);
-            this.EditCompaniesPanel.Controls.Add(this.NewCompanyVat);
-            this.EditCompaniesPanel.Controls.Add(this.NewCompanyContactEmail);
-            this.EditCompaniesPanel.Controls.Add(this.NewCompanyContactNumbers);
-            this.EditCompaniesPanel.Controls.Add(this.NewCompanyContactTitle);
+            this.EditCompaniesPanel.Controls.Add(this.NewClientVat);
+            this.EditCompaniesPanel.Controls.Add(this.NewClientContactEmail);
+            this.EditCompaniesPanel.Controls.Add(this.NewClientContactNumbers);
+            this.EditCompaniesPanel.Controls.Add(this.NewClientContactTitle);
             this.EditCompaniesPanel.Controls.Add(this.label12);
             this.EditCompaniesPanel.Controls.Add(this.label11);
             this.EditCompaniesPanel.Controls.Add(this.label10);
-            this.EditCompaniesPanel.Controls.Add(this.NewCompanyContactPerson);
+            this.EditCompaniesPanel.Controls.Add(this.NewClientContactPerson);
             this.EditCompaniesPanel.Controls.Add(this.label9);
-            this.EditCompaniesPanel.Controls.Add(this.NewCompanyZipCode);
-            this.EditCompaniesPanel.Controls.Add(this.NewCompanyCity);
-            this.EditCompaniesPanel.Controls.Add(this.NewCompanyAddress);
-            this.EditCompaniesPanel.Controls.Add(this.NewCompanyName);
-            this.EditCompaniesPanel.Controls.Add(this.NewCompanyCancelButton);
-            this.EditCompaniesPanel.Controls.Add(this.NewCompanyDoneButton);
+            this.EditCompaniesPanel.Controls.Add(this.NewClientZipCode);
+            this.EditCompaniesPanel.Controls.Add(this.NewClientCity);
+            this.EditCompaniesPanel.Controls.Add(this.NewClientAddress);
+            this.EditCompaniesPanel.Controls.Add(this.NewClientName);
+            this.EditCompaniesPanel.Controls.Add(this.NewClientCancelButton);
+            this.EditCompaniesPanel.Controls.Add(this.NewClientDoneButton);
             this.EditCompaniesPanel.Controls.Add(this.label4);
             this.EditCompaniesPanel.Controls.Add(this.label3);
             this.EditCompaniesPanel.Controls.Add(this.label2);
@@ -978,33 +1170,33 @@ namespace Invoices.src.views
             this.label25.TabIndex = 19;
             this.label25.Text = "Vat Number";
             // 
-            // NewCompanyVat
+            // NewClientVat
             // 
-            this.NewCompanyVat.Location = new System.Drawing.Point(219, 121);
-            this.NewCompanyVat.Name = "NewCompanyVat";
-            this.NewCompanyVat.Size = new System.Drawing.Size(487, 26);
-            this.NewCompanyVat.TabIndex = 18;
+            this.NewClientVat.Location = new System.Drawing.Point(219, 121);
+            this.NewClientVat.Name = "NewClientVat";
+            this.NewClientVat.Size = new System.Drawing.Size(487, 26);
+            this.NewClientVat.TabIndex = 18;
             // 
-            // NewCompanyContactEmail
+            // NewClientContactEmail
             // 
-            this.NewCompanyContactEmail.Location = new System.Drawing.Point(219, 419);
-            this.NewCompanyContactEmail.Name = "NewCompanyContactEmail";
-            this.NewCompanyContactEmail.Size = new System.Drawing.Size(487, 26);
-            this.NewCompanyContactEmail.TabIndex = 17;
+            this.NewClientContactEmail.Location = new System.Drawing.Point(219, 419);
+            this.NewClientContactEmail.Name = "NewClientContactEmail";
+            this.NewClientContactEmail.Size = new System.Drawing.Size(487, 26);
+            this.NewClientContactEmail.TabIndex = 17;
             // 
-            // NewCompanyContactNumbers
+            // NewClientContactNumbers
             // 
-            this.NewCompanyContactNumbers.Location = new System.Drawing.Point(219, 368);
-            this.NewCompanyContactNumbers.Name = "NewCompanyContactNumbers";
-            this.NewCompanyContactNumbers.Size = new System.Drawing.Size(487, 26);
-            this.NewCompanyContactNumbers.TabIndex = 16;
+            this.NewClientContactNumbers.Location = new System.Drawing.Point(219, 368);
+            this.NewClientContactNumbers.Name = "NewClientContactNumbers";
+            this.NewClientContactNumbers.Size = new System.Drawing.Size(487, 26);
+            this.NewClientContactNumbers.TabIndex = 16;
             // 
-            // NewCompanyContactTitle
+            // NewClientContactTitle
             // 
-            this.NewCompanyContactTitle.Location = new System.Drawing.Point(219, 318);
-            this.NewCompanyContactTitle.Name = "NewCompanyContactTitle";
-            this.NewCompanyContactTitle.Size = new System.Drawing.Size(487, 26);
-            this.NewCompanyContactTitle.TabIndex = 15;
+            this.NewClientContactTitle.Location = new System.Drawing.Point(219, 318);
+            this.NewClientContactTitle.Name = "NewClientContactTitle";
+            this.NewClientContactTitle.Size = new System.Drawing.Size(487, 26);
+            this.NewClientContactTitle.TabIndex = 15;
             // 
             // label12
             // 
@@ -1033,12 +1225,12 @@ namespace Invoices.src.views
             this.label10.TabIndex = 12;
             this.label10.Text = "Title";
             // 
-            // NewCompanyContactPerson
+            // NewClientContactPerson
             // 
-            this.NewCompanyContactPerson.Location = new System.Drawing.Point(219, 269);
-            this.NewCompanyContactPerson.Name = "NewCompanyContactPerson";
-            this.NewCompanyContactPerson.Size = new System.Drawing.Size(487, 26);
-            this.NewCompanyContactPerson.TabIndex = 11;
+            this.NewClientContactPerson.Location = new System.Drawing.Point(219, 269);
+            this.NewClientContactPerson.Name = "NewClientContactPerson";
+            this.NewClientContactPerson.Size = new System.Drawing.Size(487, 26);
+            this.NewClientContactPerson.TabIndex = 11;
             // 
             // label9
             // 
@@ -1049,59 +1241,59 @@ namespace Invoices.src.views
             this.label9.TabIndex = 10;
             this.label9.Text = "Contact Person";
             // 
-            // NewCompanyZipCode
+            // NewClientZipCode
             // 
-            this.NewCompanyZipCode.Location = new System.Drawing.Point(219, 220);
-            this.NewCompanyZipCode.Maximum = new decimal(new int[] {
+            this.NewClientZipCode.Location = new System.Drawing.Point(219, 220);
+            this.NewClientZipCode.Maximum = new decimal(new int[] {
             10000000,
             0,
             0,
             0});
-            this.NewCompanyZipCode.Name = "NewCompanyZipCode";
-            this.NewCompanyZipCode.Size = new System.Drawing.Size(168, 26);
-            this.NewCompanyZipCode.TabIndex = 9;
-            this.NewCompanyZipCode.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.NewCompanyZipCode_KeyPress);
+            this.NewClientZipCode.Name = "NewClientZipCode";
+            this.NewClientZipCode.Size = new System.Drawing.Size(168, 26);
+            this.NewClientZipCode.TabIndex = 9;
+            this.NewClientZipCode.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.NewCompanyZipCode_KeyPress);
             // 
-            // NewCompanyCity
+            // NewClientCity
             // 
-            this.NewCompanyCity.Location = new System.Drawing.Point(219, 169);
-            this.NewCompanyCity.Name = "NewCompanyCity";
-            this.NewCompanyCity.Size = new System.Drawing.Size(487, 26);
-            this.NewCompanyCity.TabIndex = 8;
+            this.NewClientCity.Location = new System.Drawing.Point(219, 169);
+            this.NewClientCity.Name = "NewClientCity";
+            this.NewClientCity.Size = new System.Drawing.Size(487, 26);
+            this.NewClientCity.TabIndex = 8;
             // 
-            // NewCompanyAddress
+            // NewClientAddress
             // 
-            this.NewCompanyAddress.Location = new System.Drawing.Point(219, 74);
-            this.NewCompanyAddress.Name = "NewCompanyAddress";
-            this.NewCompanyAddress.Size = new System.Drawing.Size(487, 26);
-            this.NewCompanyAddress.TabIndex = 7;
+            this.NewClientAddress.Location = new System.Drawing.Point(219, 74);
+            this.NewClientAddress.Name = "NewClientAddress";
+            this.NewClientAddress.Size = new System.Drawing.Size(487, 26);
+            this.NewClientAddress.TabIndex = 7;
             // 
-            // NewCompanyName
+            // NewClientName
             // 
-            this.NewCompanyName.Location = new System.Drawing.Point(219, 26);
-            this.NewCompanyName.Name = "NewCompanyName";
-            this.NewCompanyName.Size = new System.Drawing.Size(487, 26);
-            this.NewCompanyName.TabIndex = 6;
+            this.NewClientName.Location = new System.Drawing.Point(219, 26);
+            this.NewClientName.Name = "NewClientName";
+            this.NewClientName.Size = new System.Drawing.Size(487, 26);
+            this.NewClientName.TabIndex = 6;
             // 
-            // NewCompanyCancelButton
+            // NewClientCancelButton
             // 
-            this.NewCompanyCancelButton.Location = new System.Drawing.Point(477, 471);
-            this.NewCompanyCancelButton.Name = "NewCompanyCancelButton";
-            this.NewCompanyCancelButton.Size = new System.Drawing.Size(229, 37);
-            this.NewCompanyCancelButton.TabIndex = 5;
-            this.NewCompanyCancelButton.Text = "Cancel";
-            this.NewCompanyCancelButton.UseVisualStyleBackColor = true;
-            this.NewCompanyCancelButton.Click += new System.EventHandler(this.NewCompanyCancelButton_Click);
+            this.NewClientCancelButton.Location = new System.Drawing.Point(477, 471);
+            this.NewClientCancelButton.Name = "NewClientCancelButton";
+            this.NewClientCancelButton.Size = new System.Drawing.Size(229, 37);
+            this.NewClientCancelButton.TabIndex = 5;
+            this.NewClientCancelButton.Text = "Cancel";
+            this.NewClientCancelButton.UseVisualStyleBackColor = true;
+            this.NewClientCancelButton.Click += new System.EventHandler(this.NewCompanyCancelButton_Click);
             // 
-            // NewCompanyDoneButton
+            // NewClientDoneButton
             // 
-            this.NewCompanyDoneButton.Location = new System.Drawing.Point(219, 471);
-            this.NewCompanyDoneButton.Name = "NewCompanyDoneButton";
-            this.NewCompanyDoneButton.Size = new System.Drawing.Size(228, 37);
-            this.NewCompanyDoneButton.TabIndex = 4;
-            this.NewCompanyDoneButton.Text = "Done";
-            this.NewCompanyDoneButton.UseVisualStyleBackColor = true;
-            this.NewCompanyDoneButton.Click += new System.EventHandler(this.NewCompanyDoneButton_Click);
+            this.NewClientDoneButton.Location = new System.Drawing.Point(219, 471);
+            this.NewClientDoneButton.Name = "NewClientDoneButton";
+            this.NewClientDoneButton.Size = new System.Drawing.Size(228, 37);
+            this.NewClientDoneButton.TabIndex = 4;
+            this.NewClientDoneButton.Text = "Done";
+            this.NewClientDoneButton.UseVisualStyleBackColor = true;
+            this.NewClientDoneButton.Click += new System.EventHandler(this.NewCompanyDoneButton_Click);
             // 
             // label4
             // 
@@ -1139,165 +1331,35 @@ namespace Invoices.src.views
             this.label1.TabIndex = 0;
             this.label1.Text = "Company Name";
             // 
-            // CompaniesGridView
+            // ClientsGridView
             // 
-            this.CompaniesGridView.AllowUserToAddRows = false;
-            this.CompaniesGridView.AllowUserToDeleteRows = false;
-            this.CompaniesGridView.AllowUserToResizeColumns = false;
-            this.CompaniesGridView.AllowUserToResizeRows = false;
-            this.CompaniesGridView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.ClientsGridView.AllowUserToAddRows = false;
+            this.ClientsGridView.AllowUserToDeleteRows = false;
+            this.ClientsGridView.AllowUserToResizeColumns = false;
+            this.ClientsGridView.AllowUserToResizeRows = false;
+            this.ClientsGridView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.CompaniesGridView.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.CompaniesGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            this.CompaniesGridView.ContextMenuStrip = this.EditCompaniesOptions;
-            this.CompaniesGridView.Location = new System.Drawing.Point(2, 1);
-            this.CompaniesGridView.Name = "CompaniesGridView";
-            this.CompaniesGridView.ReadOnly = true;
-            this.CompaniesGridView.RowHeadersVisible = false;
-            this.CompaniesGridView.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            this.CompaniesGridView.Size = new System.Drawing.Size(1415, 708);
-            this.CompaniesGridView.TabIndex = 0;
+            this.ClientsGridView.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.ClientsGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.ClientsGridView.ContextMenuStrip = this.EditCompaniesOptions;
+            this.ClientsGridView.Location = new System.Drawing.Point(2, 1);
+            this.ClientsGridView.Name = "ClientsGridView";
+            this.ClientsGridView.ReadOnly = true;
+            this.ClientsGridView.RowHeadersVisible = false;
+            this.ClientsGridView.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            this.ClientsGridView.Size = new System.Drawing.Size(1415, 745);
+            this.ClientsGridView.TabIndex = 0;
             // 
-            // History
+            // Companies
             // 
-            this.History.Controls.Add(this.Label222);
-            this.History.Controls.Add(this.label31);
-            this.History.Controls.Add(this.label30);
-            this.History.Controls.Add(this.HistoryNumberFilter);
-            this.History.Controls.Add(this.HistoryCompanyFilter);
-            this.History.Controls.Add(this.HistoryDateFilter);
-            this.History.Controls.Add(this.HistoryAllInvoicesGrid);
-            this.History.Controls.Add(this.HistoryInvoiceTotal);
-            this.History.Controls.Add(this.HistoryScopeItemsGrid);
-            this.History.Controls.Add(this.HistoryInvoicesGrid);
-            this.History.Location = new System.Drawing.Point(4, 28);
-            this.History.Name = "History";
-            this.History.Size = new System.Drawing.Size(1413, 754);
-            this.History.TabIndex = 2;
-            this.History.Text = "History";
-            this.History.UseVisualStyleBackColor = true;
-            // 
-            // Label222
-            // 
-            this.Label222.AutoSize = true;
-            this.Label222.Location = new System.Drawing.Point(487, 27);
-            this.Label222.Name = "Label222";
-            this.Label222.Size = new System.Drawing.Size(112, 19);
-            this.Label222.TabIndex = 12;
-            this.Label222.Text = "Number Filter";
-            // 
-            // label31
-            // 
-            this.label31.AutoSize = true;
-            this.label31.Location = new System.Drawing.Point(230, 27);
-            this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(121, 19);
-            this.label31.TabIndex = 11;
-            this.label31.Text = "Company Filter";
-            // 
-            // label30
-            // 
-            this.label30.AutoSize = true;
-            this.label30.Location = new System.Drawing.Point(13, 27);
-            this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(87, 19);
-            this.label30.TabIndex = 10;
-            this.label30.Text = "Date Filter";
-            // 
-            // HistoryNumberFilter
-            // 
-            this.HistoryNumberFilter.Location = new System.Drawing.Point(491, 49);
-            this.HistoryNumberFilter.Name = "HistoryNumberFilter";
-            this.HistoryNumberFilter.Size = new System.Drawing.Size(225, 26);
-            this.HistoryNumberFilter.TabIndex = 9;
-            this.HistoryNumberFilter.TextChanged += new System.EventHandler(this.HistoryNumberFilter_TextChanged);
-            // 
-            // HistoryCompanyFilter
-            // 
-            this.HistoryCompanyFilter.Location = new System.Drawing.Point(234, 49);
-            this.HistoryCompanyFilter.Name = "HistoryCompanyFilter";
-            this.HistoryCompanyFilter.Size = new System.Drawing.Size(251, 26);
-            this.HistoryCompanyFilter.TabIndex = 8;
-            this.HistoryCompanyFilter.TextChanged += new System.EventHandler(this.HistoryCompanyFilter_TextChanged);
-            // 
-            // HistoryDateFilter
-            // 
-            this.HistoryDateFilter.Location = new System.Drawing.Point(17, 49);
-            this.HistoryDateFilter.Name = "HistoryDateFilter";
-            this.HistoryDateFilter.Size = new System.Drawing.Size(211, 26);
-            this.HistoryDateFilter.TabIndex = 7;
-            this.HistoryDateFilter.TextChanged += new System.EventHandler(this.HistoryDateFilter_TextChanged);
-            // 
-            // HistoryAllInvoicesGrid
-            // 
-            this.HistoryAllInvoicesGrid.AllowUserToAddRows = false;
-            this.HistoryAllInvoicesGrid.AllowUserToDeleteRows = false;
-            this.HistoryAllInvoicesGrid.AllowUserToResizeColumns = false;
-            this.HistoryAllInvoicesGrid.AllowUserToResizeRows = false;
-            this.HistoryAllInvoicesGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.HistoryAllInvoicesGrid.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
-            this.HistoryAllInvoicesGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.HistoryAllInvoicesGrid.Location = new System.Drawing.Point(17, 81);
-            this.HistoryAllInvoicesGrid.Name = "HistoryAllInvoicesGrid";
-            this.HistoryAllInvoicesGrid.ReadOnly = true;
-            this.HistoryAllInvoicesGrid.Size = new System.Drawing.Size(633, 665);
-            this.HistoryAllInvoicesGrid.TabIndex = 6;
-            this.HistoryAllInvoicesGrid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.HistoryAllInvoicesGrid_CellClick);
-            this.HistoryAllInvoicesGrid.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.HistoryAllInvoicesGrid_CellDoubleClick);
-            // 
-            // HistoryInvoiceTotal
-            // 
-            this.HistoryInvoiceTotal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.HistoryInvoiceTotal.DecimalPlaces = 2;
-            this.HistoryInvoiceTotal.InterceptArrowKeys = false;
-            this.HistoryInvoiceTotal.Location = new System.Drawing.Point(1166, 49);
-            this.HistoryInvoiceTotal.Maximum = new decimal(new int[] {
-            -727379968,
-            232,
-            0,
-            0});
-            this.HistoryInvoiceTotal.Name = "HistoryInvoiceTotal";
-            this.HistoryInvoiceTotal.ReadOnly = true;
-            this.HistoryInvoiceTotal.Size = new System.Drawing.Size(244, 26);
-            this.HistoryInvoiceTotal.TabIndex = 5;
-            this.HistoryInvoiceTotal.ThousandsSeparator = true;
-            // 
-            // HistoryScopeItemsGrid
-            // 
-            this.HistoryScopeItemsGrid.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.HistoryScopeItemsGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.HistoryScopeItemsGrid.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
-            this.HistoryScopeItemsGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.HistoryScopeItemsGrid.Location = new System.Drawing.Point(656, 400);
-            this.HistoryScopeItemsGrid.Name = "HistoryScopeItemsGrid";
-            this.HistoryScopeItemsGrid.ReadOnly = true;
-            this.HistoryScopeItemsGrid.Size = new System.Drawing.Size(757, 346);
-            this.HistoryScopeItemsGrid.TabIndex = 2;
-            // 
-            // HistoryInvoicesGrid
-            // 
-            this.HistoryInvoicesGrid.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.HistoryInvoicesGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.HistoryInvoicesGrid.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
-            this.HistoryInvoicesGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.HistoryInvoicesGrid.Location = new System.Drawing.Point(656, 81);
-            this.HistoryInvoicesGrid.Name = "HistoryInvoicesGrid";
-            this.HistoryInvoicesGrid.ReadOnly = true;
-            this.HistoryInvoicesGrid.Size = new System.Drawing.Size(757, 313);
-            this.HistoryInvoicesGrid.TabIndex = 1;
-            // 
-            // Setup
-            // 
-            this.Setup.Controls.Add(this.panel4);
-            this.Setup.Location = new System.Drawing.Point(4, 28);
-            this.Setup.Name = "Setup";
-            this.Setup.Size = new System.Drawing.Size(1413, 754);
-            this.Setup.TabIndex = 3;
-            this.Setup.Text = "Setup";
-            this.Setup.UseVisualStyleBackColor = true;
+            this.Companies.Controls.Add(this.panel4);
+            this.Companies.Location = new System.Drawing.Point(4, 28);
+            this.Companies.Name = "Companies";
+            this.Companies.Size = new System.Drawing.Size(1451, 786);
+            this.Companies.TabIndex = 3;
+            this.Companies.Text = "Companies";
+            this.Companies.UseVisualStyleBackColor = true;
             // 
             // panel4
             // 
@@ -1481,19 +1543,13 @@ namespace Invoices.src.views
             this.OurCompanies.TabIndex = 0;
             this.OurCompanies.SelectedIndexChanged += new System.EventHandler(this.OurCompanies_SelectedIndexChanged);
             // 
-            // DeleteScope
-            // 
-            this.DeleteScope.Name = "DeleteScope";
-            this.DeleteScope.Size = new System.Drawing.Size(112, 22);
-            this.DeleteScope.Text = "DELETE";
-            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(1421, 786);
+            this.ClientSize = new System.Drawing.Size(1459, 818);
             this.Controls.Add(this.Tabs);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -1504,6 +1560,7 @@ namespace Invoices.src.views
             this.EditCompaniesOptions.ResumeLayout(false);
             this.Tabs.ResumeLayout(false);
             this.Invoices.ResumeLayout(false);
+            this.Invoices.PerformLayout();
             this.SuccessPanel.ResumeLayout(false);
             this.SuccessPanel.PerformLayout();
             this.panel3.ResumeLayout(false);
@@ -1524,19 +1581,20 @@ namespace Invoices.src.views
             this.InvoiceItemsOptions.ResumeLayout(false);
             this.CompanyDetailspPanel.ResumeLayout(false);
             this.CompanyDetailspPanel.PerformLayout();
-            this.Companies.ResumeLayout(false);
-            this.Companies.PerformLayout();
-            this.EditCompaniesPanel.ResumeLayout(false);
-            this.EditCompaniesPanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.NewCompanyZipCode)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.CompaniesGridView)).EndInit();
             this.History.ResumeLayout(false);
             this.History.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.HistoryAttachmentsGrid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.HistoryAllInvoicesGrid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.HistoryInvoiceTotal)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.HistoryScopeItemsGrid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.HistoryInvoicesGrid)).EndInit();
-            this.Setup.ResumeLayout(false);
+            this.Clients.ResumeLayout(false);
+            this.Clients.PerformLayout();
+            this.EditCompaniesPanel.ResumeLayout(false);
+            this.EditCompaniesPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NewClientZipCode)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ClientsGridView)).EndInit();
+            this.Companies.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
             this.ResumeLayout(false);
@@ -1548,7 +1606,7 @@ namespace Invoices.src.views
         private System.Windows.Forms.TabControl Tabs;
         private System.Windows.Forms.TabPage Invoices;
         private System.Windows.Forms.TabPage History;
-        private System.Windows.Forms.TabPage Setup;
+        private System.Windows.Forms.TabPage Companies;
         private System.Windows.Forms.ComboBox CompanyList;
         private System.Windows.Forms.Label CompanyNameLabel;
         private System.Windows.Forms.Label ItemNameLabel;
@@ -1564,18 +1622,18 @@ namespace Invoices.src.views
         private System.Windows.Forms.Label UnitPriceLabel;
         private System.Windows.Forms.NumericUpDown TotalPrice;
         private System.Windows.Forms.Label TotalPriceLabel;
-        private System.Windows.Forms.TabPage Companies;
-        private System.Windows.Forms.DataGridView CompaniesGridView;
+        private System.Windows.Forms.TabPage Clients;
+        private System.Windows.Forms.DataGridView ClientsGridView;
         private System.Windows.Forms.ToolStripMenuItem ADD;
         private System.Windows.Forms.ToolStripMenuItem EDIT;
         private System.Windows.Forms.ToolStripMenuItem DELETE;
         private System.Windows.Forms.Panel EditCompaniesPanel;
-        private System.Windows.Forms.NumericUpDown NewCompanyZipCode;
-        private System.Windows.Forms.TextBox NewCompanyCity;
-        private System.Windows.Forms.TextBox NewCompanyAddress;
-        private System.Windows.Forms.TextBox NewCompanyName;
-        private System.Windows.Forms.Button NewCompanyCancelButton;
-        private System.Windows.Forms.Button NewCompanyDoneButton;
+        private System.Windows.Forms.NumericUpDown NewClientZipCode;
+        private System.Windows.Forms.TextBox NewClientCity;
+        private System.Windows.Forms.TextBox NewClientAddress;
+        private System.Windows.Forms.TextBox NewClientName;
+        private System.Windows.Forms.Button NewClientCancelButton;
+        private System.Windows.Forms.Button NewClientDoneButton;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
@@ -1599,13 +1657,13 @@ namespace Invoices.src.views
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button AddScopeButton;
-        private System.Windows.Forms.TextBox NewCompanyContactEmail;
-        private System.Windows.Forms.TextBox NewCompanyContactNumbers;
-        private System.Windows.Forms.TextBox NewCompanyContactTitle;
+        private System.Windows.Forms.TextBox NewClientContactEmail;
+        private System.Windows.Forms.TextBox NewClientContactNumbers;
+        private System.Windows.Forms.TextBox NewClientContactTitle;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.TextBox NewCompanyContactPerson;
+        private System.Windows.Forms.TextBox NewClientContactPerson;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.ContextMenuStrip InvoiceItemsOptions;
         private System.Windows.Forms.ToolStripMenuItem DeleteItem;
@@ -1638,7 +1696,7 @@ namespace Invoices.src.views
         private System.Windows.Forms.Label QuotingCompany;
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.Label label25;
-        private System.Windows.Forms.TextBox NewCompanyVat;
+        private System.Windows.Forms.TextBox NewClientVat;
         private System.Windows.Forms.Label RecipientVat;
         private System.Windows.Forms.Label label26;
         private System.Windows.Forms.Label label28;
@@ -1663,5 +1721,9 @@ namespace Invoices.src.views
         private System.Windows.Forms.TextBox HistoryCompanyFilter;
         private System.Windows.Forms.TextBox HistoryDateFilter;
         private System.Windows.Forms.ToolStripMenuItem DeleteScope;
+        private System.Windows.Forms.Label RefInvoice;
+        private System.Windows.Forms.Button UseAsReferenceButton;
+        private System.Windows.Forms.DataGridView HistoryAttachmentsGrid;
+        private System.Windows.Forms.Button HistoryAddAttachments;
     }
 }

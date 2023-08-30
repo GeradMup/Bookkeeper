@@ -34,5 +34,11 @@ namespace Invoices.src.controllers
         {
             historyView.populateAllHistoryInvoicesGrid(historyModel.getInvoiceHistory());
         }
+
+
+        public void addAttachements(InvoiceFileInfo invoiceQuoteFile) 
+        {
+            historyModel.addAttachments(invoiceQuoteFile);
+        }
     }
 }

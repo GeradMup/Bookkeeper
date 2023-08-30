@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Invoices.src.models
 {
+    //***************************************************************************************************************************************
     public class Company
     {
         public Company(List<String> allValues = null)
@@ -87,7 +88,7 @@ namespace Invoices.src.models
             return myList;
         }
     }
-
+    //***************************************************************************************************************************************
     public class InvoiceItem
     {
         public InvoiceItem(string name, decimal quantity, decimal unitPrice) 
@@ -118,7 +119,7 @@ namespace Invoices.src.models
             return itemList;
         }
     }
-
+    //***************************************************************************************************************************************
     public class ScopeItem 
     {
         public ScopeItem(string title, string comment) 
@@ -139,7 +140,7 @@ namespace Invoices.src.models
         }
         
     }
-
+    //***************************************************************************************************************************************
     public class OurCompany 
     {
         public OurCompany(List<string> companyInfo = null)
@@ -189,7 +190,7 @@ namespace Invoices.src.models
             else return false;
         }
     }
-
+    //***************************************************************************************************************************************
     public class InvoiceFileInfo 
     {
         public InvoiceFileInfo(DateTime date, string company, string number) 
@@ -200,5 +201,14 @@ namespace Invoices.src.models
         public DateTime Date { get; }
         public string Company { get; }
         public string Number { get; }
+    }
+    //***************************************************************************************************************************************
+    public class InvoiceAttachement
+    {
+        public InvoiceAttachement(string attachmentPath, string name) =>
+            (Path, Name) = (attachmentPath, name);
+
+        public string Path{ get; }
+        public string Name { get; }
     }
 }

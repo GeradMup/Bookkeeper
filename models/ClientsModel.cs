@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Invoices.src.models
 {
-    public class CompaniesModel
+    public class ClientsModel
     {
         TextFiles textFiles;
         List<Company> companies = new List<Company>();
-        public CompaniesModel()
+        public ClientsModel()
         {
             textFiles = new TextFiles();
             // When the class is constructed, we need to read the csv files that contain all the information needed by the invoices tab

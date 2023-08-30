@@ -88,10 +88,10 @@ namespace Invoices.src.controllers
             invoiceView.updateReceiptTotals(invoiceModel.getReceiptTotal(), invoiceModel.getVat(), invoiceModel.getGrandTotal());
         }
 
-        public void generateInvoice(string companyName, string ourCompany, bool isQuote) 
+        public void generateInvoice(string companyName, string ourCompany, bool isQuote, DateTime expiryDate, InvoiceFileInfo referenceInvoice) 
         {
             invoiceView.showLoadingCursor();
-            bool generated = invoiceModel.generateInvoice(companyName, ourCompany, isQuote);
+            bool generated = invoiceModel.generateInvoice(companyName, ourCompany, isQuote, expiryDate, referenceInvoice);
             if (generated == true) 
             {
                 invoiceModel.clearReceipt();

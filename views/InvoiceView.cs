@@ -15,6 +15,7 @@ namespace Invoices.src.views
         Color errorColour = Color.LightPink;
         Object previousCellValue = null;
         Object previousScopeCellValue = null;
+        models.InvoiceFileInfo referenceInvoiceInfo = null;
 
         public void initializeReceipt() 
         {
@@ -152,8 +153,6 @@ namespace Invoices.src.views
         private bool validInvoiceItemInputs() 
         {
             resetReceiptInputsColours();
-
-            
             if(ItemsList.Text == "") { ItemsList.BackColor = errorColour; return false; }
             if(Quantity.Value == 0) { Quantity.BackColor = errorColour; return false; }
             if(UnitPrice.Value == 0) { UnitPrice.BackColor = errorColour; return false; }
@@ -171,6 +170,7 @@ namespace Invoices.src.views
             ScopeGrid.BackgroundColor = Color.White;
             Scope.BackColor = Color.White;
             ScopeDescription.BackColor = Color.White;
+            InvoiceExpiryDate.CalendarForeColor = Color.White;
         }
 
         private void clearReceiptInputs() 
@@ -181,6 +181,8 @@ namespace Invoices.src.views
             UnitPrice.Value = 0;
             InvoiceCheckbox.Checked = false;
             QuoteCheckbox.Checked = false;
+            InvoiceExpiryDate.Value = DateTime.Now;
+            RefInvoice.Text = "";
             //InvoiceExpiryDate.Value = DateTime.Now;
         }
 
@@ -198,6 +200,12 @@ namespace Invoices.src.views
         {
             resetReceiptInputsColours();
             if (CompanyList.Text == "") { CompanyList.BackColor = errorColour; return; }
+            if (InvoiceExpiryDate.Value.ToString(models.Constants.DATE_FORMAT) == DateTime.Now.ToString(models.Constants.DATE_FORMAT)) 
+            {
+                MessageBox.Show("Please pick a valid expiry date!");
+                return; 
+            }
+            
             if (InvoiceItemsGrid.RowCount == 0) { InvoiceItemsGrid.BackgroundColor = errorColour; return; }
             if (ScopeGrid.RowCount == 0) { ScopeGrid.BackgroundColor = errorColour; return; }
 
@@ -209,9 +217,19 @@ namespace Invoices.src.views
                 return;
             }
 
-            invoiceController.generateInvoice(CompanyList.Text, QuotingCompany.Text, QuoteCheckbox.Checked);
+            models.InvoiceFileInfo refInvoiceFile = null;
+            if (referenceInvoiceInfo != null) 
+            {
+                string message = $"Would you like to re-use the invoice/quote number {referenceInvoiceInfo.Number}";
+                DialogResult messageBoxResult = MessageBox.Show(message, "Equiry!", MessageBoxButtons.YesNo);
+
+                if (messageBoxResult == DialogResult.Yes) refInvoiceFile = referenceInvoiceInfo; 
+            }
+
+            invoiceController.generateInvoice(CompanyList.Text, QuotingCompany.Text, QuoteCheckbox.Checked, InvoiceExpiryDate.Value, refInvoiceFile);
             CompanyList.SelectedItem = null;
             clearReceiptInputs();
+            referenceInvoiceInfo = null;
         }
 
         public void showSuccess() 
@@ -365,8 +383,12 @@ namespace Invoices.src.views
             resetReceiptInputsColours();
         }
 
-        private void referenceInvoice(Object invoiceDataSource, Object scopeDataSource) 
+        private void referenceInvoice(Object invoiceDataSource, Object scopeDataSource, models.InvoiceFileInfo invoiceInfo) 
         {
+
+            referenceInvoiceInfo = invoiceInfo;
+            RefInvoice.Text = "Reference Invoice/Quote Number : " + invoiceInfo.Number;
+
             invoiceController.referenceInvoice(invoiceDataSource, scopeDataSource);
             MessageBox.Show("You data has been copied!");
             Tabs.SelectedTab = Invoices; //Change to the invoice tab

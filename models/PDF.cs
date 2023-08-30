@@ -73,8 +73,6 @@ namespace Invoices.src.models
             document.Add(headerImage);
             document.Add(footerImage);
         }
-
-
     }
 
     //*************************************************************************************************************************
@@ -82,24 +80,28 @@ namespace Invoices.src.models
     public class PDF
     {
         string filePath;
+        string folderPath;
         const int STANDARD_FONT_SIZE = 12;
         const int BIG_FONT_SIZE = 15;
         const int HORIZONTAL_MARGIN = 40;
         const int VERTICAL_MARGIN = 10;
-        public PDF(string fileName)
+        public PDF(string fileName, string quoteOrInvoice)
         {
             //Let's start by making sure that there is folder for our invoices.
-            System.IO.Directory.CreateDirectory(Constants.INVOICES_PATH);
-            filePath = Constants.INVOICES_PATH + fileName + ".pdf";
+            string folder = Constants.INVOICES_PATH + "\\" + quoteOrInvoice + "\\";
+            folderPath = folder;
+            System.IO.Directory.CreateDirectory(folder);
+            filePath = folderPath + fileName + ".pdf";
         }
 
-        public void createPDF(Company company, 
+        public string createPDF(Company company, 
             List<ScopeItem> scopeItems, 
             List<InvoiceItem> invoiceItems, 
             List<decimal> totals, 
             OurCompany ourCompany,
             String quoteOrInvoice,
-            String quoteOrInvoiceNumber)
+            String quoteOrInvoiceNumber,
+            DateTime expiryDate)
         {
 
             //First verify that the path we are trying to write to does not already exist.
@@ -130,8 +132,10 @@ namespace Invoices.src.models
             addCustomerInfo(document, company);
             addScopeItems(document, scopeItems);
             addPricesTable(document, invoiceItems, totals);
-            addFinalComment(document);
+            addFinalComment(document, expiryDate);
             document.Close();
+
+            return folderPath;
         }
 
         private string checkPath() 
@@ -294,9 +298,10 @@ namespace Invoices.src.models
             return number;
         }
 
-        private void addFinalComment(Document document) 
+        private void addFinalComment(Document document, DateTime expiryDate) 
         {
-            string finalComment = "We trust that all the above is correct. Please contact the office for any queries.\nThis quote is valid for 30 days.";
+            string expiryDateString = expiryDate.ToString("dd MMMM yyyy");
+            string finalComment = $"We trust that all the above is correct. Please contact the office for any queries.\nThis quote is valid until {expiryDateString}";
             Paragraph paragraph = creatParagraph(TextAlignment.LEFT);
             
             paragraph.SetBorder(new SolidBorder(Border.SOLID));

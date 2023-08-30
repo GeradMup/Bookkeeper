@@ -50,7 +50,7 @@ namespace Invoices.src.models
         {
             DirectoryInfo directoryInfo = new DirectoryInfo(path); //Assuming Test is your Folder
 
-            FileInfo[] Files = directoryInfo.GetFiles("*.txt"); //Getting Text files
+            FileInfo[] Files = directoryInfo.GetFiles("*.txt", SearchOption.AllDirectories); //Getting Text files
 
             List<string> filenames = new List<string>();
             string fileName;
@@ -58,9 +58,10 @@ namespace Invoices.src.models
 
             foreach (FileInfo file in Files)
             {
-
+                
                 fileName = file.Name;
                 nameLength = fileName.Length - 4;
+                //This is to remove the .txt extension
                 fileName = fileName.Substring(0, nameLength);
                 filenames.Add(fileName);
             }

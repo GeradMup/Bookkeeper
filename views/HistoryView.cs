@@ -23,42 +23,80 @@ namespace Invoices.src.views
 
         }
 
+        private void UseAsReferenceButton_Click(object sender, EventArgs e)
+        {
+            useAsReference();
+        }
+
         private void HistoryAllInvoicesGrid_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            useAsReference();
+        }
+
+        private void HistoryDateFilter_TextChanged(object sender, EventArgs e)
+        {
+            filterHistoryGridView();
+        }
+
+        private void HistoryCompanyFilter_TextChanged(object sender, EventArgs e)
+        {
+            filterHistoryGridView();
+        }
+
+        private void HistoryNumberFilter_TextChanged(object sender, EventArgs e)
+        {
+            filterHistoryGridView();
+        }
+
+
+        private void HistoryAddAttachments_Click(object sender, EventArgs e)
         {
             if ((HistoryAllInvoicesGrid.DataSource as DataTable).Rows.Count < 1) return;
             if (HistoryAllInvoicesGrid.CurrentRow.Index == -1) return;
 
-            referenceInvoice(HistoryInvoicesGrid.DataSource, HistoryScopeItemsGrid.DataSource);     //This is a function from the Invoice Views Tab.
+            DateTime invoiceDate = (DateTime)HistoryAllInvoicesGrid.CurrentRow.Cells[0].Value;
+            string company = HistoryAllInvoicesGrid.CurrentRow.Cells[1].Value.ToString();
+            string invoiceNumber = HistoryAllInvoicesGrid.CurrentRow.Cells[2].Value.ToString();
+
+            models.InvoiceFileInfo invoiceQuoteFile = new models.InvoiceFileInfo(invoiceDate, company, invoiceNumber);
+            historyController.addAttachements(invoiceQuoteFile);
+        }
+
+        //**********************************************************************************************************************
+        // END OF EVENT HANDLERS FOR THE HISTORY TAB
+        //**********************************************************************************************************************
+
+        private void useAsReference()
+        {
+            if ((HistoryAllInvoicesGrid.DataSource as DataTable).Rows.Count < 1) return;
+            if (HistoryAllInvoicesGrid.CurrentRow.Index == -1) return;
+
+            string referenceInvoiceNumber = HistoryAllInvoicesGrid.CurrentRow.Cells[2].Value.ToString();
+            string referenceCompany = HistoryAllInvoicesGrid.CurrentRow.Cells[1].Value.ToString();
+            DateTime referenceDate = (DateTime)HistoryAllInvoicesGrid.CurrentRow.Cells[0].Value;
+
+            models.InvoiceFileInfo invoiceFileInfo = new models.InvoiceFileInfo(referenceDate, referenceCompany, referenceInvoiceNumber);
+            referenceInvoice(HistoryInvoicesGrid.DataSource, HistoryScopeItemsGrid.DataSource, invoiceFileInfo);     //This is a function from the Invoice Views Tab.
+
             Object invoiceData = null;
             Object scopeData = null;
             populateHistoryGrids(invoiceData, scopeData);
             HistoryAllInvoicesGrid.ClearSelection();
         }
 
-        private void HistoryDateFilter_TextChanged(object sender, EventArgs e)
+        private void filterHistoryGridView()
         {
-            string filterField = HistoryAllInvoicesGrid.Columns[0].HeaderText;
-            string filterString = "Convert([{0}], 'System.String') LIKE '%{1}%'";
-            (HistoryAllInvoicesGrid.DataSource as DataTable).DefaultView.RowFilter = string.Format(filterString, filterField, HistoryDateFilter.Text);
-        }
+            string dateField = HistoryAllInvoicesGrid.Columns[0].HeaderText;
+            string companyField = HistoryAllInvoicesGrid.Columns[1].HeaderText;
+            string invoiceField = HistoryAllInvoicesGrid.Columns[2].HeaderText;
+            string dateFilter = HistoryDateFilter.Text;
+            string companyFilter = HistoryCompanyFilter.Text;
+            string invoiceFilter = HistoryNumberFilter.Text;
 
-        private void HistoryCompanyFilter_TextChanged(object sender, EventArgs e)
-        {
-            string filterField = HistoryAllInvoicesGrid.Columns[1].HeaderText;
-            string filterString = "Convert([{0}], 'System.String') LIKE '%{1}%'";
-            (HistoryAllInvoicesGrid.DataSource as DataTable).DefaultView.RowFilter = string.Format(filterString, filterField, HistoryCompanyFilter.Text);
-        }
+            string filterString = "Convert([{0}], 'System.String') LIKE '%{1}%' AND Convert([{2}], 'System.String') LIKE '%{3}%' AND Convert([{4}], 'System.String') LIKE '%{5}%'";
 
-        private void HistoryNumberFilter_TextChanged(object sender, EventArgs e)
-        {
-            string filterField = HistoryAllInvoicesGrid.Columns[2].HeaderText;
-            string filterString = "Convert([{0}], 'System.String') LIKE '%{1}%'";
-            (HistoryAllInvoicesGrid.DataSource as DataTable).DefaultView.RowFilter = string.Format(filterString, filterField, HistoryNumberFilter.Text);
+            (HistoryAllInvoicesGrid.DataSource as DataTable).DefaultView.RowFilter = string.Format(filterString, dateField, dateFilter, companyField, companyFilter, invoiceField, invoiceFilter);
         }
-
-        //**********************************************************************************************************************
-        // END OF EVENT HANDLERS FOR THE HISTORY TAB
-        //**********************************************************************************************************************
 
         public void initialiazeHistoryTab() 
         {

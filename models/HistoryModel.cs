@@ -3,9 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Invoices.src.models
 {
@@ -17,6 +19,7 @@ namespace Invoices.src.models
         List<ScopeItem> scopeItems = new List<ScopeItem>();
         List<string> quoteInvoiceFileNames = new List<string>();
         List<InvoiceFileInfo> invoiceFileInfos = new List<InvoiceFileInfo>();
+        List<InvoiceAttachement> invoiceAttachements = new List<InvoiceAttachement>();
 
         public HistoryModel() 
         {
@@ -63,20 +66,31 @@ namespace Invoices.src.models
             return table;
         }
 
+        List<string> textFileNamesInSubfolders(string path) 
+        {
+            DirectoryInfo directoryInfo = new DirectoryInfo(path); //Assuming Test is your Folder
+            FileInfo[] Files = directoryInfo.GetFiles("*.txt", SearchOption.AllDirectories); //Getting Text files
+
+            List<string> fileNames = new List<string>();
+            return fileNames;
+        }
+
         public void loadInvoiceItems(string invoiceNumber) 
         {
             invoiceItems.Clear();
             scopeItems.Clear();
             invoiceInformation.Clear();
+            invoiceAttachements.Clear();
 
             InvoiceFileInfo fileInfo = invoiceFileInfos.FirstOrDefault(obj => obj.Number == invoiceNumber);
             string invoiceDate = fileInfo.Date.ToString(Constants.INVOICE_TEXTFILES_DATE_FORMAT);
-            string pathToInvoiceFile = Constants.INVOICE_TEXT_FILES_PATH + invoiceDate + " " + fileInfo.Company + " " + invoiceNumber + ".txt";
+            string pathToInvoiceFile = Constants.INVOICE_TEXT_FILES_PATH + invoiceNumber + "\\" + invoiceDate + " " + fileInfo.Company + " " + invoiceNumber + ".txt";
             invoiceInformation = textFiles.readTextFile(pathToInvoiceFile);
 
             foreach (List<string> lines in invoiceInformation) 
             {
                 if (lines.Count == 4) { invoiceItems.Add(new InvoiceItem(lines[0], decimal.Parse(lines[1]), decimal.Parse(lines[2]))); }
+                else if (lines.Count == 3) { invoiceAttachements.Add(new InvoiceAttachement(lines[1], lines[2])); }
                 else if (lines.Count == 2) { scopeItems.Add(new ScopeItem(lines[0], lines[1])); }
             }
         }
@@ -94,6 +108,25 @@ namespace Invoices.src.models
         public List<ScopeItem> getScopeItems() 
         {
             return scopeItems;
+        }
+
+        public void addAttachments(InvoiceFileInfo invoice) 
+        {
+            //Let's first try to get our attachments.
+            OpenFileDialog fileDialog = new OpenFileDialog();
+
+            if(fileDialog.ShowDialog() == DialogResult.OK) 
+            {
+                string filePath = fileDialog.FileName;
+                FileInfo fileInfo = new FileInfo(filePath);
+                string fileName = fileInfo.Name;
+
+                //int nameLength = fileName.Length - 4;
+                ////This is to remove the .txt extension
+                //fileName = fileName.Substring(0, nameLength);
+
+
+            }
         }
     }
 }

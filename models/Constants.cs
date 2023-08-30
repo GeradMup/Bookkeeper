@@ -13,7 +13,7 @@ namespace Invoices.src.models
         public readonly static string COMPANIES_PATH = RESOURCES_DIRECTORY + "Companies.txt";
         public readonly static decimal VAT_PERCENTAGE = 15;
         public readonly static string DOCUMENTS = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-        public readonly static string INVOICES_PATH = DOCUMENTS + "\\Invoices\\";
+        public readonly static string INVOICES_PATH = DOCUMENTS + "\\Bookkeeper\\Invoices\\";
         public readonly static string OUR_COMPANIES_PATH = RESOURCES_DIRECTORY + "OurCompanies.txt";
         public readonly static string QUOTE_NUMBER_PATH = RESOURCES_DIRECTORY + "Quote Numbers.txt";
         public readonly static string INVOICE_NUMBER_PATH = RESOURCES_DIRECTORY + "Invoice Numbers.txt";
@@ -21,8 +21,7 @@ namespace Invoices.src.models
         public readonly static string DATE_FORMAT = "dd MMMM yyyy";
         public readonly static string INVOICE_TEXTFILES_DATE_FORMAT = "dd MMMM yyyy HHmm";
         public readonly static string ARIAL_FONT_PATH = BASE_DIRECTORY + "arial.ttf";
-        public readonly static string CAMBRIA_FONT_PATH = BASE_DIRECTORY + "cambriai.ttf";
-        public readonly static string CALIBRI_FONT_PATH = BASE_DIRECTORY + "calibri.ttf";
-        
+        public readonly static string CAMBRIA_FONT_PATH = BASE_DIRECTORY + "cambriai .ttf";
+        public readonly static string CALIBRI_FONT_PATH = BASE_DIRECTORY + "calibri.ttf"; 
     }
 }
