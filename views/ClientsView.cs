@@ -70,14 +70,10 @@ namespace Invoices.src.views
             }
             else if (e.ClickedItem.ToString() == "DELETE") 
             {
-                string warning = "Are you sure you want to delete the company:";
                 string companyName = ClientsGridView.Rows[currentRow].Cells[1].Value.ToString();
-                DialogResult dialogResult = MessageBox.Show($"{warning} {companyName}", "Warning!", MessageBoxButtons.YesNo);
-
-                if (dialogResult == DialogResult.Yes)
-                {
-                    clientsController.deleteCompany(currentRow);
-                }    
+                string warning = $"Are you sure you want to delete the company: { companyName }";
+               
+                if (warningConfirmation(warning) == true) clientsController.deleteCompany(currentRow); 
             }
         }
 

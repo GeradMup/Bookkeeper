@@ -13,7 +13,7 @@ namespace Invoices.src.controllers
         HistoryModel historyModel;
         MainWindow historyView;
 
-        public HistoryController(MainWindow view, HistoryModel model) 
+        public HistoryController(MainWindow view, HistoryModel model)
         {
             historyModel = model;
             historyView = view;
@@ -23,22 +23,34 @@ namespace Invoices.src.controllers
             historyView.populateAllHistoryInvoicesGrid(historyModel.getInvoiceHistory());
         }
 
-        public void invoiceSelected(string invoiceNumber) 
+        public void invoiceSelected(string invoiceNumber)
         {
             historyModel.loadInvoiceItems(invoiceNumber);
-            historyView.populateHistoryGrids(historyModel.getInvoiceItems(), historyModel.getScopeItems());
+            historyView.populateHistoryGrids(historyModel.getInvoiceItems(), historyModel.getScopeItems(), historyModel.getAttachments());
             historyView.insertHistoryInvoiceTotal(historyModel.invoiceTotal());
         }
 
-        public void newInvoiceAdded() 
+        public void newInvoiceAdded()
         {
             historyView.populateAllHistoryInvoicesGrid(historyModel.getInvoiceHistory());
         }
 
 
-        public void addAttachements(InvoiceFileInfo invoiceQuoteFile) 
+        public void addAttachements(InvoiceFileInfo invoiceQuoteFile)
         {
-            historyModel.addAttachments(invoiceQuoteFile);
+            bool added = historyModel.addAttachments(invoiceQuoteFile);
+            if (added == true) { invoiceSelected(invoiceQuoteFile.Number); }
+        }
+
+        public void viewAttachement(string attachmentName, string invoiceNumber)
+        {
+            historyModel.openAttachment(attachmentName, invoiceNumber);
+        }
+
+        public void deleteAttachment(string attachmentName, string invoiceNumber)
+        {
+            historyModel.deleteAttachment(attachmentName, invoiceNumber);
+            invoiceSelected(invoiceNumber);
         }
     }
 }

@@ -88,6 +88,7 @@ namespace Invoices.src.models
             return myList;
         }
     }
+
     //***************************************************************************************************************************************
     public class InvoiceItem
     {
@@ -119,6 +120,7 @@ namespace Invoices.src.models
             return itemList;
         }
     }
+
     //***************************************************************************************************************************************
     public class ScopeItem 
     {
@@ -140,6 +142,7 @@ namespace Invoices.src.models
         }
         
     }
+
     //***************************************************************************************************************************************
     public class OurCompany 
     {
@@ -190,6 +193,7 @@ namespace Invoices.src.models
             else return false;
         }
     }
+
     //***************************************************************************************************************************************
     public class InvoiceFileInfo 
     {
@@ -202,13 +206,14 @@ namespace Invoices.src.models
         public string Company { get; }
         public string Number { get; }
     }
+
     //***************************************************************************************************************************************
     public class InvoiceAttachement
     {
         public InvoiceAttachement(string attachmentPath, string name) =>
-            (Path, Name) = (attachmentPath, name);
+            (Path, Attachment) = (attachmentPath, name);
 
         public string Path{ get; }
-        public string Name { get; }
+        public string Attachment { get; }
     }
 }

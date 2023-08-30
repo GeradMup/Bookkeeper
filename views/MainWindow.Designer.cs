@@ -102,6 +102,9 @@ namespace Invoices.src.views
             this.History = new System.Windows.Forms.TabPage();
             this.HistoryAddAttachments = new System.Windows.Forms.Button();
             this.HistoryAttachmentsGrid = new System.Windows.Forms.DataGridView();
+            this.HistoryAttachmentsOptions = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.DELETE_ATTACHMENT = new System.Windows.Forms.ToolStripMenuItem();
+            this.VIEW_ATTACHMENT = new System.Windows.Forms.ToolStripMenuItem();
             this.UseAsReferenceButton = new System.Windows.Forms.Button();
             this.Label222 = new System.Windows.Forms.Label();
             this.label31 = new System.Windows.Forms.Label();
@@ -174,6 +177,7 @@ namespace Invoices.src.views
             this.CompanyDetailspPanel.SuspendLayout();
             this.History.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.HistoryAttachmentsGrid)).BeginInit();
+            this.HistoryAttachmentsOptions.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.HistoryAllInvoicesGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.HistoryInvoiceTotal)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.HistoryScopeItemsGrid)).BeginInit();
@@ -983,16 +987,40 @@ namespace Invoices.src.views
             // 
             // HistoryAttachmentsGrid
             // 
+            this.HistoryAttachmentsGrid.AllowUserToResizeColumns = false;
+            this.HistoryAttachmentsGrid.AllowUserToResizeRows = false;
             this.HistoryAttachmentsGrid.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.HistoryAttachmentsGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.HistoryAttachmentsGrid.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
             this.HistoryAttachmentsGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.HistoryAttachmentsGrid.ContextMenuStrip = this.HistoryAttachmentsOptions;
             this.HistoryAttachmentsGrid.Location = new System.Drawing.Point(685, 570);
             this.HistoryAttachmentsGrid.Name = "HistoryAttachmentsGrid";
             this.HistoryAttachmentsGrid.ReadOnly = true;
             this.HistoryAttachmentsGrid.Size = new System.Drawing.Size(766, 213);
             this.HistoryAttachmentsGrid.TabIndex = 14;
+            // 
+            // HistoryAttachmentsOptions
+            // 
+            this.HistoryAttachmentsOptions.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.DELETE_ATTACHMENT,
+            this.VIEW_ATTACHMENT});
+            this.HistoryAttachmentsOptions.Name = "HistoryAttachmentsOptions";
+            this.HistoryAttachmentsOptions.Size = new System.Drawing.Size(113, 48);
+            this.HistoryAttachmentsOptions.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.HistoryAttachmentsOptions_ItemClicked);
+            // 
+            // DELETE_ATTACHMENT
+            // 
+            this.DELETE_ATTACHMENT.Name = "DELETE_ATTACHMENT";
+            this.DELETE_ATTACHMENT.Size = new System.Drawing.Size(112, 22);
+            this.DELETE_ATTACHMENT.Text = "DELETE";
+            // 
+            // VIEW_ATTACHMENT
+            // 
+            this.VIEW_ATTACHMENT.Name = "VIEW_ATTACHMENT";
+            this.VIEW_ATTACHMENT.Size = new System.Drawing.Size(112, 22);
+            this.VIEW_ATTACHMENT.Text = "VIEW";
             // 
             // UseAsReferenceButton
             // 
@@ -1553,6 +1581,7 @@ namespace Invoices.src.views
             this.Controls.Add(this.Tabs);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MinimizeBox = false;
             this.Name = "MainWindow";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Bookkeeper";
@@ -1584,6 +1613,7 @@ namespace Invoices.src.views
             this.History.ResumeLayout(false);
             this.History.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.HistoryAttachmentsGrid)).EndInit();
+            this.HistoryAttachmentsOptions.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.HistoryAllInvoicesGrid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.HistoryInvoiceTotal)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.HistoryScopeItemsGrid)).EndInit();
@@ -1725,5 +1755,8 @@ namespace Invoices.src.views
         private System.Windows.Forms.Button UseAsReferenceButton;
         private System.Windows.Forms.DataGridView HistoryAttachmentsGrid;
         private System.Windows.Forms.Button HistoryAddAttachments;
+        private System.Windows.Forms.ContextMenuStrip HistoryAttachmentsOptions;
+        private System.Windows.Forms.ToolStripMenuItem DELETE_ATTACHMENT;
+        private System.Windows.Forms.ToolStripMenuItem VIEW_ATTACHMENT;
     }
 }

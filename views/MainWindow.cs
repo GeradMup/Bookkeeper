@@ -30,5 +30,16 @@ namespace Invoices.src.views
         {
             disableEditingOurCompany();
         }
+
+        private bool warningConfirmation(string warningMessage) 
+        {
+            DialogResult dialogResult = MessageBox.Show($"{ warningMessage }", "Warning!", MessageBoxButtons.YesNo);
+
+            if (dialogResult == DialogResult.Yes)
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }
