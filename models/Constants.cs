@@ -22,6 +22,7 @@ namespace Invoices.src.models
         public readonly static string INVOICE_TEXTFILES_DATE_FORMAT = "dd MMMM yyyy HHmm";
         public readonly static string ARIAL_FONT_PATH = BASE_DIRECTORY + "arial.ttf";
         public readonly static string CAMBRIA_FONT_PATH = BASE_DIRECTORY + "cambriai .ttf";
-        public readonly static string CALIBRI_FONT_PATH = BASE_DIRECTORY + "calibri.ttf"; 
+        public readonly static string CALIBRI_FONT_PATH = BASE_DIRECTORY + "calibri.ttf";
+        public readonly static string QUOTES_PATH = DOCUMENTS + "\\Bookkeeper\\Quotes\\";
     }
 }

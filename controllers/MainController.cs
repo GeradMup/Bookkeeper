@@ -23,6 +23,8 @@ namespace Invoices.src.controllers
         SetupController setupController;
         HistoryController historyController;
         HistoryModel historyModel;
+        QuotesModel quotesModel;
+        QuotesController quotesController;
 
         public MainController() 
         {
@@ -36,7 +38,8 @@ namespace Invoices.src.controllers
             setupController = new SetupController(setupModel, mainWindow);
             historyModel = new HistoryModel();
             historyController = new HistoryController(mainWindow, historyModel);
-
+            quotesModel = new QuotesModel();
+            quotesController = new QuotesController(quotesModel, mainWindow);
             //invoiceController.initializeInvoice();
             //Assign controllers to the relevant views
             
@@ -46,11 +49,4 @@ namespace Invoices.src.controllers
         public MainWindow GetWindow() { return mainWindow; }
 
     }
-
-    
-
-
-
-
-
 }

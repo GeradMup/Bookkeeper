@@ -41,5 +41,13 @@ namespace Invoices.src.views
             }
             return false;
         }
+
+        private bool validGridViewSelection(DataGridView gridView) 
+        {
+            if (gridView.Rows.Count < 1) return false;
+            if (gridView.CurrentRow.Index == -1) return false;
+            return true;
+        }
+
     }
 }

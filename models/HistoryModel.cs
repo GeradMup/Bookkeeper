@@ -20,6 +20,7 @@ namespace Invoices.src.models
         List<String> quoteInvoiceFileNames = new List<String>();
         List<InvoiceFileInfo> invoiceFileInfos = new List<InvoiceFileInfo>();
         List<InvoiceAttachement> invoiceAttachements = new List<InvoiceAttachement>();
+        FileExplorer fileExplorer = new FileExplorer();
 
         public HistoryModel()
         {

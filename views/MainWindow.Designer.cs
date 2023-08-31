@@ -116,6 +116,11 @@ namespace Invoices.src.views
             this.HistoryInvoiceTotal = new System.Windows.Forms.NumericUpDown();
             this.HistoryScopeItemsGrid = new System.Windows.Forms.DataGridView();
             this.HistoryInvoicesGrid = new System.Windows.Forms.DataGridView();
+            this.Quotes = new System.Windows.Forms.TabPage();
+            this.QuotesMonthFilter = new System.Windows.Forms.ComboBox();
+            this.label32 = new System.Windows.Forms.Label();
+            this.QuotesAddButton = new System.Windows.Forms.Button();
+            this.QuotesGrid = new System.Windows.Forms.DataGridView();
             this.Clients = new System.Windows.Forms.TabPage();
             this.EditCompaniesPanel = new System.Windows.Forms.Panel();
             this.label25 = new System.Windows.Forms.Label();
@@ -157,6 +162,8 @@ namespace Invoices.src.views
             this.label14 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.OurCompanies = new System.Windows.Forms.ComboBox();
+            this.QuotesGridOptions = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.VIEW_QUOTE = new System.Windows.Forms.ToolStripMenuItem();
             this.EditCompaniesOptions.SuspendLayout();
             this.Tabs.SuspendLayout();
             this.Invoices.SuspendLayout();
@@ -182,12 +189,15 @@ namespace Invoices.src.views
             ((System.ComponentModel.ISupportInitialize)(this.HistoryInvoiceTotal)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.HistoryScopeItemsGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.HistoryInvoicesGrid)).BeginInit();
+            this.Quotes.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.QuotesGrid)).BeginInit();
             this.Clients.SuspendLayout();
             this.EditCompaniesPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NewClientZipCode)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ClientsGridView)).BeginInit();
             this.Companies.SuspendLayout();
             this.panel4.SuspendLayout();
+            this.QuotesGridOptions.SuspendLayout();
             this.SuspendLayout();
             // 
             // EditCompaniesOptions
@@ -222,6 +232,7 @@ namespace Invoices.src.views
             // 
             this.Tabs.Controls.Add(this.Invoices);
             this.Tabs.Controls.Add(this.History);
+            this.Tabs.Controls.Add(this.Quotes);
             this.Tabs.Controls.Add(this.Clients);
             this.Tabs.Controls.Add(this.Companies);
             this.Tabs.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -1145,6 +1156,64 @@ namespace Invoices.src.views
             this.HistoryInvoicesGrid.Size = new System.Drawing.Size(766, 235);
             this.HistoryInvoicesGrid.TabIndex = 1;
             // 
+            // Quotes
+            // 
+            this.Quotes.Controls.Add(this.QuotesMonthFilter);
+            this.Quotes.Controls.Add(this.label32);
+            this.Quotes.Controls.Add(this.QuotesAddButton);
+            this.Quotes.Controls.Add(this.QuotesGrid);
+            this.Quotes.Location = new System.Drawing.Point(4, 28);
+            this.Quotes.Name = "Quotes";
+            this.Quotes.Size = new System.Drawing.Size(1451, 786);
+            this.Quotes.TabIndex = 5;
+            this.Quotes.Text = "Quotes";
+            this.Quotes.UseVisualStyleBackColor = true;
+            // 
+            // QuotesMonthFilter
+            // 
+            this.QuotesMonthFilter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.QuotesMonthFilter.FormattingEnabled = true;
+            this.QuotesMonthFilter.Location = new System.Drawing.Point(136, 65);
+            this.QuotesMonthFilter.Name = "QuotesMonthFilter";
+            this.QuotesMonthFilter.Size = new System.Drawing.Size(291, 27);
+            this.QuotesMonthFilter.TabIndex = 3;
+            this.QuotesMonthFilter.SelectedIndexChanged += new System.EventHandler(this.QuotesMonthFilter_SelectedIndexChanged);
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Location = new System.Drawing.Point(8, 68);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(105, 19);
+            this.label32.TabIndex = 2;
+            this.label32.Text = "Select Month";
+            // 
+            // QuotesAddButton
+            // 
+            this.QuotesAddButton.BackColor = System.Drawing.Color.DarkSeaGreen;
+            this.QuotesAddButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.QuotesAddButton.Location = new System.Drawing.Point(8, 15);
+            this.QuotesAddButton.Name = "QuotesAddButton";
+            this.QuotesAddButton.Size = new System.Drawing.Size(262, 30);
+            this.QuotesAddButton.TabIndex = 1;
+            this.QuotesAddButton.Text = "Add Quote";
+            this.QuotesAddButton.UseVisualStyleBackColor = false;
+            this.QuotesAddButton.Click += new System.EventHandler(this.QuotesAddButton_Click);
+            // 
+            // QuotesGrid
+            // 
+            this.QuotesGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.QuotesGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.QuotesGrid.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.QuotesGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.QuotesGrid.ContextMenuStrip = this.QuotesGridOptions;
+            this.QuotesGrid.Location = new System.Drawing.Point(0, 105);
+            this.QuotesGrid.Name = "QuotesGrid";
+            this.QuotesGrid.Size = new System.Drawing.Size(1450, 681);
+            this.QuotesGrid.TabIndex = 0;
+            // 
             // Clients
             // 
             this.Clients.Controls.Add(this.EditCompaniesPanel);
@@ -1571,6 +1640,20 @@ namespace Invoices.src.views
             this.OurCompanies.TabIndex = 0;
             this.OurCompanies.SelectedIndexChanged += new System.EventHandler(this.OurCompanies_SelectedIndexChanged);
             // 
+            // QuotesGridOptions
+            // 
+            this.QuotesGridOptions.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.VIEW_QUOTE});
+            this.QuotesGridOptions.Name = "QuotesGridOptions";
+            this.QuotesGridOptions.Size = new System.Drawing.Size(181, 48);
+            this.QuotesGridOptions.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.QuotesGridOptions_ItemClicked);
+            // 
+            // VIEW_QUOTE
+            // 
+            this.VIEW_QUOTE.Name = "VIEW_QUOTE";
+            this.VIEW_QUOTE.Size = new System.Drawing.Size(180, 22);
+            this.VIEW_QUOTE.Text = "VIEW QUOTE";
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1618,6 +1701,9 @@ namespace Invoices.src.views
             ((System.ComponentModel.ISupportInitialize)(this.HistoryInvoiceTotal)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.HistoryScopeItemsGrid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.HistoryInvoicesGrid)).EndInit();
+            this.Quotes.ResumeLayout(false);
+            this.Quotes.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.QuotesGrid)).EndInit();
             this.Clients.ResumeLayout(false);
             this.Clients.PerformLayout();
             this.EditCompaniesPanel.ResumeLayout(false);
@@ -1627,6 +1713,7 @@ namespace Invoices.src.views
             this.Companies.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
+            this.QuotesGridOptions.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1758,5 +1845,12 @@ namespace Invoices.src.views
         private System.Windows.Forms.ContextMenuStrip HistoryAttachmentsOptions;
         private System.Windows.Forms.ToolStripMenuItem DELETE_ATTACHMENT;
         private System.Windows.Forms.ToolStripMenuItem VIEW_ATTACHMENT;
+        private System.Windows.Forms.TabPage Quotes;
+        private System.Windows.Forms.DataGridView QuotesGrid;
+        private System.Windows.Forms.Button QuotesAddButton;
+        private System.Windows.Forms.ComboBox QuotesMonthFilter;
+        private System.Windows.Forms.Label label32;
+        private System.Windows.Forms.ContextMenuStrip QuotesGridOptions;
+        private System.Windows.Forms.ToolStripMenuItem VIEW_QUOTE;
     }
 }
