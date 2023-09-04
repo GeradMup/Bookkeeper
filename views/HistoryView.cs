@@ -17,10 +17,18 @@ namespace Invoices.src.views
         //**********************************************************************************************************************
         private void HistoryAllInvoicesGrid_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex == -1) return;
-            string selectedInvoice = HistoryAllInvoicesGrid.Rows[e.RowIndex].Cells[2].Value.ToString();
-            historyController.invoiceSelected(selectedInvoice);
-
+            try
+            {
+                if (e.RowIndex == -1) return;
+                if (HistoryMonths.SelectedItem == null) return;
+                string month = HistoryMonths.Text;
+                string selectedInvoice = HistoryAllInvoicesGrid.Rows[e.RowIndex].Cells[2].Value.ToString();
+                historyController.invoiceSelected(selectedInvoice, month);
+            }
+            catch (Exception exception) 
+            {
+                showErrorMessage(exception.Message);
+            }
         }
 
         private void UseAsReferenceButton_Click(object sender, EventArgs e)
@@ -47,48 +55,74 @@ namespace Invoices.src.views
         {
             filterHistoryGridView();
         }
-
-
         private void HistoryAddAttachments_Click(object sender, EventArgs e)
         {
-            if ((HistoryAllInvoicesGrid.DataSource as DataTable).Rows.Count < 1) return;
-            if (HistoryAllInvoicesGrid.CurrentRow.Index == -1) return;
+            try
+            {
+                if ((HistoryAllInvoicesGrid.DataSource as DataTable).Rows.Count < 1) return;
+                if (HistoryAllInvoicesGrid.CurrentRow.Index == -1) return;
 
-            DateTime invoiceDate = (DateTime)HistoryAllInvoicesGrid.CurrentRow.Cells[0].Value;
-            string company = HistoryAllInvoicesGrid.CurrentRow.Cells[1].Value.ToString();
-            string invoiceNumber = HistoryAllInvoicesGrid.CurrentRow.Cells[2].Value.ToString();
+                DateTime invoiceDate = (DateTime)HistoryAllInvoicesGrid.CurrentRow.Cells[0].Value;
+                string company = HistoryAllInvoicesGrid.CurrentRow.Cells[1].Value.ToString();
+                string invoiceNumber = HistoryAllInvoicesGrid.CurrentRow.Cells[2].Value.ToString();
 
-            models.InvoiceFileInfo invoiceQuoteFile = new models.InvoiceFileInfo(invoiceDate, company, invoiceNumber);
-            historyController.addAttachements(invoiceQuoteFile);
+                models.InvoiceFileInfo invoiceQuoteFile = new models.InvoiceFileInfo(invoiceDate, company, invoiceNumber);
+                historyController.addAttachements(invoiceQuoteFile);
+
+            }
+            catch (Exception exception) 
+            {
+                showErrorMessage(exception.Message);
+            }
         }
-
         private void HistoryAttachmentsOptions_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-
-            if ((HistoryAllInvoicesGrid.DataSource as DataTable).Rows.Count < 1) return;
-            if (HistoryAllInvoicesGrid.CurrentRow.Index == -1) return;
-
-            if ((HistoryAllInvoicesGrid.DataSource as DataTable).Rows.Count < 1) return;
-            if (HistoryAllInvoicesGrid.CurrentRow.Index == -1) return;
-
-            string attachmentName = HistoryAttachmentsGrid.CurrentRow.Cells[1].Value.ToString();
-            string invoiceNumber = HistoryAllInvoicesGrid.CurrentRow.Cells[2].Value.ToString();
-
-            if (e.ClickedItem.Name == "DELETE_ATTACHMENT") 
+            try
             {
-                string deletionWarning = $"Are you sure you want to delete the attachment: { attachmentName }";
-                if(warningConfirmation(deletionWarning) == true) historyController.deleteAttachment(attachmentName, invoiceNumber);
+                if ((HistoryAllInvoicesGrid.DataSource as DataTable).Rows.Count < 1) return;
+                if (HistoryAllInvoicesGrid.CurrentRow.Index == -1) return;
+
+                if ((HistoryAllInvoicesGrid.DataSource as DataTable).Rows.Count < 1) return;
+                if (HistoryAllInvoicesGrid.CurrentRow.Index == -1) return;
+
+                if (HistoryMonths.SelectedItem == null) return;
+                string month = HistoryMonths.Text;
+
+                string attachmentName = HistoryAttachmentsGrid.CurrentRow.Cells[1].Value.ToString();
+                string invoiceNumber = HistoryAllInvoicesGrid.CurrentRow.Cells[2].Value.ToString();
+
+                if (e.ClickedItem.Name == "DELETE_ATTACHMENT")
+                {
+                    string deletionWarning = $"Are you sure you want to delete the attachment: { attachmentName }";
+                    if (warningConfirmation(deletionWarning) == true) historyController.deleteAttachment(attachmentName, invoiceNumber, month);
+                }
+                else if (e.ClickedItem.Name == "VIEW_ATTACHMENT")
+                {
+                    historyController.viewAttachement(attachmentName, invoiceNumber);
+                }
             }
-            else if (e.ClickedItem.Name == "VIEW_ATTACHMENT") 
+            catch (Exception exception) 
             {
-                historyController.viewAttachement(attachmentName, invoiceNumber);
+                showErrorMessage(exception.Message);
             }
+        }
+
+        private void HistoryMonths_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (HistoryMonths.SelectedItem == null) return;
+            clearAllHistoryInvoiceGrids();
+            historyController.historyMonthSelected(HistoryMonths.Text);
         }
 
         //**********************************************************************************************************************
         // END OF EVENT HANDLERS FOR THE HISTORY TAB
         //**********************************************************************************************************************
 
+        public void populateHistoryMonths(List<string> months) 
+        {
+            HistoryMonths.Items.Clear();
+            HistoryMonths.Items.AddRange(months.ToArray());
+        }
         private void useAsReference()
         {
             if ((HistoryAllInvoicesGrid.DataSource as DataTable).Rows.Count < 1) return;
@@ -157,10 +191,7 @@ namespace Invoices.src.views
 
         public void populateHistoryGrids(Object invoiceData, Object scopeData, Object attachmentsData) 
         {
-            
-            HistoryInvoicesGrid.DataSource = null;
-            HistoryScopeItemsGrid.DataSource = null;
-            HistoryAttachmentsGrid.DataSource = null;
+            clearAllHistoryInvoiceGrids();
             if (invoiceData == null || scopeData == null) return;
 
             HistoryInvoicesGrid.DataSource = invoiceData;
@@ -183,6 +214,13 @@ namespace Invoices.src.views
             HistoryAttachmentsGrid.Columns[0].FillWeight = 0.1F;
             HistoryAttachmentsGrid.Columns[1].FillWeight = 5F;
             HistoryAttachmentsGrid.ClearSelection();
+        }
+
+        private void clearAllHistoryInvoiceGrids() 
+        {
+            HistoryInvoicesGrid.DataSource = null;
+            HistoryScopeItemsGrid.DataSource = null;
+            HistoryAttachmentsGrid.DataSource = null;
         }
 
         public void insertHistoryInvoiceTotal(decimal total) 

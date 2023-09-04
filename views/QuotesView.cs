@@ -48,12 +48,19 @@ namespace Invoices.src.views
 
         private void QuotesGridOptions_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-            if (validGridViewSelection(QuotesGrid) == false) return;
-            if (e.ClickedItem.Name == "VIEW_QUOTE") 
+            try
             {
-                string selectedQuote = QuotesGrid.CurrentRow.Cells[0].Value.ToString();
-                string month = QuotesMonthFilter.Text;
-                quotesController.viewQuote(selectedQuote, month);
+                if (validGridViewSelection(QuotesGrid) == false) return;
+                if (e.ClickedItem.Name == "VIEW_QUOTE")
+                {
+                    string selectedQuote = QuotesGrid.CurrentRow.Cells[0].Value.ToString();
+                    string month = QuotesMonthFilter.Text;
+                    quotesController.viewQuote(selectedQuote, month);
+                }
+            }
+            catch (Exception exception) 
+            {
+                showErrorMessage(exception.Message);
             }
         }
 

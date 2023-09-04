@@ -33,7 +33,7 @@ namespace Invoices.src.views
 
         private bool warningConfirmation(string warningMessage) 
         {
-            DialogResult dialogResult = MessageBox.Show($"{ warningMessage }", "Warning!", MessageBoxButtons.YesNo);
+            DialogResult dialogResult = CustomMessageBox.Show(this, warningMessage, MessageType.SevereWarning);
 
             if (dialogResult == DialogResult.Yes)
             {
@@ -42,12 +42,21 @@ namespace Invoices.src.views
             return false;
         }
 
+        private void showSuccessMessage(string message) 
+        {
+            CustomMessageBox.Show(this, message, MessageType.Success);
+        }
+
+        private void showErrorMessage(string message) 
+        {
+            CustomMessageBox.Show(this, message, MessageType.MildWarning);
+        }
+
         private bool validGridViewSelection(DataGridView gridView) 
         {
             if (gridView.Rows.Count < 1) return false;
             if (gridView.CurrentRow.Index == -1) return false;
             return true;
         }
-
     }
 }

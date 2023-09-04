@@ -20,26 +20,34 @@ namespace Invoices.src.controllers
 
             historyView.assignHistoryController(this);
             historyView.initialiazeHistoryTab();
-            historyView.populateAllHistoryInvoicesGrid(historyModel.getInvoiceHistory());
+            historyView.populateHistoryMonths(historyModel.getInvoiceMonths());
+            //historyView.populateAllHistoryInvoicesGrid(historyModel.getInvoiceHistory());
         }
 
-        public void invoiceSelected(string invoiceNumber)
+        public void invoiceSelected(string invoiceNumber, string month)
         {
-            historyModel.loadInvoiceItems(invoiceNumber);
+            historyModel.loadInvoiceItems(invoiceNumber, month);
             historyView.populateHistoryGrids(historyModel.getInvoiceItems(), historyModel.getScopeItems(), historyModel.getAttachments());
             historyView.insertHistoryInvoiceTotal(historyModel.invoiceTotal());
         }
 
-        public void newInvoiceAdded()
+        public void historyMonthSelected(string month) 
         {
-            historyView.populateAllHistoryInvoicesGrid(historyModel.getInvoiceHistory());
+            historyView.populateAllHistoryInvoicesGrid(historyModel.getInvoiceHistory(month));
         }
 
+        public void newInvoiceAdded()
+        {
+            //historyView.populateAllHistoryInvoicesGrid(historyModel.getInvoiceHistory());
+        }
 
         public void addAttachements(InvoiceFileInfo invoiceQuoteFile)
         {
             bool added = historyModel.addAttachments(invoiceQuoteFile);
-            if (added == true) { invoiceSelected(invoiceQuoteFile.Number); }
+            if (added == true) {
+                string month = invoiceQuoteFile.Date.ToString("MMMM yyy");
+                invoiceSelected(invoiceQuoteFile.Number, month); 
+            }
         }
 
         public void viewAttachement(string attachmentName, string invoiceNumber)
@@ -47,10 +55,10 @@ namespace Invoices.src.controllers
             historyModel.openAttachment(attachmentName, invoiceNumber);
         }
 
-        public void deleteAttachment(string attachmentName, string invoiceNumber)
+        public void deleteAttachment(string attachmentName, string invoiceNumber, string month)
         {
             historyModel.deleteAttachment(attachmentName, invoiceNumber);
-            invoiceSelected(invoiceNumber);
+            invoiceSelected(invoiceNumber, month);
         }
     }
 }

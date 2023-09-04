@@ -12,14 +12,13 @@ namespace Invoices.src.models
 {
     public class QuotesModel
     {
-        string currentMonth = DateTime.Now.ToString("MMMM yyyy");
         FileExplorer fileExplorer = new FileExplorer();
 
         List<string> quotes = new List<string>();
         public QuotesModel() 
         {
             //Let's start by creating the folder where our Quotes need to go.
-            string quotesFolder = Constants.QUOTES_PATH + $"\\{currentMonth}";
+            string quotesFolder = Constants.QUOTES_PATH + $"\\{Constants.CURRENT_MONTH_YEAR}";
             if (Directory.Exists(quotesFolder) == false) { Directory.CreateDirectory(quotesFolder); }
         }
 
@@ -30,7 +29,7 @@ namespace Invoices.src.models
 
         public void addQuote() 
         {
-            string destinationfolder = Constants.QUOTES_PATH + $"\\{currentMonth}" + "\\";
+            string destinationfolder = Constants.QUOTES_PATH + $"\\{Constants.CURRENT_MONTH_YEAR}" + "\\";
             fileExplorer.copyFileThroughDialogBox(destinationfolder);
         }
 
@@ -60,6 +59,7 @@ namespace Invoices.src.models
         public void viewQuote(string selectedQuote, string month) 
         {
             string pathToQuote = Constants.QUOTES_PATH + month + "\\" + selectedQuote;
+            System.Diagnostics.Process.Start(Constants.QUOTES_PATH + month);
             System.Diagnostics.Process.Start(pathToQuote);
         }
     }

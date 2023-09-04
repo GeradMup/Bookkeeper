@@ -40,44 +40,65 @@ namespace Invoices.src.views
 
         private void OurCompanySubmitButton_Click(object sender, EventArgs e)
         {
-            if (validInputs() == false) return;
-            models.OurCompany ourCompany = new models.OurCompany();
-
-            ourCompany.Name = OurCompanies.Text;
-            ourCompany.VatNumber = OurCompanyVatNumber.Text;
-            ourCompany.VendorNumber = OurCompanyVendorNumber.Text;
-            ourCompany.LogoImage = OurCompanyLogo.Text;
-            ourCompany.FooterImage = OurCompanyFooter.Text;
-            ourCompany.Number = Int16.Parse(OurCompanyNumber.Text);
-
-            if (editingOurCompany == true)
+            try
             {
-                setupController.editOurCompany(ourCompany);
-            }
-            else if (newOurCompany == true)
-            {
-                setupController.addNewOurCompany(ourCompany);
-            }
+                if (validInputs() == false) return;
+                models.OurCompany ourCompany = new models.OurCompany();
 
-            disableEditingOurCompany();
-            editingOurCompany = false;
-            newOurCompany = false;
+                ourCompany.Name = OurCompanies.Text;
+                ourCompany.VatNumber = OurCompanyVatNumber.Text;
+                ourCompany.VendorNumber = OurCompanyVendorNumber.Text;
+                ourCompany.LogoImage = OurCompanyLogo.Text;
+                ourCompany.FooterImage = OurCompanyFooter.Text;
+                ourCompany.Number = Int16.Parse(OurCompanyNumber.Text);
+
+                if (editingOurCompany == true)
+                {
+                    setupController.editOurCompany(ourCompany);
+                }
+                else if (newOurCompany == true)
+                {
+                    setupController.addNewOurCompany(ourCompany);
+                }
+
+                disableEditingOurCompany();
+                editingOurCompany = false;
+                newOurCompany = false;
+            }
+            catch (Exception exception) 
+            {
+                showErrorMessage(exception.Message);
+            }
         }
 
         private void OurCompanyLogo_Enter(object sender, EventArgs e)
         {
-            if (OurCompanyLogo.ReadOnly == true) return;
-            string logoName = setupController.invoiceLogo(OurCompanyLogo.Text);
-            OurCompanyLogo.Text = logoName;
-            OurCompanyLogo.ReadOnly = true;
+            try
+            {
+                if (OurCompanyLogo.ReadOnly == true) return;
+                string logoName = setupController.invoiceLogo(OurCompanyLogo.Text);
+                OurCompanyLogo.Text = logoName;
+                OurCompanyLogo.ReadOnly = true;
+            }
+            catch (Exception exception) 
+            {
+                showErrorMessage(exception.Message);
+            }
         }
 
         private void OurCompanyFooter_Enter(object sender, EventArgs e)
         {
-            if (OurCompanyFooter.ReadOnly == true) return;
-            string footerName = setupController.invoiceFooter(OurCompanyFooter.Text);
-            OurCompanyFooter.Text = footerName;
-            OurCompanyFooter.ReadOnly = true;
+            try 
+            { 
+                if (OurCompanyFooter.ReadOnly == true) return;
+                string footerName = setupController.invoiceFooter(OurCompanyFooter.Text);
+                OurCompanyFooter.Text = footerName;
+                OurCompanyFooter.ReadOnly = true;
+            }
+            catch (Exception exception) 
+            {
+                showErrorMessage(exception.Message);
+            }
         }
 
         private void OurCompanyNewButton_Click(object sender, EventArgs e)

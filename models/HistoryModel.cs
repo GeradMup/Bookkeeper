@@ -13,7 +13,7 @@ namespace Invoices.src.models
 {
     public class HistoryModel
     {
-        TextFiles textFiles;
+        TextFiles textFiles = new TextFiles();
         List<List<String>> invoiceInformation = new List<List<String>>();
         List<InvoiceItem> invoiceItems = new List<InvoiceItem>();
         List<ScopeItem> scopeItems = new List<ScopeItem>();
@@ -21,18 +21,24 @@ namespace Invoices.src.models
         List<InvoiceFileInfo> invoiceFileInfos = new List<InvoiceFileInfo>();
         List<InvoiceAttachement> invoiceAttachements = new List<InvoiceAttachement>();
         FileExplorer fileExplorer = new FileExplorer();
-
+        List<String> invoiceFilesMonths = new List<String>();
         public HistoryModel()
         {
-            textFiles = new TextFiles();
+            //string monthInvoicesFolder = Constants.INVOICES_PATH + "\\" + Constants.CURRENT_MONTH_YEAR;
+            //if (Directory.Exists(monthInvoicesFolder) == false) Directory.CreateDirectory(monthInvoicesFolder);
+
+            string monthInvoicesTextFilesFolder = Constants.INVOICE_TEXT_FILES_PATH + "\\" + Constants.CURRENT_MONTH_YEAR;
+            if (Directory.Exists(monthInvoicesTextFilesFolder) == false) Directory.CreateDirectory(monthInvoicesTextFilesFolder);
+
+            invoiceFilesMonths = fileExplorer.getSubfolderNames(Constants.INVOICE_TEXT_FILES_PATH);
         }
 
-        public DataTable getInvoiceHistory()
+        public DataTable getInvoiceHistory(string month)
         {
 
             invoiceFileInfos.Clear();
             quoteInvoiceFileNames.Clear();
-            quoteInvoiceFileNames = textFiles.getFileNamesInFolder(Constants.INVOICE_TEXT_FILES_PATH);
+            quoteInvoiceFileNames = textFiles.getFileNamesInFolder(Constants.INVOICE_TEXT_FILES_PATH + "\\" + month);
 
             int indexOfFourthSpace;
             int indexOfLastSpace;
@@ -67,7 +73,12 @@ namespace Invoices.src.models
             return table;
         }
 
-        public void loadInvoiceItems(string invoiceNumber)
+        public List<string> getInvoiceMonths() 
+        {
+            return invoiceFilesMonths;
+        }
+
+        public void loadInvoiceItems(string invoiceNumber, string month)
         {
             invoiceItems.Clear();
             scopeItems.Clear();
@@ -76,7 +87,7 @@ namespace Invoices.src.models
 
             InvoiceFileInfo fileInfo = invoiceFileInfos.FirstOrDefault(obj => obj.Number == invoiceNumber);
             string invoiceDate = fileInfo.Date.ToString(Constants.INVOICE_TEXTFILES_DATE_FORMAT);
-            string pathToInvoiceFile = Constants.INVOICE_TEXT_FILES_PATH + invoiceNumber + "\\" + invoiceDate + " " + fileInfo.Company + " " + invoiceNumber + ".txt";
+            string pathToInvoiceFile = Constants.INVOICE_TEXT_FILES_PATH + "\\" + month + "\\" +  invoiceNumber + "\\" + invoiceDate + " " + fileInfo.Company + " " + invoiceNumber + ".txt";
             invoiceInformation = textFiles.readTextFile(pathToInvoiceFile);
 
             foreach (List<string> lines in invoiceInformation)
@@ -146,6 +157,7 @@ namespace Invoices.src.models
         public void openAttachment(string attachmentName, string invoiceNumber)
         {
             string filePath = Constants.INVOICES_PATH + invoiceNumber + "\\" + attachmentName;
+            System.Diagnostics.Process.Start(Constants.INVOICES_PATH + invoiceNumber);
             System.Diagnostics.Process.Start(filePath);
         }
 

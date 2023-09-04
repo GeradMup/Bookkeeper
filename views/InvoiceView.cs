@@ -181,7 +181,7 @@ namespace Invoices.src.views
             UnitPrice.Value = 0;
             InvoiceCheckbox.Checked = false;
             QuoteCheckbox.Checked = false;
-            InvoiceExpiryDate.Value = DateTime.Now;
+            //InvoiceExpiryDate.Value = DateTime.Now;
             RefInvoice.Text = "";
             //InvoiceExpiryDate.Value = DateTime.Now;
         }
@@ -198,46 +198,61 @@ namespace Invoices.src.views
 
         private void GenerateInvoiceButton_Click(object sender, EventArgs e)
         {
-            resetReceiptInputsColours();
-            if (CompanyList.Text == "") { CompanyList.BackColor = errorColour; return; }
-            if (InvoiceExpiryDate.Value.ToString(models.Constants.DATE_FORMAT) == DateTime.Now.ToString(models.Constants.DATE_FORMAT)) 
+            try
             {
-                MessageBox.Show("Please pick a valid expiry date!");
-                return; 
-            }
-            
-            if (InvoiceItemsGrid.RowCount == 0) { InvoiceItemsGrid.BackgroundColor = errorColour; return; }
-            if (ScopeGrid.RowCount == 0) { ScopeGrid.BackgroundColor = errorColour; return; }
+                resetReceiptInputsColours();
+                if (CompanyList.Text == "") { CompanyList.BackColor = errorColour; return; }
+                if (InvoiceExpiryDate.Value.ToString(models.Constants.DATE_FORMAT) == DateTime.Now.ToString(models.Constants.DATE_FORMAT))
+                {
+                    string error = "Please pick a valid expiry date!";
+                    showErrorMessage(error);
+                    return;
+                }
 
-            string invoiceOrQuoteError = "Please indicate if this is a Quote or Invoice";
-            if ((QuoteCheckbox.Checked == false && InvoiceCheckbox.Checked == false) ||
-                (QuoteCheckbox.Checked == true && InvoiceCheckbox.Checked == true)) 
+                if (InvoiceItemsGrid.RowCount == 0) { InvoiceItemsGrid.BackgroundColor = errorColour; return; }
+                if (ScopeGrid.RowCount == 0) { ScopeGrid.BackgroundColor = errorColour; return; }
+
+                string invoiceOrQuoteError = "Please indicate if this is a Quote or Invoice";
+                if ((QuoteCheckbox.Checked == false && InvoiceCheckbox.Checked == false) ||
+                    (QuoteCheckbox.Checked == true && InvoiceCheckbox.Checked == true))
+                {
+                    showErrorMessage(invoiceOrQuoteError);
+                    return;
+                }
+
+                models.InvoiceFileInfo refInvoiceFile = null;
+                if (referenceInvoiceInfo != null)
+                {
+                    string message = $"Would you like to re-use the invoice/quote number {referenceInvoiceInfo.Number}";
+                    if (warningConfirmation(message) == true) refInvoiceFile = referenceInvoiceInfo;
+                }
+
+                invoiceController.generateInvoice(CompanyList.Text, QuotingCompany.Text, QuoteCheckbox.Checked, InvoiceExpiryDate.Value, refInvoiceFile);
+                CompanyList.SelectedItem = null;
+                clearReceiptInputs();
+                InvoiceExpiryDate.Value = DateTime.Now;
+                referenceInvoiceInfo = null;
+            }
+            catch (Exception exception) 
             {
-                MessageBox.Show(invoiceOrQuoteError);
-                return;
+                showErrorMessage(exception.Message);
             }
-
-            models.InvoiceFileInfo refInvoiceFile = null;
-            if (referenceInvoiceInfo != null) 
-            {
-                string message = $"Would you like to re-use the invoice/quote number {referenceInvoiceInfo.Number}";
-                DialogResult messageBoxResult = MessageBox.Show(message, "Equiry!", MessageBoxButtons.YesNo);
-
-                if (messageBoxResult == DialogResult.Yes) refInvoiceFile = referenceInvoiceInfo; 
-            }
-
-            invoiceController.generateInvoice(CompanyList.Text, QuotingCompany.Text, QuoteCheckbox.Checked, InvoiceExpiryDate.Value, refInvoiceFile);
-            CompanyList.SelectedItem = null;
-            clearReceiptInputs();
-            referenceInvoiceInfo = null;
         }
-
         public void showSuccess() 
         {
-            disableAllControlls();
-            SuccessPanel.Visible = true;
-            SuccessPanel.Enabled = true;
+            string message = "You invoice has been generated successfully!";
+            showSuccessMessage(message);
+
+            //disableAllControlls();
+            //SuccessPanel.Visible = true;
+            //SuccessPanel.Enabled = true;
             //SuccessPanel
+
+            enableAllControls();
+            SuccessPanel.Visible = false;
+            SuccessPanel.Visible = false;
+            invoiceController.invoiceGenerationCompleted();
+            newInvoiceAdded();
         }
 
         private void SuccessOkButton_Click(object sender, EventArgs e)
@@ -267,7 +282,7 @@ namespace Invoices.src.views
 
         private void incorrectDataError(string errorMessage = "Incorrect Data!") 
         {
-            MessageBox.Show(errorMessage);
+            showErrorMessage(errorMessage);
         }
 
         private void InvoiceItemsGrid_DataError(object sender, DataGridViewDataErrorEventArgs e)
@@ -390,7 +405,7 @@ namespace Invoices.src.views
             RefInvoice.Text = "Reference Invoice/Quote Number : " + invoiceInfo.Number;
 
             invoiceController.referenceInvoice(invoiceDataSource, scopeDataSource);
-            MessageBox.Show("You data has been copied!");
+            showSuccessMessage("You data has been copied!");
             Tabs.SelectedTab = Invoices; //Change to the invoice tab
         }
     }

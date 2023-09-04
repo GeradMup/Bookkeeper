@@ -47,33 +47,40 @@ namespace Invoices.src.views
 
         private void EditCompaniesOptions_Click(object sender, ToolStripItemClickedEventArgs e)
         {
-            int currentRow = ClientsGridView.CurrentCell.RowIndex;
-            if (e.ClickedItem.ToString() == "EDIT")
+            try
             {
-                newClient = false;
-                EditCompaniesPanel.Visible = true;
+                int currentRow = ClientsGridView.CurrentCell.RowIndex;
+                if (e.ClickedItem.ToString() == "EDIT")
+                {
+                    newClient = false;
+                    EditCompaniesPanel.Visible = true;
 
-                NewClientName.Text = ClientsGridView.Rows[currentRow].Cells[1].Value.ToString();
-                NewClientAddress.Text = ClientsGridView.Rows[currentRow].Cells[2].Value.ToString();
-                NewClientVat.Text = ClientsGridView.Rows[currentRow].Cells[3].Value.ToString();
-                NewClientCity.Text = ClientsGridView.Rows[currentRow].Cells[4].Value.ToString();
-                NewClientZipCode.Value = Decimal.Parse(ClientsGridView.Rows[currentRow].Cells[5].Value.ToString());
-                NewClientContactPerson.Text = ClientsGridView.Rows[currentRow].Cells[6].Value.ToString();
-                NewClientContactTitle.Text = ClientsGridView.Rows[currentRow].Cells[7].Value.ToString();
-                NewClientContactNumbers.Text = ClientsGridView.Rows[currentRow].Cells[8].Value.ToString();
-                NewClientContactEmail.Text = ClientsGridView.Rows[currentRow].Cells[9].Value.ToString();
+                    NewClientName.Text = ClientsGridView.Rows[currentRow].Cells[1].Value.ToString();
+                    NewClientAddress.Text = ClientsGridView.Rows[currentRow].Cells[2].Value.ToString();
+                    NewClientVat.Text = ClientsGridView.Rows[currentRow].Cells[3].Value.ToString();
+                    NewClientCity.Text = ClientsGridView.Rows[currentRow].Cells[4].Value.ToString();
+                    NewClientZipCode.Value = Decimal.Parse(ClientsGridView.Rows[currentRow].Cells[5].Value.ToString());
+                    NewClientContactPerson.Text = ClientsGridView.Rows[currentRow].Cells[6].Value.ToString();
+                    NewClientContactTitle.Text = ClientsGridView.Rows[currentRow].Cells[7].Value.ToString();
+                    NewClientContactNumbers.Text = ClientsGridView.Rows[currentRow].Cells[8].Value.ToString();
+                    NewClientContactEmail.Text = ClientsGridView.Rows[currentRow].Cells[9].Value.ToString();
+                }
+                else if (e.ClickedItem.ToString() == "ADD")
+                {
+                    newClient = true;
+                    EditCompaniesPanel.Visible = true;
+                }
+                else if (e.ClickedItem.ToString() == "DELETE")
+                {
+                    string companyName = ClientsGridView.Rows[currentRow].Cells[1].Value.ToString();
+                    string warning = $"Are you sure you want to delete the company: { companyName }";
+
+                    if (warningConfirmation(warning) == true) clientsController.deleteCompany(currentRow);
+                }
             }
-            else if (e.ClickedItem.ToString() == "ADD")
+            catch (Exception exception) 
             {
-                newClient = true;
-                EditCompaniesPanel.Visible = true;
-            }
-            else if (e.ClickedItem.ToString() == "DELETE") 
-            {
-                string companyName = ClientsGridView.Rows[currentRow].Cells[1].Value.ToString();
-                string warning = $"Are you sure you want to delete the company: { companyName }";
-               
-                if (warningConfirmation(warning) == true) clientsController.deleteCompany(currentRow); 
+                showErrorMessage(exception.Message);
             }
         }
 
@@ -85,45 +92,58 @@ namespace Invoices.src.views
 
         private void NewCompanyDoneButton_Click(object sender, EventArgs e)
         {
-            if (!validNewCompanyInputs()) return;
-
-            List<string> companyInfo = new List<string>();
-            companyInfo.Add(NewClientName.Text);
-            companyInfo.Add(NewClientAddress.Text);
-            companyInfo.Add(NewClientVat.Text);
-            companyInfo.Add(NewClientCity.Text);
-            companyInfo.Add(NewClientZipCode.Value.ToString());
-            companyInfo.Add(NewClientContactPerson.Text);
-            companyInfo.Add(NewClientContactTitle.Text);
-            companyInfo.Add(NewClientContactNumbers.Text);
-            companyInfo.Add(NewClientContactEmail.Text);
-
-            if (newClient == false)
+            try
             {
-                int currentRow = ClientsGridView.CurrentCell.RowIndex;
-                clientsController.editCompanies(currentRow, companyInfo);
-            }
-            else 
-            {
-                clientsController.addCompany(companyInfo);
-            }
+                if (!validNewCompanyInputs()) return;
 
-            ClientsGridView.Refresh();
-            resetNewCompanyPanel();
-            EditCompaniesPanel.Visible = false;
+                List<string> companyInfo = new List<string>();
+                companyInfo.Add(NewClientName.Text);
+                companyInfo.Add(NewClientAddress.Text);
+                companyInfo.Add(NewClientVat.Text);
+                companyInfo.Add(NewClientCity.Text);
+                companyInfo.Add(NewClientZipCode.Value.ToString());
+                companyInfo.Add(NewClientContactPerson.Text);
+                companyInfo.Add(NewClientContactTitle.Text);
+                companyInfo.Add(NewClientContactNumbers.Text);
+                companyInfo.Add(NewClientContactEmail.Text);
+
+                if (newClient == false)
+                {
+                    int currentRow = ClientsGridView.CurrentCell.RowIndex;
+                    clientsController.editCompanies(currentRow, companyInfo);
+                }
+                else
+                {
+                    clientsController.addCompany(companyInfo);
+                }
+
+                ClientsGridView.Refresh();
+                resetNewCompanyPanel();
+                EditCompaniesPanel.Visible = false;
+            }
+            catch (Exception exception) 
+            {
+                showErrorMessage(exception.Message);
+            }
         }
-
         //Checks if the NewCompany inputs are valid
         private bool validNewCompanyInputs() 
         {
-            resetNewCompanyPanelColours();
+            try
+            {
+                resetNewCompanyPanelColours();
 
-            Color errorColour = Color.LightPink;
-            if (NewClientName.Text == "") { NewClientName.BackColor = errorColour; return false; }
-            if (NewClientAddress.Text == "") { NewClientAddress.BackColor = errorColour; return false; }
-            if (NewClientCity.Text == "") { NewClientCity.BackColor = errorColour; return false; }
-            if (NewClientZipCode.Value == 0) { NewClientZipCode.BackColor = errorColour; return false; }
-            return true;
+                Color errorColour = Color.LightPink;
+                if (NewClientName.Text == "") { NewClientName.BackColor = errorColour; return false; }
+                if (NewClientAddress.Text == "") { NewClientAddress.BackColor = errorColour; return false; }
+                if (NewClientCity.Text == "") { NewClientCity.BackColor = errorColour; return false; }
+                if (NewClientZipCode.Value == 0) { NewClientZipCode.BackColor = errorColour; return false; }
+            }
+            catch (Exception exception) 
+            {
+                showErrorMessage(exception.Message);
+            }   
+                return true;
         }
 
         private void NewCompanyCancelButton_Click(object sender, EventArgs e)

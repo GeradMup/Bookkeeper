@@ -198,7 +198,7 @@ namespace Invoices.src.models
 
             string dateAndTime = DateTime.Now.ToString(Constants.INVOICE_TEXTFILES_DATE_FORMAT);
 
-            string folder = Constants.INVOICE_TEXT_FILES_PATH + "\\" + invoiceNumber + "\\";
+            string folder = Constants.INVOICE_TEXT_FILES_PATH + "\\" + Constants.CURRENT_MONTH_YEAR + "\\" + invoiceNumber + "\\";
 
             //Create the directory needed for the invoices.
             if (System.IO.Directory.Exists(folder) == false) { System.IO.Directory.CreateDirectory(folder); }
