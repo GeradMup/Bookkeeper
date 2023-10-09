@@ -1,4 +1,5 @@
 ﻿using FastMember;
+using Invoices.src.DataObjects;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -22,10 +23,12 @@ namespace Invoices.src.models
         List<InvoiceAttachement> invoiceAttachements = new List<InvoiceAttachement>();
         FileExplorer fileExplorer = new FileExplorer();
         List<String> invoiceFilesMonths = new List<String>();
+
         public HistoryModel()
         {
-            //string monthInvoicesFolder = Constants.INVOICES_PATH + "\\" + Constants.CURRENT_MONTH_YEAR;
-            //if (Directory.Exists(monthInvoicesFolder) == false) Directory.CreateDirectory(monthInvoicesFolder);
+            //string monthInvoicesFolder Constants.INVOICES_PATH;   // + "\\" + Constants.CURRENT_MONTH_YEAR;
+            if (Directory.Exists(Constants.INVOICES_PATH) == false) Directory.CreateDirectory(Constants.INVOICES_PATH);
+            //if ()
 
             string monthInvoicesTextFilesFolder = Constants.INVOICE_TEXT_FILES_PATH + "\\" + Constants.CURRENT_MONTH_YEAR;
             if (Directory.Exists(monthInvoicesTextFilesFolder) == false) Directory.CreateDirectory(monthInvoicesTextFilesFolder);
@@ -50,7 +53,7 @@ namespace Invoices.src.models
 
             foreach (string invoiceFile in quoteInvoiceFileNames)
             {
-                indexOfFourthSpace = invoiceFile.IndexOf(" ");                    //First Space
+                indexOfFourthSpace = invoiceFile.IndexOf(" ");                          //First Space
                 indexOfFourthSpace = invoiceFile.IndexOf(" ", indexOfFourthSpace + 1);  //Second Space
                 indexOfFourthSpace = invoiceFile.IndexOf(" ", indexOfFourthSpace + 1);  //Third Space
                 indexOfFourthSpace = invoiceFile.IndexOf(" ", indexOfFourthSpace + 1);  //Fourth Space
@@ -78,16 +81,16 @@ namespace Invoices.src.models
             return invoiceFilesMonths;
         }
 
-        public void loadInvoiceItems(string invoiceNumber, string month)
+        public void loadInvoiceItems(string invoiceNumber, string month, DateTime invoiceDate)
         {
             invoiceItems.Clear();
             scopeItems.Clear();
             invoiceInformation.Clear();
             invoiceAttachements.Clear();
 
-            InvoiceFileInfo fileInfo = invoiceFileInfos.FirstOrDefault(obj => obj.Number == invoiceNumber);
-            string invoiceDate = fileInfo.Date.ToString(Constants.INVOICE_TEXTFILES_DATE_FORMAT);
-            string pathToInvoiceFile = Constants.INVOICE_TEXT_FILES_PATH + "\\" + month + "\\" +  invoiceNumber + "\\" + invoiceDate + " " + fileInfo.Company + " " + invoiceNumber + ".txt";
+            InvoiceFileInfo fileInfo = invoiceFileInfos.FirstOrDefault(obj => obj.Date == invoiceDate);
+            string invoiceDateString = invoiceDate.ToString(Constants.INVOICE_TEXTFILES_DATE_FORMAT);
+            string pathToInvoiceFile = Constants.INVOICE_TEXT_FILES_PATH + "\\" + month + "\\" +  invoiceNumber + "\\" + invoiceDateString + " " + fileInfo.Company + " " + invoiceNumber + ".txt";
             invoiceInformation = textFiles.readTextFile(pathToInvoiceFile);
 
             foreach (List<string> lines in invoiceInformation)

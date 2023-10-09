@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Invoices.src.controllers;
+using Invoices.src.DataObjects;
 
 namespace Invoices.src.views
 {
@@ -43,7 +44,7 @@ namespace Invoices.src.views
             try
             {
                 if (validInputs() == false) return;
-                models.OurCompany ourCompany = new models.OurCompany();
+                OurCompany ourCompany = new OurCompany();
 
                 ourCompany.Name = OurCompanies.Text;
                 ourCompany.VatNumber = OurCompanyVatNumber.Text;
@@ -132,7 +133,7 @@ namespace Invoices.src.views
             OurCompanies.Items.AddRange(companyNames.ToArray());
         }
 
-        public void updateCompanyDetails(models.OurCompany ourCompany) 
+        public void updateCompanyDetails(OurCompany ourCompany) 
         {
             updatingCompanies = true;
             OurCompanies.Text = ourCompany.Name;

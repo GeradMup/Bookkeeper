@@ -24,11 +24,13 @@ namespace Invoices.src.views
         private void Tabs_TabIndexChanged(object sender, EventArgs e)
         {
             disableEditingOurCompany();
+            resetHistoryTab();
         }
 
         private void Tabs_Deselected(object sender, TabControlEventArgs e)
         {
             disableEditingOurCompany();
+            resetHistoryTab();
         }
 
         private bool warningConfirmation(string warningMessage) 
@@ -57,6 +59,21 @@ namespace Invoices.src.views
             if (gridView.Rows.Count < 1) return false;
             if (gridView.CurrentRow.Index == -1) return false;
             return true;
+        }
+
+        private void MainWindow_Load(object sender, EventArgs e)
+        {
+            // Scale our form to look like it did when we designed it.
+            // This adjusts between the screen resolution of the design computer and the workstation.
+            int ourScreenWidth = Screen.FromControl(this).WorkingArea.Width;
+            int ourScreenHeight = Screen.FromControl(this).WorkingArea.Height;
+            float scaleFactorWidth = (float)ourScreenWidth / 1920f;
+            float scaleFactorHeigth = (float)ourScreenHeight / 1032f;
+            SizeF scaleFactor = new SizeF(scaleFactorWidth, scaleFactorHeigth);
+            Scale(scaleFactor);
+
+            // If you want to center the resized screen.
+            CenterToScreen();
         }
     }
 }

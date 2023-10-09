@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Invoices.src.DataObjects;
 using Invoices.src.models;
 using Invoices.src.views;
 
@@ -24,9 +25,9 @@ namespace Invoices.src.controllers
             //historyView.populateAllHistoryInvoicesGrid(historyModel.getInvoiceHistory());
         }
 
-        public void invoiceSelected(string invoiceNumber, string month)
+        public void invoiceSelected(string invoiceNumber, string month, DateTime invoiceDate)
         {
-            historyModel.loadInvoiceItems(invoiceNumber, month);
+            historyModel.loadInvoiceItems(invoiceNumber, month, invoiceDate);
             historyView.populateHistoryGrids(historyModel.getInvoiceItems(), historyModel.getScopeItems(), historyModel.getAttachments());
             historyView.insertHistoryInvoiceTotal(historyModel.invoiceTotal());
         }
@@ -46,7 +47,7 @@ namespace Invoices.src.controllers
             bool added = historyModel.addAttachments(invoiceQuoteFile);
             if (added == true) {
                 string month = invoiceQuoteFile.Date.ToString("MMMM yyy");
-                invoiceSelected(invoiceQuoteFile.Number, month); 
+                invoiceSelected(invoiceQuoteFile.Number, month, invoiceQuoteFile.Date); 
             }
         }
 
@@ -55,10 +56,10 @@ namespace Invoices.src.controllers
             historyModel.openAttachment(attachmentName, invoiceNumber);
         }
 
-        public void deleteAttachment(string attachmentName, string invoiceNumber, string month)
+        public void deleteAttachment(string attachmentName, string invoiceNumber, string month, DateTime invoiceDate)
         {
             historyModel.deleteAttachment(attachmentName, invoiceNumber);
-            invoiceSelected(invoiceNumber, month);
+            invoiceSelected(invoiceNumber, month, invoiceDate);
         }
     }
 }

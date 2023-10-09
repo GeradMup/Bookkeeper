@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Invoices.src.DataObjects;
 using Invoices.src.models;
 using Invoices.src.views;
 

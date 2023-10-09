@@ -17,9 +17,7 @@ namespace Invoices.src.models
         List<string> quotes = new List<string>();
         public QuotesModel() 
         {
-            //Let's start by creating the folder where our Quotes need to go.
-            string quotesFolder = Constants.QUOTES_PATH + $"\\{Constants.CURRENT_MONTH_YEAR}";
-            if (Directory.Exists(quotesFolder) == false) { Directory.CreateDirectory(quotesFolder); }
+            if (Directory.Exists(Constants.QUOTES_PATH) == false) Directory.CreateDirectory(Constants.QUOTES_PATH);
         }
 
         public List<string> getQuoteMonths() 
@@ -29,6 +27,10 @@ namespace Invoices.src.models
 
         public void addQuote() 
         {
+            //Let's start by creating the folder where our Quotes need to go.
+            string quotesFolder = Constants.QUOTES_PATH + $"\\{Constants.CURRENT_MONTH_YEAR}";
+            if (Directory.Exists(quotesFolder) == false) { Directory.CreateDirectory(quotesFolder); }
+
             string destinationfolder = Constants.QUOTES_PATH + $"\\{Constants.CURRENT_MONTH_YEAR}" + "\\";
             fileExplorer.copyFileThroughDialogBox(destinationfolder);
         }

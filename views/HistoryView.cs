@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Invoices.src.controllers;
+using Invoices.src.DataObjects;
+using Invoices.src.models;
 
 namespace Invoices.src.views
 {
@@ -23,7 +25,8 @@ namespace Invoices.src.views
                 if (HistoryMonths.SelectedItem == null) return;
                 string month = HistoryMonths.Text;
                 string selectedInvoice = HistoryAllInvoicesGrid.Rows[e.RowIndex].Cells[2].Value.ToString();
-                historyController.invoiceSelected(selectedInvoice, month);
+                DateTime invoiceDate = (DateTime)HistoryAllInvoicesGrid.Rows[e.RowIndex].Cells[0].Value;
+                historyController.invoiceSelected(selectedInvoice, month, invoiceDate);
             }
             catch (Exception exception) 
             {
@@ -66,7 +69,7 @@ namespace Invoices.src.views
                 string company = HistoryAllInvoicesGrid.CurrentRow.Cells[1].Value.ToString();
                 string invoiceNumber = HistoryAllInvoicesGrid.CurrentRow.Cells[2].Value.ToString();
 
-                models.InvoiceFileInfo invoiceQuoteFile = new models.InvoiceFileInfo(invoiceDate, company, invoiceNumber);
+                InvoiceFileInfo invoiceQuoteFile = new InvoiceFileInfo(invoiceDate, company, invoiceNumber);
                 historyController.addAttachements(invoiceQuoteFile);
 
             }
@@ -90,11 +93,12 @@ namespace Invoices.src.views
 
                 string attachmentName = HistoryAttachmentsGrid.CurrentRow.Cells[1].Value.ToString();
                 string invoiceNumber = HistoryAllInvoicesGrid.CurrentRow.Cells[2].Value.ToString();
+                DateTime invoiceDate = (DateTime)HistoryAllInvoicesGrid.CurrentRow.Cells[0].Value;
 
                 if (e.ClickedItem.Name == "DELETE_ATTACHMENT")
                 {
                     string deletionWarning = $"Are you sure you want to delete the attachment: { attachmentName }";
-                    if (warningConfirmation(deletionWarning) == true) historyController.deleteAttachment(attachmentName, invoiceNumber, month);
+                    if (warningConfirmation(deletionWarning) == true) historyController.deleteAttachment(attachmentName, invoiceNumber, month, invoiceDate);
                 }
                 else if (e.ClickedItem.Name == "VIEW_ATTACHMENT")
                 {
@@ -123,6 +127,7 @@ namespace Invoices.src.views
             HistoryMonths.Items.Clear();
             HistoryMonths.Items.AddRange(months.ToArray());
         }
+
         private void useAsReference()
         {
             if ((HistoryAllInvoicesGrid.DataSource as DataTable).Rows.Count < 1) return;
@@ -132,7 +137,7 @@ namespace Invoices.src.views
             string referenceCompany = HistoryAllInvoicesGrid.CurrentRow.Cells[1].Value.ToString();
             DateTime referenceDate = (DateTime)HistoryAllInvoicesGrid.CurrentRow.Cells[0].Value;
 
-            models.InvoiceFileInfo invoiceFileInfo = new models.InvoiceFileInfo(referenceDate, referenceCompany, referenceInvoiceNumber);
+            InvoiceFileInfo invoiceFileInfo = new InvoiceFileInfo(referenceDate, referenceCompany, referenceInvoiceNumber);
             referenceInvoice(HistoryInvoicesGrid.DataSource, HistoryScopeItemsGrid.DataSource, invoiceFileInfo);     //This is a function from the Invoice Views Tab.
 
             Object invoiceData = null;
@@ -179,7 +184,7 @@ namespace Invoices.src.views
             HistoryAllInvoicesGrid.Columns[1].FillWeight = 1.5F;
             HistoryAllInvoicesGrid.Columns[2].FillWeight = 1;
 
-            HistoryAllInvoicesGrid.Columns[0].DefaultCellStyle.Format = "dd MMM yyyy";
+            HistoryAllInvoicesGrid.Columns[0].DefaultCellStyle.Format = "dd MMM yyyy (hh:mm)";
 
             HistoryAllInvoicesGrid.ClearSelection();
         }
@@ -220,12 +225,26 @@ namespace Invoices.src.views
         {
             HistoryInvoicesGrid.DataSource = null;
             HistoryScopeItemsGrid.DataSource = null;
-            HistoryAttachmentsGrid.DataSource = null;
+            HistoryAttachmentsGrid.DataSource = null; 
         }
 
         public void insertHistoryInvoiceTotal(decimal total) 
         {
             HistoryInvoiceTotal.Value = total;
+        }
+
+        /// <summary>
+        /// Resets the history tab.
+        /// This function is used when the history tab is de-selected. That way, when we come back into the tab, everything would have been reset again.
+        /// </summary>
+        public void resetHistoryTab() 
+        {
+            clearAllHistoryInvoiceGrids();
+            HistoryAllInvoicesGrid.DataSource = null;
+            HistoryMonths.SelectedItem = null;
+            HistoryNumberFilter.Text = "";
+            HistoryDateFilter.Text = "";
+            HistoryCompanyFilter.Text = "";
         }
 
     }

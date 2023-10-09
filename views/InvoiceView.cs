@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Invoices.src.controllers;
+using Invoices.src.DataObjects;
 
 namespace Invoices.src.views
 {
@@ -15,7 +16,7 @@ namespace Invoices.src.views
         Color errorColour = Color.LightPink;
         Object previousCellValue = null;
         Object previousScopeCellValue = null;
-        models.InvoiceFileInfo referenceInvoiceInfo = null;
+        InvoiceFileInfo referenceInvoiceInfo = null;
 
         public void initializeReceipt() 
         {
@@ -220,7 +221,7 @@ namespace Invoices.src.views
                     return;
                 }
 
-                models.InvoiceFileInfo refInvoiceFile = null;
+                InvoiceFileInfo refInvoiceFile = null;
                 if (referenceInvoiceInfo != null)
                 {
                     string message = $"Would you like to re-use the invoice/quote number {referenceInvoiceInfo.Number}";
@@ -249,8 +250,6 @@ namespace Invoices.src.views
             //SuccessPanel
 
             enableAllControls();
-            SuccessPanel.Visible = false;
-            SuccessPanel.Visible = false;
             invoiceController.invoiceGenerationCompleted();
             newInvoiceAdded();
         }
@@ -258,8 +257,6 @@ namespace Invoices.src.views
         private void SuccessOkButton_Click(object sender, EventArgs e)
         {
             enableAllControls();
-            SuccessPanel.Visible = false;
-            SuccessPanel.Visible = false;
             invoiceController.invoiceGenerationCompleted();
             newInvoiceAdded();      //This is a function in the histories views.      
         }
@@ -398,7 +395,7 @@ namespace Invoices.src.views
             resetReceiptInputsColours();
         }
 
-        private void referenceInvoice(Object invoiceDataSource, Object scopeDataSource, models.InvoiceFileInfo invoiceInfo) 
+        private void referenceInvoice(Object invoiceDataSource, Object scopeDataSource, InvoiceFileInfo invoiceInfo) 
         {
 
             referenceInvoiceInfo = invoiceInfo;

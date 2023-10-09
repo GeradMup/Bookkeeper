@@ -21,6 +21,7 @@ using iText.Kernel.Geom;
 using iText.Layout.Borders;
 using System.Globalization;
 using System.Diagnostics;
+using Invoices.src.DataObjects;
 
 namespace Invoices.src.models
 {
