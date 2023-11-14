@@ -8,6 +8,7 @@ namespace Invoices.src.DataObjects
 {
     public class InvoiceItem
     {
+        public static string PONumber;
         public InvoiceItem(string name, decimal quantity, decimal unitPrice)
         {
             this.Name = name;

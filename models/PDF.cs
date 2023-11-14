@@ -102,7 +102,8 @@ namespace Invoices.src.models
             OurCompany ourCompany,
             String quoteOrInvoice,
             String quoteOrInvoiceNumber,
-            DateTime expiryDate)
+            DateTime expiryDate,
+            String PONumber)
         {
 
             //First verify that the path we are trying to write to does not already exist.
@@ -129,11 +130,11 @@ namespace Invoices.src.models
             firstPage.firstPage();
             pdf.AddEventHandler(PdfDocumentEvent.END_PAGE, new DocumentHeaderAndFooter(document, logoPath, footerPath));
 
-            addCompanyInfo(document, ourCompany, quoteOrInvoice, quoteOrInvoiceNumber);
+            addCompanyInfo(document, ourCompany, quoteOrInvoice, quoteOrInvoiceNumber, PONumber);
             addCustomerInfo(document, company);
             addScopeItems(document, scopeItems);
             addPricesTable(document, invoiceItems, totals);
-            addFinalComment(document, expiryDate);
+            //addFinalComment(document, expiryDate);
             document.Close();
 
             return folderPath;
@@ -157,7 +158,7 @@ namespace Invoices.src.models
             return newFilePath;
         }
 
-        private void addCompanyInfo(Document document, OurCompany ourCompany, string quoteOrInvoice, string quoteOrInvoiceNumber) 
+        private void addCompanyInfo(Document document, OurCompany ourCompany, string quoteOrInvoice, string quoteOrInvoiceNumber, string PONumber) 
         {
             Paragraph companyInfo = creatParagraph(TextAlignment.RIGHT);
 
@@ -167,7 +168,8 @@ namespace Invoices.src.models
             quote.SetFontColor(ColorConstants.RED);
 
             string dateString = DateTime.Now.ToString(Constants.DATE_FORMAT);
-            Text line1 = new Text($"{quoteOrInvoiceNumber}\n VAT: {ourCompany.VatNumber}\n Vendor Number: {ourCompany.VendorNumber} \n { dateString }");
+            string po = PONumber == "" ? "" : ("\n" + "PO NUMBER: " + PONumber);
+            Text line1 = new Text($"{quoteOrInvoiceNumber}\n VAT: {ourCompany.VatNumber}\n VENDOR NUMBER: {ourCompany.VendorNumber} {po}\n { dateString }");
             line1.SetFontSize(STANDARD_FONT_SIZE);
             line1.SetBold();
                 
@@ -187,6 +189,7 @@ namespace Invoices.src.models
             if (company.Title != "") customerInfoText = customerInfoText + company.Title + "\n";
             if (company.Numbers != "") customerInfoText = customerInfoText + company.Numbers + "\n";
             if (company.Email != "") customerInfoText = customerInfoText + company.Email + "\n";
+            if (company.Vat != "") customerInfoText = customerInfoText + "\nVat Number: " + company.Vat + "\n";
 
             Text customerText = new Text(customerInfoText);
             customerText.SetFontSize(STANDARD_FONT_SIZE);

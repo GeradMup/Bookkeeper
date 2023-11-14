@@ -76,7 +76,7 @@ namespace Invoices.src.models
             return table;
         }
 
-        public List<string> getInvoiceMonths() 
+        public List<string> getInvoiceMonths()
         {
             return invoiceFilesMonths;
         }
@@ -87,15 +87,17 @@ namespace Invoices.src.models
             scopeItems.Clear();
             invoiceInformation.Clear();
             invoiceAttachements.Clear();
+            InvoiceItem.PONumber = "";
 
             InvoiceFileInfo fileInfo = invoiceFileInfos.FirstOrDefault(obj => obj.Date == invoiceDate);
             string invoiceDateString = invoiceDate.ToString(Constants.INVOICE_TEXTFILES_DATE_FORMAT);
-            string pathToInvoiceFile = Constants.INVOICE_TEXT_FILES_PATH + "\\" + month + "\\" +  invoiceNumber + "\\" + invoiceDateString + " " + fileInfo.Company + " " + invoiceNumber + ".txt";
+            string pathToInvoiceFile = Constants.INVOICE_TEXT_FILES_PATH + "\\" + month + "\\" + invoiceNumber + "\\" + invoiceDateString + " " + fileInfo.Company + " " + invoiceNumber + ".txt";
             invoiceInformation = textFiles.readTextFile(pathToInvoiceFile);
 
             foreach (List<string> lines in invoiceInformation)
             {
                 if (lines.Count == 4) { invoiceItems.Add(new InvoiceItem(lines[0], decimal.Parse(lines[1]), decimal.Parse(lines[2]))); }
+                if (lines.Count == 1) { InvoiceItem.PONumber = lines[0]; }
                 else if (lines.Count == 2) { scopeItems.Add(new ScopeItem(lines[0], lines[1])); }
             }
 
@@ -121,6 +123,11 @@ namespace Invoices.src.models
         public decimal invoiceTotal()
         {
             return invoiceItems.Sum(it => it.TotalPrice);
+        }
+
+        public string getPoNumber()
+        {
+            return InvoiceItem.PONumber;
         }
 
         public List<InvoiceItem> getInvoiceItems()

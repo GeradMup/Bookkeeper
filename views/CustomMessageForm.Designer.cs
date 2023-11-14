@@ -58,6 +58,7 @@ namespace Invoices.src.views
             // 
             // Message
             // 
+            this.Message.Font = new System.Drawing.Font("Cambria", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Message.Location = new System.Drawing.Point(12, 9);
             this.Message.Name = "Message";
             this.Message.Size = new System.Drawing.Size(498, 153);

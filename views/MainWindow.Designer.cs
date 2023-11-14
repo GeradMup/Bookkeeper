@@ -45,8 +45,10 @@ namespace Invoices.src.views
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.InvoiceQuoteToggleLabel = new System.Windows.Forms.Label();
+            this.InvoicePoNumberLabel = new System.Windows.Forms.Label();
+            this.InvoicePoNumber = new System.Windows.Forms.TextBox();
             this.InvoiceCheckbox = new System.Windows.Forms.CheckBox();
-            this.QuoteCheckbox = new System.Windows.Forms.CheckBox();
             this.ClearReceiptButton = new System.Windows.Forms.Button();
             this.ReceiptGrandTotal = new System.Windows.Forms.NumericUpDown();
             this.GenerateInvoiceButton = new System.Windows.Forms.Button();
@@ -146,6 +148,8 @@ namespace Invoices.src.views
             this.label1 = new System.Windows.Forms.Label();
             this.ClientsGridView = new System.Windows.Forms.DataGridView();
             this.Companies = new System.Windows.Forms.TabPage();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.label6 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
             this.OurCompanyNumber = new System.Windows.Forms.TextBox();
             this.label29 = new System.Windows.Forms.Label();
@@ -163,6 +167,19 @@ namespace Invoices.src.views
             this.label14 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.OurCompanies = new System.Windows.Forms.ComboBox();
+            this.label34 = new System.Windows.Forms.Label();
+            this.label35 = new System.Windows.Forms.Label();
+            this.label36 = new System.Windows.Forms.Label();
+            this.label37 = new System.Windows.Forms.Label();
+            this.label38 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.BankDetailsEditButton = new System.Windows.Forms.Button();
+            this.BankDetailsSaveButton = new System.Windows.Forms.Button();
+            this.BankDetailsNewButton = new System.Windows.Forms.Button();
             this.EditCompaniesOptions.SuspendLayout();
             this.Tabs.SuspendLayout();
             this.Invoices.SuspendLayout();
@@ -195,6 +212,7 @@ namespace Invoices.src.views
             ((System.ComponentModel.ISupportInitialize)(this.NewClientZipCode)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ClientsGridView)).BeginInit();
             this.Companies.SuspendLayout();
+            this.panel5.SuspendLayout();
             this.panel4.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -264,7 +282,7 @@ namespace Invoices.src.views
             // 
             this.RefInvoice.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.RefInvoice.AutoSize = true;
-            this.RefInvoice.Location = new System.Drawing.Point(739, 749);
+            this.RefInvoice.Location = new System.Drawing.Point(739, 781);
             this.RefInvoice.Name = "RefInvoice";
             this.RefInvoice.Size = new System.Drawing.Size(147, 19);
             this.RefInvoice.TabIndex = 20;
@@ -334,8 +352,10 @@ namespace Invoices.src.views
             this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.BackColor = System.Drawing.Color.Ivory;
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.InvoiceQuoteToggleLabel);
+            this.panel2.Controls.Add(this.InvoicePoNumberLabel);
+            this.panel2.Controls.Add(this.InvoicePoNumber);
             this.panel2.Controls.Add(this.InvoiceCheckbox);
-            this.panel2.Controls.Add(this.QuoteCheckbox);
             this.panel2.Controls.Add(this.ClearReceiptButton);
             this.panel2.Controls.Add(this.ReceiptGrandTotal);
             this.panel2.Controls.Add(this.GenerateInvoiceButton);
@@ -346,35 +366,55 @@ namespace Invoices.src.views
             this.panel2.Controls.Add(this.Vat);
             this.panel2.Location = new System.Drawing.Point(743, 604);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(775, 142);
+            this.panel2.Size = new System.Drawing.Size(775, 174);
             this.panel2.TabIndex = 17;
+            // 
+            // InvoiceQuoteToggleLabel
+            // 
+            this.InvoiceQuoteToggleLabel.AutoSize = true;
+            this.InvoiceQuoteToggleLabel.Font = new System.Drawing.Font("Cambria", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.InvoiceQuoteToggleLabel.Location = new System.Drawing.Point(6, 13);
+            this.InvoiceQuoteToggleLabel.Name = "InvoiceQuoteToggleLabel";
+            this.InvoiceQuoteToggleLabel.Size = new System.Drawing.Size(90, 28);
+            this.InvoiceQuoteToggleLabel.TabIndex = 20;
+            this.InvoiceQuoteToggleLabel.Text = "QUOTE";
+            // 
+            // InvoicePoNumberLabel
+            // 
+            this.InvoicePoNumberLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.InvoicePoNumberLabel.AutoSize = true;
+            this.InvoicePoNumberLabel.Location = new System.Drawing.Point(318, 23);
+            this.InvoicePoNumberLabel.Name = "InvoicePoNumberLabel";
+            this.InvoicePoNumberLabel.Size = new System.Drawing.Size(100, 19);
+            this.InvoicePoNumberLabel.TabIndex = 19;
+            this.InvoicePoNumberLabel.Text = "PO NUMBER";
+            this.InvoicePoNumberLabel.Visible = false;
+            // 
+            // InvoicePoNumber
+            // 
+            this.InvoicePoNumber.Location = new System.Drawing.Point(499, 18);
+            this.InvoicePoNumber.Name = "InvoicePoNumber";
+            this.InvoicePoNumber.Size = new System.Drawing.Size(271, 26);
+            this.InvoicePoNumber.TabIndex = 18;
+            this.InvoicePoNumber.Visible = false;
             // 
             // InvoiceCheckbox
             // 
             this.InvoiceCheckbox.AutoSize = true;
-            this.InvoiceCheckbox.Location = new System.Drawing.Point(124, 14);
+            this.InvoiceCheckbox.Location = new System.Drawing.Point(11, 54);
             this.InvoiceCheckbox.Name = "InvoiceCheckbox";
-            this.InvoiceCheckbox.Size = new System.Drawing.Size(81, 23);
+            this.InvoiceCheckbox.Size = new System.Drawing.Size(141, 23);
             this.InvoiceCheckbox.TabIndex = 17;
-            this.InvoiceCheckbox.Text = "Invoice";
+            this.InvoiceCheckbox.Text = "Invoice / Quote";
             this.InvoiceCheckbox.UseVisualStyleBackColor = true;
-            // 
-            // QuoteCheckbox
-            // 
-            this.QuoteCheckbox.AutoSize = true;
-            this.QuoteCheckbox.Location = new System.Drawing.Point(11, 14);
-            this.QuoteCheckbox.Name = "QuoteCheckbox";
-            this.QuoteCheckbox.Size = new System.Drawing.Size(72, 23);
-            this.QuoteCheckbox.TabIndex = 16;
-            this.QuoteCheckbox.Text = "Quote";
-            this.QuoteCheckbox.UseVisualStyleBackColor = true;
+            this.InvoiceCheckbox.CheckedChanged += new System.EventHandler(this.InvoiceCheckbox_CheckedChanged);
             // 
             // ClearReceiptButton
             // 
             this.ClearReceiptButton.BackColor = System.Drawing.Color.DarkSeaGreen;
             this.ClearReceiptButton.FlatAppearance.BorderSize = 2;
             this.ClearReceiptButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.ClearReceiptButton.Location = new System.Drawing.Point(11, 50);
+            this.ClearReceiptButton.Location = new System.Drawing.Point(11, 94);
             this.ClearReceiptButton.Name = "ClearReceiptButton";
             this.ClearReceiptButton.Size = new System.Drawing.Size(246, 31);
             this.ClearReceiptButton.TabIndex = 13;
@@ -387,7 +427,7 @@ namespace Invoices.src.views
             this.ReceiptGrandTotal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.ReceiptGrandTotal.DecimalPlaces = 2;
             this.ReceiptGrandTotal.InterceptArrowKeys = false;
-            this.ReceiptGrandTotal.Location = new System.Drawing.Point(499, 93);
+            this.ReceiptGrandTotal.Location = new System.Drawing.Point(499, 138);
             this.ReceiptGrandTotal.Maximum = new decimal(new int[] {
             -727379968,
             232,
@@ -404,7 +444,7 @@ namespace Invoices.src.views
             this.GenerateInvoiceButton.BackColor = System.Drawing.Color.DarkSeaGreen;
             this.GenerateInvoiceButton.FlatAppearance.BorderSize = 2;
             this.GenerateInvoiceButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.GenerateInvoiceButton.Location = new System.Drawing.Point(11, 91);
+            this.GenerateInvoiceButton.Location = new System.Drawing.Point(11, 134);
             this.GenerateInvoiceButton.Name = "GenerateInvoiceButton";
             this.GenerateInvoiceButton.Size = new System.Drawing.Size(246, 31);
             this.GenerateInvoiceButton.TabIndex = 4;
@@ -417,7 +457,7 @@ namespace Invoices.src.views
             this.ReceiptTotal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.ReceiptTotal.DecimalPlaces = 2;
             this.ReceiptTotal.InterceptArrowKeys = false;
-            this.ReceiptTotal.Location = new System.Drawing.Point(499, 13);
+            this.ReceiptTotal.Location = new System.Drawing.Point(499, 60);
             this.ReceiptTotal.Maximum = new decimal(new int[] {
             -727379968,
             232,
@@ -434,7 +474,7 @@ namespace Invoices.src.views
             this.ReceiptVat.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.ReceiptVat.DecimalPlaces = 2;
             this.ReceiptVat.InterceptArrowKeys = false;
-            this.ReceiptVat.Location = new System.Drawing.Point(499, 54);
+            this.ReceiptVat.Location = new System.Drawing.Point(499, 99);
             this.ReceiptVat.Maximum = new decimal(new int[] {
             -727379968,
             232,
@@ -450,7 +490,7 @@ namespace Invoices.src.views
             // 
             this.Totals.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.Totals.AutoSize = true;
-            this.Totals.Location = new System.Drawing.Point(318, 15);
+            this.Totals.Location = new System.Drawing.Point(318, 62);
             this.Totals.Name = "Totals";
             this.Totals.Size = new System.Drawing.Size(152, 19);
             this.Totals.TabIndex = 6;
@@ -460,7 +500,7 @@ namespace Invoices.src.views
             // 
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(318, 94);
+            this.label5.Location = new System.Drawing.Point(318, 144);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(97, 19);
             this.label5.TabIndex = 10;
@@ -470,7 +510,7 @@ namespace Invoices.src.views
             // 
             this.Vat.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.Vat.AutoSize = true;
-            this.Vat.Location = new System.Drawing.Point(318, 56);
+            this.Vat.Location = new System.Drawing.Point(318, 100);
             this.Vat.Name = "Vat";
             this.Vat.Size = new System.Drawing.Size(37, 19);
             this.Vat.TabIndex = 8;
@@ -1450,6 +1490,7 @@ namespace Invoices.src.views
             // 
             // Companies
             // 
+            this.Companies.Controls.Add(this.panel5);
             this.Companies.Controls.Add(this.panel4);
             this.Companies.Location = new System.Drawing.Point(4, 28);
             this.Companies.Name = "Companies";
@@ -1457,6 +1498,39 @@ namespace Invoices.src.views
             this.Companies.TabIndex = 3;
             this.Companies.Text = "Companies";
             this.Companies.UseVisualStyleBackColor = true;
+            // 
+            // panel5
+            // 
+            this.panel5.BackColor = System.Drawing.Color.Ivory;
+            this.panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel5.Controls.Add(this.BankDetailsNewButton);
+            this.panel5.Controls.Add(this.BankDetailsSaveButton);
+            this.panel5.Controls.Add(this.BankDetailsEditButton);
+            this.panel5.Controls.Add(this.textBox5);
+            this.panel5.Controls.Add(this.textBox4);
+            this.panel5.Controls.Add(this.textBox3);
+            this.panel5.Controls.Add(this.textBox2);
+            this.panel5.Controls.Add(this.textBox1);
+            this.panel5.Controls.Add(this.label38);
+            this.panel5.Controls.Add(this.label37);
+            this.panel5.Controls.Add(this.label36);
+            this.panel5.Controls.Add(this.label35);
+            this.panel5.Controls.Add(this.label34);
+            this.panel5.Controls.Add(this.label6);
+            this.panel5.Location = new System.Drawing.Point(557, 3);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(567, 346);
+            this.panel5.TabIndex = 3;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Cambria", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(14, 18);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(172, 26);
+            this.label6.TabIndex = 0;
+            this.label6.Text = "Banking Details";
             // 
             // panel4
             // 
@@ -1640,6 +1714,129 @@ namespace Invoices.src.views
             this.OurCompanies.TabIndex = 0;
             this.OurCompanies.SelectedIndexChanged += new System.EventHandler(this.OurCompanies_SelectedIndexChanged);
             // 
+            // label34
+            // 
+            this.label34.AutoSize = true;
+            this.label34.Font = new System.Drawing.Font("Cambria", 12.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label34.Location = new System.Drawing.Point(15, 68);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(130, 20);
+            this.label34.TabIndex = 1;
+            this.label34.Text = "Account Holder";
+            // 
+            // label35
+            // 
+            this.label35.AutoSize = true;
+            this.label35.Font = new System.Drawing.Font("Cambria", 12.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label35.Location = new System.Drawing.Point(15, 111);
+            this.label35.Name = "label35";
+            this.label35.Size = new System.Drawing.Size(98, 20);
+            this.label35.TabIndex = 2;
+            this.label35.Text = "Bank Name";
+            // 
+            // label36
+            // 
+            this.label36.AutoSize = true;
+            this.label36.Font = new System.Drawing.Font("Cambria", 12.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label36.Location = new System.Drawing.Point(15, 154);
+            this.label36.Name = "label36";
+            this.label36.Size = new System.Drawing.Size(114, 20);
+            this.label36.TabIndex = 3;
+            this.label36.Text = "Branch Name";
+            // 
+            // label37
+            // 
+            this.label37.AutoSize = true;
+            this.label37.Font = new System.Drawing.Font("Cambria", 12.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label37.Location = new System.Drawing.Point(15, 200);
+            this.label37.Name = "label37";
+            this.label37.Size = new System.Drawing.Size(108, 20);
+            this.label37.TabIndex = 4;
+            this.label37.Text = "Branch Code";
+            // 
+            // label38
+            // 
+            this.label38.AutoSize = true;
+            this.label38.Font = new System.Drawing.Font("Cambria", 12.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label38.Location = new System.Drawing.Point(15, 248);
+            this.label38.Name = "label38";
+            this.label38.Size = new System.Drawing.Size(98, 20);
+            this.label38.TabIndex = 5;
+            this.label38.Text = "Bank Name";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(203, 66);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
+            this.textBox1.Size = new System.Drawing.Size(334, 26);
+            this.textBox1.TabIndex = 6;
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(203, 109);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.ReadOnly = true;
+            this.textBox2.Size = new System.Drawing.Size(334, 26);
+            this.textBox2.TabIndex = 7;
+            // 
+            // textBox3
+            // 
+            this.textBox3.Location = new System.Drawing.Point(203, 152);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.ReadOnly = true;
+            this.textBox3.Size = new System.Drawing.Size(334, 26);
+            this.textBox3.TabIndex = 8;
+            // 
+            // textBox4
+            // 
+            this.textBox4.Location = new System.Drawing.Point(203, 198);
+            this.textBox4.Name = "textBox4";
+            this.textBox4.ReadOnly = true;
+            this.textBox4.Size = new System.Drawing.Size(334, 26);
+            this.textBox4.TabIndex = 9;
+            // 
+            // textBox5
+            // 
+            this.textBox5.Location = new System.Drawing.Point(203, 246);
+            this.textBox5.Name = "textBox5";
+            this.textBox5.ReadOnly = true;
+            this.textBox5.Size = new System.Drawing.Size(334, 26);
+            this.textBox5.TabIndex = 10;
+            // 
+            // BankDetailsEditButton
+            // 
+            this.BankDetailsEditButton.BackColor = System.Drawing.Color.DarkSeaGreen;
+            this.BankDetailsEditButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.BankDetailsEditButton.Location = new System.Drawing.Point(203, 289);
+            this.BankDetailsEditButton.Name = "BankDetailsEditButton";
+            this.BankDetailsEditButton.Size = new System.Drawing.Size(162, 40);
+            this.BankDetailsEditButton.TabIndex = 11;
+            this.BankDetailsEditButton.Text = "EDIT";
+            this.BankDetailsEditButton.UseVisualStyleBackColor = false;
+            // 
+            // BankDetailsSaveButton
+            // 
+            this.BankDetailsSaveButton.BackColor = System.Drawing.Color.DarkSeaGreen;
+            this.BankDetailsSaveButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.BankDetailsSaveButton.Location = new System.Drawing.Point(383, 289);
+            this.BankDetailsSaveButton.Name = "BankDetailsSaveButton";
+            this.BankDetailsSaveButton.Size = new System.Drawing.Size(154, 40);
+            this.BankDetailsSaveButton.TabIndex = 12;
+            this.BankDetailsSaveButton.Text = "SAVE";
+            this.BankDetailsSaveButton.UseVisualStyleBackColor = false;
+            // 
+            // BankDetailsNewButton
+            // 
+            this.BankDetailsNewButton.BackColor = System.Drawing.Color.DarkSeaGreen;
+            this.BankDetailsNewButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.BankDetailsNewButton.Location = new System.Drawing.Point(19, 289);
+            this.BankDetailsNewButton.Name = "BankDetailsNewButton";
+            this.BankDetailsNewButton.Size = new System.Drawing.Size(162, 40);
+            this.BankDetailsNewButton.TabIndex = 13;
+            this.BankDetailsNewButton.Text = "NEW";
+            this.BankDetailsNewButton.UseVisualStyleBackColor = false;
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -1697,6 +1894,8 @@ namespace Invoices.src.views
             ((System.ComponentModel.ISupportInitialize)(this.NewClientZipCode)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ClientsGridView)).EndInit();
             this.Companies.ResumeLayout(false);
+            this.panel5.ResumeLayout(false);
+            this.panel5.PerformLayout();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
             this.ResumeLayout(false);
@@ -1807,7 +2006,6 @@ namespace Invoices.src.views
         private System.Windows.Forms.TextBox OurCompanyNumber;
         private System.Windows.Forms.Label label29;
         private System.Windows.Forms.CheckBox InvoiceCheckbox;
-        private System.Windows.Forms.CheckBox QuoteCheckbox;
         private System.Windows.Forms.ContextMenuStrip ScopeItemsOptions;
         private System.Windows.Forms.DataGridView HistoryScopeItemsGrid;
         private System.Windows.Forms.DataGridView HistoryInvoicesGrid;
@@ -1836,5 +2034,23 @@ namespace Invoices.src.views
         private System.Windows.Forms.ToolStripMenuItem VIEW_QUOTE;
         private System.Windows.Forms.Label label33;
         private System.Windows.Forms.ComboBox HistoryMonths;
+        private System.Windows.Forms.Label InvoicePoNumberLabel;
+        private System.Windows.Forms.TextBox InvoicePoNumber;
+        private System.Windows.Forms.Label InvoiceQuoteToggleLabel;
+        private System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Button BankDetailsNewButton;
+        private System.Windows.Forms.Button BankDetailsSaveButton;
+        private System.Windows.Forms.Button BankDetailsEditButton;
+        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label38;
+        private System.Windows.Forms.Label label37;
+        private System.Windows.Forms.Label label36;
+        private System.Windows.Forms.Label label35;
+        private System.Windows.Forms.Label label34;
     }
 }

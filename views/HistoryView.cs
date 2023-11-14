@@ -138,7 +138,8 @@ namespace Invoices.src.views
             DateTime referenceDate = (DateTime)HistoryAllInvoicesGrid.CurrentRow.Cells[0].Value;
 
             InvoiceFileInfo invoiceFileInfo = new InvoiceFileInfo(referenceDate, referenceCompany, referenceInvoiceNumber);
-            referenceInvoice(HistoryInvoicesGrid.DataSource, HistoryScopeItemsGrid.DataSource, invoiceFileInfo);     //This is a function from the Invoice Views Tab.
+            string poNumber = historyController.getPoNumber();
+            referenceInvoice(HistoryInvoicesGrid.DataSource, HistoryScopeItemsGrid.DataSource, invoiceFileInfo, poNumber);     //This is a function from the Invoice Views Tab.
 
             Object invoiceData = null;
             Object scopeData = null;

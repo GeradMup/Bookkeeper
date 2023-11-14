@@ -61,5 +61,10 @@ namespace Invoices.src.controllers
             historyModel.deleteAttachment(attachmentName, invoiceNumber);
             invoiceSelected(invoiceNumber, month, invoiceDate);
         }
+
+        public string getPoNumber() 
+        {
+            return historyModel.getPoNumber();
+        }
     }
 }

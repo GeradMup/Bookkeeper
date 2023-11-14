@@ -23,6 +23,7 @@ namespace Invoices.src.views
             ReceiptGrandTotal.Controls[0].Visible = false;
             ReceiptTotal.Controls[0].Visible = false;
             ReceiptVat.Controls[0].Visible = false;
+            InvoiceCheckbox.Checked = false;
         }
 
         public void updateQuotingCompany(string companyName = "") 
@@ -181,7 +182,7 @@ namespace Invoices.src.views
             Quantity.Value = 0;
             UnitPrice.Value = 0;
             InvoiceCheckbox.Checked = false;
-            QuoteCheckbox.Checked = false;
+   
             //InvoiceExpiryDate.Value = DateTime.Now;
             RefInvoice.Text = "";
             //InvoiceExpiryDate.Value = DateTime.Now;
@@ -189,6 +190,11 @@ namespace Invoices.src.views
 
         private void ClearReceiptButton_Click(object sender, EventArgs e)
         {
+            string warningMessage = "Are you sure you want to clear the receipt?";
+            DialogResult dialogResult = CustomMessageBox.Show(this, warningMessage, MessageType.SevereWarning);
+
+            if (dialogResult == DialogResult.No) return; 
+
             invoiceController.clearReceipt();
             CompanyList.SelectedItem = null;
             InvoiceExpiryDate.Value = DateTime.Now;
@@ -213,14 +219,6 @@ namespace Invoices.src.views
                 if (InvoiceItemsGrid.RowCount == 0) { InvoiceItemsGrid.BackgroundColor = errorColour; return; }
                 if (ScopeGrid.RowCount == 0) { ScopeGrid.BackgroundColor = errorColour; return; }
 
-                string invoiceOrQuoteError = "Please indicate if this is a Quote or Invoice";
-                if ((QuoteCheckbox.Checked == false && InvoiceCheckbox.Checked == false) ||
-                    (QuoteCheckbox.Checked == true && InvoiceCheckbox.Checked == true))
-                {
-                    showErrorMessage(invoiceOrQuoteError);
-                    return;
-                }
-
                 InvoiceFileInfo refInvoiceFile = null;
                 if (referenceInvoiceInfo != null)
                 {
@@ -228,7 +226,23 @@ namespace Invoices.src.views
                     if (warningConfirmation(message) == true) refInvoiceFile = referenceInvoiceInfo;
                 }
 
-                invoiceController.generateInvoice(CompanyList.Text, QuotingCompany.Text, QuoteCheckbox.Checked, InvoiceExpiryDate.Value, refInvoiceFile);
+                string PONumber = "";
+
+                if (InvoiceCheckbox.Checked == true) 
+                {
+                    if (InvoicePoNumber.Text.Trim() == "")
+                    {
+                        string warningMessage = "Please insert a PO Number!";
+                        CustomMessageBox.Show(this, warningMessage, MessageType.MildWarning);
+                        return;
+                    }
+                    else 
+                    {
+                        PONumber = InvoicePoNumber.Text;
+                    }
+                }
+
+                invoiceController.generateInvoice(CompanyList.Text, QuotingCompany.Text, InvoiceCheckbox.Checked, InvoiceExpiryDate.Value, refInvoiceFile, PONumber);
                 CompanyList.SelectedItem = null;
                 clearReceiptInputs();
                 InvoiceExpiryDate.Value = DateTime.Now;
@@ -395,7 +409,7 @@ namespace Invoices.src.views
             resetReceiptInputsColours();
         }
 
-        private void referenceInvoice(Object invoiceDataSource, Object scopeDataSource, InvoiceFileInfo invoiceInfo) 
+        private void referenceInvoice(Object invoiceDataSource, Object scopeDataSource, InvoiceFileInfo invoiceInfo, string poNumber) 
         {
 
             referenceInvoiceInfo = invoiceInfo;
@@ -404,6 +418,34 @@ namespace Invoices.src.views
             invoiceController.referenceInvoice(invoiceDataSource, scopeDataSource);
             showSuccessMessage("You data has been copied!");
             Tabs.SelectedTab = Invoices; //Change to the invoice tab
+
+            if (poNumber != "") 
+            {
+                InvoicePoNumber.Visible = true;
+                InvoicePoNumberLabel.Visible = true;
+                InvoicePoNumber.Text = poNumber;
+            }
+        }
+
+        private void InvoiceCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (InvoiceCheckbox.Checked == true)
+            {
+                InvoiceQuoteToggleLabel.Text = "INVOICE";
+
+                InvoicePoNumber.Visible = true;
+                InvoicePoNumberLabel.Visible = true;
+                
+            }
+            else 
+            {
+                InvoiceQuoteToggleLabel.Text = "QUOTE";
+
+                InvoicePoNumber.Visible = false;
+                InvoicePoNumberLabel.Visible = false;
+                
+            }
+            
         }
     }
 }

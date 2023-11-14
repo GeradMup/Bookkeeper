@@ -143,7 +143,7 @@ namespace Invoices.src.models
             return receiptTotal;
         }
 
-        public bool generateInvoice(string companyName, string ourCompanyName, bool quote, DateTime expiryDate, InvoiceFileInfo referenceFile) 
+        public bool generateInvoice(string companyName, string ourCompanyName, bool quote, DateTime expiryDate, InvoiceFileInfo referenceFile, string PONumber) 
         {
             if (invoiceItems.Count == 0) return false;
             string date = DateTime.Now.ToString("dddd dd MMMM yyyy");
@@ -177,28 +177,23 @@ namespace Invoices.src.models
                                             ourCompany, 
                                             quoteInvoice,
                                             quoteInvoiceNumber,
-                                            expiryDate);
+                                            expiryDate,
+                                            PONumber);
 
 
-            createInvoiceFile(quoteInvoiceNumber, selectedCompany.Name);
+            createInvoiceFile(quoteInvoiceNumber, selectedCompany.Name, PONumber);
             return true;
         }
 
-        public void createInvoiceFile(string invoiceNumber, string companyName) 
+        public void createInvoiceFile(string invoiceNumber, string companyName, string poNumber) 
         {
             List<List<string>> invoiceFileItems = new List<List<string>>();
-            foreach (InvoiceItem item in invoiceItems) 
-            {
-                invoiceFileItems.Add(item.invoiceItemToList());
-            }
-
-            foreach (ScopeItem item in scopeItems) 
-            {
-                invoiceFileItems.Add(item.scopeItemToList());
-            }
+        
+            invoiceFileItems.Add(new List<string> { poNumber });
+            foreach (InvoiceItem item in invoiceItems) invoiceFileItems.Add(item.invoiceItemToList());
+            foreach (ScopeItem item in scopeItems) invoiceFileItems.Add(item.scopeItemToList()); 
 
             string dateAndTime = DateTime.Now.ToString(Constants.INVOICE_TEXTFILES_DATE_FORMAT);
-
             string folder = Constants.INVOICE_TEXT_FILES_PATH + "\\" + Constants.CURRENT_MONTH_YEAR + "\\" + invoiceNumber + "\\";
 
             //Create the directory needed for the invoices.
@@ -209,17 +204,17 @@ namespace Invoices.src.models
             textFiles.writeTextFile(pathToFile, invoiceFileItems, createFile);
         }
 
-        private string quoteOrInvoice(bool quote) 
+        private string quoteOrInvoice(bool invoice) 
         {
-            return quote == true ? "Quote" : "Invoice";
+            return invoice == true ? "TAX INVOICE" : "QUOTE";
         }
 
-        private string quoteOrInvoiceNumber(bool quote) 
+        private string quoteOrInvoiceNumber(bool invoice) 
         {
             string pathToFile;
             string prefix;
 
-            if (quote == true) 
+            if (invoice == false) 
             { 
                 pathToFile = Constants.QUOTE_NUMBER_PATH;
                 prefix = "Q";

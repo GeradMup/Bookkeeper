@@ -89,10 +89,10 @@ namespace Invoices.src.controllers
             invoiceView.updateReceiptTotals(invoiceModel.getReceiptTotal(), invoiceModel.getVat(), invoiceModel.getGrandTotal());
         }
 
-        public void generateInvoice(string companyName, string ourCompany, bool isQuote, DateTime expiryDate, InvoiceFileInfo referenceInvoice) 
+        public void generateInvoice(string companyName, string ourCompany, bool isQuote, DateTime expiryDate, InvoiceFileInfo referenceInvoice, string PONumber) 
         {
             invoiceView.showLoadingCursor();
-            bool generated = invoiceModel.generateInvoice(companyName, ourCompany, isQuote, expiryDate, referenceInvoice);
+            bool generated = invoiceModel.generateInvoice(companyName, ourCompany, isQuote, expiryDate, referenceInvoice, PONumber);
             if (generated == true) 
             {
                 invoiceModel.clearReceipt();
