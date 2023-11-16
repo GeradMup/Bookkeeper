@@ -14,11 +14,12 @@ namespace Invoices.src.models
     
     public partial class BankAccount
     {
+        public long Key { get; set; }
+        public string Company { get; set; }
         public string BankName { get; set; }
         public string AccountHolder { get; set; }
         public string AccountNumber { get; set; }
         public string BranchName { get; set; }
         public string BranchCode { get; set; }
-        public decimal key { get; set; }
     }
 }

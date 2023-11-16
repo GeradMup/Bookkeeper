@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace Invoices.src.models
 {
-    public class SetupModel
+    public class CompaniesModel
     {
 
         List<OurCompany> ourCompanies = new List<OurCompany>();
@@ -17,9 +17,23 @@ namespace Invoices.src.models
         String logoImageName;
         String footerImageName;
 
-        public SetupModel()
+        string[] bankNames = {  "Standard Bank", "ABSA Group Limited", "Capitec Bank", "First National Bank", "Nedbank", "FirstRand Bank",
+                                "Investec Bank", "African Bank Limeted", "South African Reserve Bank", "NBS Bank", "Bidvest Bank Limited",
+                                "ABSA Bank Limeted", "TymeBank", "RMB Holdings", "Standard Chartered Bank", "Discovery Bank Limited",
+                                "Access Bank PLC", "HBZ Bank", "SASFIN Bank"};
+
+        public CompaniesModel()
         {
             loadOurCompanies();
+        }
+
+        /// <summary>
+        /// Gets the bank names.
+        /// </summary>
+        /// <returns>List of strings.</returns>
+        public string[] getBankNames() 
+        {
+            return bankNames;
         }
 
         private void loadOurCompanies() 
@@ -46,12 +60,26 @@ namespace Invoices.src.models
             return companyNames;
         }
 
+        /// <summary>
+        /// Gets the selected company.
+        /// </summary>
+        /// <returns>String</returns>
         public string getSelectedCompany() 
         {
             OurCompany selectedCompany = ourCompanies.FirstOrDefault(comp => comp.CurrentlySelected == "true");
             logoImageName = selectedCompany.LogoImage;
             footerImageName = selectedCompany.FooterImage;
             return selectedCompany.Name;
+        }
+
+        public BankAccount getBankingDetails(string companyName) 
+        {
+            BankAccount account = null;
+            using (BookkeeperEntities bookkeeperEntities = new BookkeeperEntities()) 
+            {
+                account = bookkeeperEntities.BankAccounts.FirstOrDefault(acc => acc.Company == companyName);
+            }
+            return account;
         }
 
         public void saveAllCompanies() 
@@ -85,6 +113,11 @@ namespace Invoices.src.models
             return selectedCompany;
         }
 
+        /// <summary>
+        /// Gets the name of the logo image.
+        /// </summary>
+        /// <param name="currentLogo">The current logo.</param>
+        /// <returns></returns>
         public string getLogoImageName(string currentLogo) 
         {
             logoImageName = fileNameFromDialogBox();
@@ -136,6 +169,28 @@ namespace Invoices.src.models
             company.CurrentlySelected = "true";
             ourCompanies.Add(company);
             saveAllCompanies();
+        }
+
+        public void aditBankDetails(BankAccount account) 
+        {
+            using (BookkeeperEntities bookkeeperEntities = new BookkeeperEntities()) 
+            {
+                BankAccount existingAccount = bookkeeperEntities.BankAccounts.FirstOrDefault(acc => acc.Company == account.Company);
+                if (existingAccount == null)
+                {
+                    bookkeeperEntities.BankAccounts.Add(account);
+                }
+                else
+                {
+                    existingAccount.BankName = account.BankName;
+                    existingAccount.AccountHolder = account.AccountHolder;
+                    existingAccount.AccountNumber = account.AccountNumber;
+                    existingAccount.BranchCode = account.BranchCode;
+                    existingAccount.BranchName = account.BranchName;
+                }
+                bookkeeperEntities.SaveChanges();
+            }
+
         }
     }
 }

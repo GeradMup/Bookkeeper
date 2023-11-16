@@ -4,14 +4,16 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using Invoices.src.controllers;
 using Invoices.src.DataObjects;
+using Invoices.src.models;
 
 namespace Invoices.src.views
 {
     public partial class MainWindow
     {
-        SetupController setupController;
+        CompaniesController setupController;
         bool newOurCompany = false;
         bool editingOurCompany = false;
         bool updatingCompanies = false;
@@ -118,13 +120,110 @@ namespace Invoices.src.views
             editingOurCompany = false;
             setupController.editingCancelled();
         }
+
+        /// <summary>
+        /// Handles the Click event of the BankDetailsNewButton control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void BankDetailsNewButton_Click(object sender, EventArgs e)
+        {
+//            BankAccount account = new BankAccount();
+//            setupController.editBankDetails(account);
+            clearBankDetailsFields();   //Clear all the fields if we are trying to add new banking details.    
+            editBankDetails(true);      //Activate the banking details fields so that they are editable.
+        }
+
+        /// <summary>
+        /// Handles the Click event of the BankDetailsSaveButton control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void BankDetailsSaveButton_Click(object sender, EventArgs e)
+        {
+            string accountHolderError = "Please enter a valid Account Holder Name!";
+            string bankNameError = "Please enter a valid Bank Name!";
+            string bankBranchError = "Please enter a valid Bank Branch Name!";
+            string bankBranchCodeError = "Please enter a valid Bank Branch Code!";
+            string bankAccountError = "Please enter a valid Bank Account Number!";
+            string companyNameError = "Please select a company to assign the account details to!";
+
+            if (BankAccountHolder.Text.Trim() == "") { showErrorMessage(accountHolderError); return; }
+            if (BankName.Text.Trim() == "") { showErrorMessage(bankNameError); return; }
+            if (BankBranch.Text.Trim() == "") { showErrorMessage(bankBranchError); return; }
+            if (BankBranchCode.Text.Trim() == "") { showErrorMessage(bankBranchCodeError); return; }
+            if (BankAccountNumber.Text.Trim() == "") { showErrorMessage(bankAccountError); return; }
+            if (OurCompanies.Text.Trim() == "") { showErrorMessage(companyNameError); return; }
+            
+            BankAccount account = new BankAccount();
+            account.AccountHolder = BankAccountHolder.Text;
+            account.BankName = BankName.Text;
+            account.BranchCode = BankBranchCode.Text;
+            account.BranchName = BankBranch.Text;
+            account.AccountNumber = BankAccountNumber.Text;
+            account.Company = OurCompanies.Text;
+            try
+            {
+                string bankDetailsUpdated = "Bank details have been successfully updated!";
+                setupController.editBankDetails(account);
+                showSuccessMessage(bankDetailsUpdated);
+                editBankDetails(false);
+            }
+            catch (Exception ex) 
+            {
+                showErrorMessage(ex.Message);
+            }
+            
+        }
+
+        /// <summary>
+        /// Handles the click event of the BankDetailsCancelButton
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BankDetailsCancelButton_Click(object sender, EventArgs e)
+        {
+            editBankDetails(false);
+            setSelectedCompany(OurCompanies.Text);
+        }
+
+        /// <summary>
+        /// Handles the KeyPress event of the BankBranchCode control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="KeyPressEventArgs"/> instance containing the event data.</param>
+        private void BankBranchCode_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            //Only accept numeric values in the Bank Branch Code field
+            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
+        }
+
+        /// <summary>
+        /// Handles the KeyPress event of the BankAccountNumber control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="KeyPressEventArgs"/> instance containing the event data.</param>
+        private void BankAccountNumber_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            //Only accept numeric values in the Bank Account Number field
+            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
+        }
         //*************************************************************************************************************************
         // END OF EVENT HANDLERS
         //*************************************************************************************************************************
 
-        public void assignSetupController(SetupController controller)
+        public void assignSetupController(CompaniesController controller)
         {
             setupController = controller;
+        }
+
+        /// <summary>
+        /// Populates the bank names.
+        /// </summary>
+        /// <param name="bankNames">The bank names.</param>
+        public void populateBankNames(string[] bankNames) 
+        {
+            BankName.Items.AddRange(bankNames);
         }
 
         public void populateCompaniesList(List<string> companyNames)
@@ -148,6 +247,15 @@ namespace Invoices.src.views
         public void setSelectedCompany(string name) 
         {
             OurCompanies.Text = name;
+            BankAccount account = setupController.getBankingDetails(name);
+            if (account != null) 
+            {
+                BankAccountHolder.Text = account.AccountHolder;
+                BankAccountNumber.Text = account.AccountNumber;
+                BankBranch.Text = account.BranchName;
+                BankBranchCode.Text = account.BranchCode;
+                BankName.Text = account.BankName;
+            }
         }
 
         private void allowEditing(bool newCompany = false) 
@@ -175,6 +283,31 @@ namespace Invoices.src.views
             OurCompanyEditButton.Enabled = true;
 
             resetOurCompanyInputColours();
+        }
+
+        /// <summary>
+        /// Enables or disables the editing of banking details on the Companies Tab.
+        /// </summary>
+        /// <param name="editing">if set to <c>true</c> [editing].</param>
+        private void editBankDetails(bool editing) 
+        {
+            BankAccountHolder.ReadOnly = !editing;
+            BankAccountNumber.ReadOnly = !editing;
+            BankBranch.ReadOnly = !editing;
+            BankBranchCode.ReadOnly = !editing;
+            //BankName.ReadOnly = !editing;
+        }
+
+        /// <summary>
+        /// Clears the bank details fields.
+        /// </summary>
+        private void clearBankDetailsFields() 
+        {
+            BankAccountHolder.Clear();
+            BankAccountNumber.Clear();
+            BankBranch.Clear();
+            BankBranchCode.Clear();
+            //BankName.Clear();
         }
 
         private void clearOurCompanyInputFields() 

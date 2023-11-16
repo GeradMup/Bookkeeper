@@ -5,35 +5,20 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="BookkeeperModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'C:\PROGRAMMING\C# DEVELOPMENT\PERCY RABOSIWANA\BOOKKEEPER\BOOKKEEPER.MDF.dbo.BankAccounts' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="BankAccounts">
           <Key>
-            <PropertyRef Name="BankName" />
-            <PropertyRef Name="AccountHolder" />
-            <PropertyRef Name="AccountNumber" />
-            <PropertyRef Name="BranchName" />
-            <PropertyRef Name="BranchCode" />
-            <PropertyRef Name="key" />
+            <PropertyRef Name="Company" />
           </Key>
+          <Property Name="Key" Type="bigint" Nullable="false" />
+          <Property Name="Company" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="BankName" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="AccountHolder" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="AccountNumber" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="BranchName" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="BranchCode" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="key" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="AccountNumber" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="BranchName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="BranchCode" Type="varchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <EntityContainer Name="BookkeeperModelStoreContainer">
-          <EntitySet Name="BankAccounts" EntityType="Self.BankAccounts" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [BankAccounts].[BankName] AS [BankName], 
-    [BankAccounts].[AccountHolder] AS [AccountHolder], 
-    [BankAccounts].[AccountNumber] AS [AccountNumber], 
-    [BankAccounts].[BranchName] AS [BranchName], 
-    [BankAccounts].[BranchCode] AS [BranchCode], 
-    [BankAccounts].[key] AS [key]
-    FROM [dbo].[BankAccounts] AS [BankAccounts]</DefiningQuery>
-          </EntitySet>
+          <EntitySet Name="BankAccounts" EntityType="Self.BankAccounts" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
@@ -42,19 +27,15 @@ warning 6002: The table/view 'C:\PROGRAMMING\C# DEVELOPMENT\PERCY RABOSIWANA\BOO
       <Schema Namespace="BookkeeperModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="BankAccount">
           <Key>
-            <PropertyRef Name="BankName" />
-            <PropertyRef Name="AccountHolder" />
-            <PropertyRef Name="AccountNumber" />
-            <PropertyRef Name="BranchName" />
-            <PropertyRef Name="BranchCode" />
-            <PropertyRef Name="key" />
+            <PropertyRef Name="Company" />
           </Key>
+          <Property Name="Key" Type="Int64" Nullable="false" />
+          <Property Name="Company" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="BankName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="AccountHolder" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="AccountNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="BranchName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="BranchCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="key" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="AccountNumber" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BranchName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BranchCode" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
         </EntityType>
         <EntityContainer Name="BookkeeperEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="BankAccounts" EntityType="Self.BankAccount" />
@@ -68,12 +49,13 @@ warning 6002: The table/view 'C:\PROGRAMMING\C# DEVELOPMENT\PERCY RABOSIWANA\BOO
           <EntitySetMapping Name="BankAccounts">
             <EntityTypeMapping TypeName="BookkeeperModel.BankAccount">
               <MappingFragment StoreEntitySet="BankAccounts">
+                <ScalarProperty Name="Key" ColumnName="Key" />
+                <ScalarProperty Name="Company" ColumnName="Company" />
                 <ScalarProperty Name="BankName" ColumnName="BankName" />
                 <ScalarProperty Name="AccountHolder" ColumnName="AccountHolder" />
                 <ScalarProperty Name="AccountNumber" ColumnName="AccountNumber" />
                 <ScalarProperty Name="BranchName" ColumnName="BranchName" />
                 <ScalarProperty Name="BranchCode" ColumnName="BranchCode" />
-                <ScalarProperty Name="key" ColumnName="key" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

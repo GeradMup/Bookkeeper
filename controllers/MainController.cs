@@ -19,8 +19,8 @@ namespace Invoices.src.controllers
         InvoiceModel invoiceModel;
         ClientsModel clientsModel;
         ClientsController clientsController;
-        SetupModel setupModel;
-        SetupController setupController;
+        CompaniesModel companiesModel;
+        CompaniesController setupController;
         HistoryController historyController;
         HistoryModel historyModel;
         QuotesModel quotesModel;
@@ -34,8 +34,8 @@ namespace Invoices.src.controllers
             invoiceController = new InvoiceController(mainWindow, invoiceModel);
             clientsModel = new ClientsModel();
             clientsController = new ClientsController(clientsModel, mainWindow, invoiceController.getCallBack());
-            setupModel = new SetupModel();
-            setupController = new SetupController(setupModel, mainWindow);
+            companiesModel = new CompaniesModel();
+            setupController = new CompaniesController(companiesModel, mainWindow);
             historyModel = new HistoryModel();
             historyController = new HistoryController(mainWindow, historyModel);
             quotesModel = new QuotesModel();
